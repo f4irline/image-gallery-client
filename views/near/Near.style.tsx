@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import styles from './Home.style';
+import styles from './Near.style';
 
-const Home: React.FC = () => {
+const Near: React.FC = () => {
     return (
         <View>
             <Text>Home</Text>
@@ -11,4 +11,4 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home;
+export default Near;

@@ -1,20 +1,57 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Home from './views/home/Home';
+import { Ionicons } from '@expo/vector-icons';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import HomeView from './views/home/Home';
+import ImageView from './views/image/Image';
+import NearView from './views/near/Near';
+import ProfileView from './views/profile/Profile';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Home />
-    </View>
-  );
+const AppNavigator = createStackNavigator(
+    {
+        Home: HomeView,
+        Image: ImageView,
+    },
+    {
+        initialRouteName: 'Home'
+    }
+)
+
+const navigationOptions = {
+    defaultNavigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, horizontal, tintColor }) => {
+            const { routeName } = navigation.state;
+            const IconComponent = Ionicons;
+
+            let iconName;
+            switch (routeName) {
+                case 'Home':
+                    iconName = 'ios-home';
+                    break;
+                default:
+                    iconName = 'ios-person';
+                    break;
+            }
+
+            return <IconComponent name={iconName} size={25} color={tintColor} />;
+        }
+    }),
+    tabBarOptions: {
+        activeTintColor: '#ff9933',
+        inactiveTintColor: '#000',
+    }    
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const routeConfigs = {
+    Home: AppNavigator,
+    Near: NearView,
+    Profile: ProfileView
+}
+
+const TabNavigator = createBottomTabNavigator(
+    routeConfigs,
+    navigationOptions
+)
+
+export default createAppContainer(TabNavigator);

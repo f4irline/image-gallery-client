@@ -1,11 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import styles from './Image.style';
 
 const Image: React.FC = () => {
     return (
-        <View></View>
+        <View>
+            <Text>Image</Text>
+        </View>
     )
 }
 
