@@ -1,14 +1,9 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
-import styles from './Near.style';
+interface Style {}
 
-const Near: React.FC = () => {
-    return (
-        <View>
-            <Text>Home</Text>
-        </View>
-    )
-}
+const styles: StyleSheet.NamedStyles<Style> = StyleSheet.create({
 
-export default Near;
+})
+
+export default styles;

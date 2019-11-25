@@ -20,11 +20,11 @@ const AppNavigator = createStackNavigator(
 
 const navigationOptions = {
     defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        tabBarIcon: ({ tintColor }) => {
             const { routeName } = navigation.state;
             const IconComponent = Ionicons;
 
-            let iconName;
+            let iconName: string;
             switch (routeName) {
                 case 'Home':
                     iconName = 'ios-home';
