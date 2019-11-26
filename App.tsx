@@ -3,6 +3,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Provider } from 'react-redux';
+import store from './store/index';
 import HomeView from './views/home/Home';
 import ImageView from './views/image/Image';
 import NearView from './views/near/Near';
@@ -54,4 +56,14 @@ const TabNavigator = createBottomTabNavigator(
     navigationOptions
 )
 
-export default createAppContainer(TabNavigator);
+const AppContainer = createAppContainer(TabNavigator);
+
+const App = () => {
+    return (
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+    )
+}
+
+export default App;
