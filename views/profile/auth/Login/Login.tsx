@@ -1,11 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Login.style';
+import styles from '../../../../Styles';
 
 const Login: React.FC = () => {
     return (
-        <View></View>
+        <SafeAreaView style={styles.container}>
+            <Text>Login</Text>
+        </SafeAreaView>
     )
 }
 

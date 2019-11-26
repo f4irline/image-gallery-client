@@ -1,11 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Upload.style';
+import styles from '../../Styles';
 
 const Upload: React.FC = () => {
     return (
-        <View></View>
+        <SafeAreaView style={styles.container}>
+            <Text>Upload</Text>
+        </SafeAreaView>
     )
 }
 

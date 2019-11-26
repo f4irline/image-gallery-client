@@ -1,11 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Register.style';
+import styles from '../../../../Styles';
 
 const Register: React.FC = () => {
     return (
-        <View></View>
+        <SafeAreaView style={styles.container}>
+            <Text>Register</Text>
+        </SafeAreaView>
     )
 }
 

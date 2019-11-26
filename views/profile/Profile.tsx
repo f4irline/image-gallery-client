@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Profile.style';
+import styles from '../../Styles';
 
 const Profile: React.FC = () => {
     return (
-        <View>
+        <SafeAreaView style={styles.container}>
             <Text>Profile</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 

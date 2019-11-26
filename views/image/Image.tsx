@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Image.style';
+import styles from '../../Styles';
 
 const Image: React.FC = () => {
     return (
-        <View>
+        <SafeAreaView style={styles.container}>
             <Text>Image</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 

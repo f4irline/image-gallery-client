@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
-import styles from './Near.style';
+import styles from '../../Styles';
 
 const Near: React.FC = () => {
     return (
-        <View>
+        <SafeAreaView style={styles.container}>
             <Text>Near</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 
