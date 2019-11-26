@@ -12,3 +12,6 @@ web-report/
 
 # macOS
 .DS_Store
+
+# server build
+gallery-api-0.0.1-SNAPSHOT.jar
