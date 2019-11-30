@@ -20,7 +20,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
     return (
         <View style={imageStyles.imageWrapper}>
             <View style={imageStyles.infoWrapper}>
-                <Text style={imageStyles.author}>{props.image.author}</Text>
+                <Text style={imageStyles.description}>{props.image.description}</Text>
             </View>
             <View style={imageStyles.touchableWrapper}>
                 <TouchableOpacity style={imageStyles.touchable} onPress={() => navigation.navigate('Image', { image: image })}>

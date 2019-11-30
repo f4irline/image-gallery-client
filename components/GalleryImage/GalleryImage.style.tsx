@@ -3,7 +3,7 @@ import { StyleSheet, ViewStyle, ImageStyle, TextStyle } from 'react-native';
 interface Styles {
     imageWrapper: ViewStyle;
     infoWrapper: ViewStyle,
-    author: TextStyle;
+    description: TextStyle;
     touchableWrapper: ViewStyle;
     touchable: ViewStyle;
     image: ImageStyle;
@@ -25,17 +25,14 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         borderWidth: 2,
         borderColor: '#eeeeee',
     },
-    infoWrapper: {
-        flex: 1,
-        height: '90%',
-    },
-    author: {
-        fontFamily: 'Rubik-Light',
+    infoWrapper: {},
+    description: {
+        fontFamily: 'Rubik',
         color: '#eeeeee',
         padding: 5
     },
     touchableWrapper: {
-        height: '90%',
+        flex: 1,
         width: '100%'
     },
     touchable: {
