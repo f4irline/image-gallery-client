@@ -10,6 +10,7 @@ import styles from '../../Styles';
 import homeStyles from './Home.style';
 
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
+import AddNew from '../../components/AddNew/AddNew';
 
 interface Props extends NavigationStackScreenProps {}
 
@@ -42,6 +43,7 @@ const Home: NavigationStackScreenComponent<Props> = ({ navigation }) => {
                 data={images} 
                 renderItem={({ item }) => <GalleryImage image={ item }/>}>
             </FlatList>
+            <AddNew />
         </SafeAreaView>
     )
 }
