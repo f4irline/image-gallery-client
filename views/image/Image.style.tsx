@@ -45,12 +45,17 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         paddingHorizontal: 5,
     },
     commentsContainer: {
+        padding: 5,
         flex: 1,
         backgroundColor: '#353d4a'
     },
     commentsHeader: {
         fontSize: 20,
         color: '#eeeeee',
+        borderBottomColor: '#ff5722',
+        borderBottomWidth: 2,
+        paddingBottom: 5,
+        marginBottom: 5,
     }
 })
 
