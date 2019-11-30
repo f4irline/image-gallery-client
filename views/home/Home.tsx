@@ -34,25 +34,25 @@ const Home: NavigationStackScreenComponent = (props) => {
                         author: 'Username',
                         userCanDelete: true,
                         comment: 'Very nice image.',
-                        id: index
+                        id: 0
                     },
                     {
                         author: 'Username',
                         userCanDelete: true,
                         comment: 'Very nice image.',
-                        id: index
+                        id: 1
                     },
                     {
                         author: 'AnotherOne',
                         userCanDelete: false,
                         comment: 'So cool.',
-                        id: index
+                        id: 2
                     },
                     {
                         author: 'Username',
                         userCanDelete: true,
                         comment: 'Very nice image.',
-                        id: index
+                        id: 3
                     }
                 ]
             }))
