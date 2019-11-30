@@ -7,7 +7,12 @@ interface Styles {
     image: ImageStyle;
 }
 
-const styles = StyleSheet.create<Styles>({
+interface Props {
+    height: number;
+    width: number;
+}
+
+const getStyles = (props: Props) => StyleSheet.create<Styles>({
     infoContainer: {},
     scrollContainer: {
         flex: 1,
@@ -19,8 +24,10 @@ const styles = StyleSheet.create<Styles>({
     },
     image: {
         flex: 1,
-        height: 100,
+        width: '100%',
+        height: undefined,
+        aspectRatio: props.width/props.height
     }
 })
 
-export default styles;
+export default getStyles;

@@ -3,7 +3,7 @@ import { Image, SafeAreaView, Text, View, ScrollView } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
 
 import styles from '../../Styles';
-import imageStyles from './Image.style';
+import getStyles from './Image.style';
 
 import AddNew from '../../components/AddNew/AddNew';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
@@ -15,6 +15,7 @@ interface Props {
 const ImageView: React.FC<Props> = (props: Props) => {
     const { navigation } = props;
     const [image] = useState<PlaceholderImage>(navigation.getParam('image'));
+    const imageStyles = getStyles({ width: image.width, height: image.height })
 
     return (
         <SafeAreaView style={styles.container}>
@@ -23,7 +24,7 @@ const ImageView: React.FC<Props> = (props: Props) => {
                     <Text style={imageStyles.header}>{image.author}</Text>
                 </View>
                 <Image 
-                    style={{...imageStyles.image, height: undefined, width: '100%', aspectRatio: image.width/image.height}} 
+                    style={imageStyles.image} 
                     resizeMode='cover'
                     source={{uri: image.download_url}}></Image>
             </ScrollView>
