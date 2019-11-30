@@ -6,7 +6,7 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
 const Profile: NavigationStackScreenComponent = () => {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.viewContainer}>
             <Text>Profile</Text>
         </SafeAreaView>
     )

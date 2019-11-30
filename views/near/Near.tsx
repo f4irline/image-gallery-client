@@ -7,7 +7,7 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
 const Near: NavigationStackScreenComponent = () => {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.viewContainer}>
             <Text>Near</Text>
             <AddNew />
         </SafeAreaView>
