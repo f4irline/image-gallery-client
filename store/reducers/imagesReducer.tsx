@@ -1,4 +1,5 @@
-import { Action } from 'redux';
+import { State } from '../index';
+
 import { imagesActionTypes, ImagesActions } from '../actions/imagesActions';
 import { Image } from '../../models/Image';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
@@ -24,3 +25,4 @@ export const imagesReducer = (state: ImagesState = initialState, action: ImagesA
     }
 }
 
+export const selectImages = (state: State) => state.imagesState.images;

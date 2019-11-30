@@ -6,7 +6,7 @@ export interface State {
     imagesState: ImagesState
 }
 
-const initialState: State = {
+const state: State = {
     imagesState: imagesState
 }
 
@@ -14,6 +14,6 @@ const rootReducer = combineReducers({
     imagesState: imagesReducer
 })
 
-const store = createStore(rootReducer, initialState, composeWithDevTools());
+const store = createStore(rootReducer, state, composeWithDevTools());
 
 export default store;

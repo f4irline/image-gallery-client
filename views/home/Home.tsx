@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../store';
+import { selectImages } from '../../store/reducers/imagesReducer';
 import { imagesActionTypes } from '../../store/actions/imagesActions';
 import { NavigationStackScreenComponent, NavigationStackScreenProps } from 'react-navigation-stack';
-import { SafeAreaView, Text, ScrollView, FlatList, View } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 
 import api from '../../utils/api/Api';
 import styles from '../../Styles';
@@ -16,7 +16,7 @@ interface Props extends NavigationStackScreenProps {}
 
 const Home: NavigationStackScreenComponent<Props> = ({ navigation }) => {
     const dispatch = useDispatch();
-    const images = useSelector((state: State) => state.imagesState.images);
+    const images = useSelector(selectImages);
 
     useEffect(() => {
         fetchImages();
