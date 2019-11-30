@@ -8,6 +8,7 @@ interface Styles {
     scoreContainer: ViewStyle;
     scoreLabel: TextStyle;
     commentsContainer: ViewStyle;
+    commentsHeaderContainer: ViewStyle;
     commentsHeader: TextStyle;
 }
 
@@ -49,13 +50,15 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         flex: 1,
         backgroundColor: '#353d4a'
     },
-    commentsHeader: {
-        fontSize: 20,
-        color: '#eeeeee',
+    commentsHeaderContainer: {
         borderBottomColor: '#ff5722',
         borderBottomWidth: 2,
         paddingBottom: 5,
         marginBottom: 5,
+    },
+    commentsHeader: {
+        fontSize: 20,
+        color: '#eeeeee',
     }
 })
 

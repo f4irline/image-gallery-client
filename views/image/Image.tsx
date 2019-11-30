@@ -35,7 +35,9 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     { image.canDelete ? <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> : undefined }
                 </View>
                 <View style={imageStyles.commentsContainer}>
-                    <Text style={imageStyles.commentsHeader}>Comments</Text>
+                    <View style={imageStyles.commentsHeaderContainer}>
+                        <Text style={imageStyles.commentsHeader}>Comments</Text>
+                    </View>
                     { image.comments.map(item => <ImageComment key={item.id} comment={item} />) }
                 </View>
             </ScrollView>

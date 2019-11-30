@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, Text } from 'react-native';
+import { Platform, SafeAreaView, View, Text } from 'react-native';
 import { MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
 
 import { HeaderProps } from 'react-navigation-stack';
@@ -16,7 +16,7 @@ const Header: React.FC<Props> = (props: Props) => {
     const { headerProps, title, subtitle } = props;
     const isIos = Platform.OS === 'ios';
     return (
-        <View style={headerStyles.headerContainer}>
+        <SafeAreaView style={headerStyles.headerContainer}>
             <TouchableOpacity style={headerStyles.actionContainer} onPress={() => headerProps.navigation.pop()}>
                 { isIos ? <IonIcon name={'ios-arrow-back'} size={25} color={'#eeeeee'}/> : <MaterialIcon size={25} name={'arrow-back'} color={'#eeeeee'}/>  }
             </TouchableOpacity>
@@ -24,7 +24,7 @@ const Header: React.FC<Props> = (props: Props) => {
                 <Text style={headerStyles.title}>{title}</Text>
                 { subtitle ? <Text style={headerStyles.subtitle}>{subtitle}</Text> : undefined }
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
