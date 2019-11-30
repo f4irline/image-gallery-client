@@ -21,7 +21,8 @@ const ImageView: React.FC<Props> = (props: Props) => {
         <SafeAreaView style={styles.container}>
             <ScrollView style={imageStyles.scrollContainer}>
                 <View style={imageStyles.infoContainer}>
-                    <Text style={imageStyles.header}>{image.author}</Text>
+                    <Text style={imageStyles.header}>{image.description}</Text>
+                    <Text style={imageStyles.author}>By: {image.author}</Text>
                 </View>
                 <Image 
                     style={imageStyles.image} 

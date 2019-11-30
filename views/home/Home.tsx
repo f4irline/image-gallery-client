@@ -11,6 +11,7 @@ import homeStyles from './Home.style';
 
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
 import AddNew from '../../components/AddNew/AddNew';
+import { PlaceholderImage } from '../../models/PlaceholderImage';
 
 const Home: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -24,9 +25,40 @@ const Home: NavigationStackScreenComponent = (props) => {
     const fetchImages = async () => {
         try {
             const images = await api.get('/');
+            const imagesData: PlaceholderImage[] = images.data;
+            const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
+                ...img,
+                description: 'Test description. This is a placeholder image with test description.',
+                comments: [
+                    {
+                        author: 'Username',
+                        userCanDelete: true,
+                        comment: 'Very nice image.',
+                        id: index
+                    },
+                    {
+                        author: 'Username',
+                        userCanDelete: true,
+                        comment: 'Very nice image.',
+                        id: index
+                    },
+                    {
+                        author: 'AnotherOne',
+                        userCanDelete: false,
+                        comment: 'So cool.',
+                        id: index
+                    },
+                    {
+                        author: 'Username',
+                        userCanDelete: true,
+                        comment: 'Very nice image.',
+                        id: index
+                    }
+                ]
+            }))
             dispatch({
                 type: imagesActionTypes.SET_IMAGES,
-                payload: images.data
+                payload: mappedImages
             })
         } catch (err) {
             console.log(err);

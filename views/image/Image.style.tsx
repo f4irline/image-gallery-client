@@ -4,6 +4,7 @@ interface Styles {
     infoContainer: ViewStyle;
     scrollContainer: ViewStyle;
     header: TextStyle;
+    author: TextStyle;
     image: ImageStyle;
 }
 
@@ -13,7 +14,12 @@ interface Props {
 }
 
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
-    infoContainer: {},
+    infoContainer: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ff5722',
+        paddingBottom: 5,
+        marginBottom: 5,
+    },
     scrollContainer: {
         flex: 1,
         flexDirection: 'column'
@@ -21,6 +27,10 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
     header: {
         fontSize: 25,
         color: '#eeeeee',
+    },
+    author: {
+        fontSize: 12,
+        color: '#c7c7c7',
     },
     image: {
         flex: 1,
