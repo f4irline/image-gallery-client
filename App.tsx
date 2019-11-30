@@ -32,6 +32,9 @@ const navigationOptions = {
                 case 'Home':
                     iconName = 'ios-home';
                     break;
+                case 'Near You':
+                    iconName = 'ios-compass';
+                    break;
                 default:
                     iconName = 'ios-person';
                     break;
@@ -54,9 +57,9 @@ const navigationOptions = {
 }
 
 const routeConfigs = {
-    Home: AppNavigator,
-    Near: NearView,
-    Profile: ProfileView
+    'Home': AppNavigator,
+    'Near You': NearView,
+    'Profile': ProfileView
 }
 
 const TabNavigator = createBottomTabNavigator(
