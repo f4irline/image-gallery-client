@@ -1,10 +1,10 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
-interface Style {
+interface Styles {
     imageList: ViewStyle,
 }
 
-const styles: StyleSheet.NamedStyles<Style> = StyleSheet.create({
+const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     imageList: {
         flex: 1,
     },

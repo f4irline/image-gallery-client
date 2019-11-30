@@ -1,8 +1,8 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
-interface Style {}
+interface Styles {}
 
-const styles: StyleSheet.NamedStyles<Style> = StyleSheet.create({
+const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
 
 })
 

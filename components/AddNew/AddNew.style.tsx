@@ -1,11 +1,11 @@
 import { StyleSheet, ViewStyle } from 'react-native';
 
-interface Style {
+interface Styles {
     addWrapper: ViewStyle,
     icon: ViewStyle,
 }
 
-const styles: StyleSheet.NamedStyles<Style> = StyleSheet.create({
+const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     addWrapper: {
         position: 'absolute',
         bottom: 7,
