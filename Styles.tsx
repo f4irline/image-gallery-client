@@ -8,8 +8,7 @@ const styles: StyleSheet.NamedStyles<Style> = {
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight,
-        paddingStart: 10,
-        padding: 10,
+        backgroundColor: '#2d4059'
     }
 }
 

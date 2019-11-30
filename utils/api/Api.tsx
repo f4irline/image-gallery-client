@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const instance: AxiosInstance = axios.create({
-    baseURL: 'http://192.168.10.52:8080/api',
+    baseURL: 'https://picsum.photos/v2/list',
     headers: {
         'Content-Type': 'application/json'
     }

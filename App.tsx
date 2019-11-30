@@ -40,8 +40,12 @@ const navigationOptions = {
         }
     }),
     tabBarOptions: {
-        activeTintColor: '#ff9933',
-        inactiveTintColor: '#000',
+        activeTintColor: '#ff5722',
+        inactiveTintColor: '#fff',
+        style: {
+            backgroundColor: '#222831',
+            borderTopWidth: 0,
+        }
     }    
 }
 

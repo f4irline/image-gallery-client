@@ -1,9 +1,10 @@
 import { Action } from 'redux';
 import { imagesActionTypes, ImagesActions } from '../actions/imagesActions';
 import { Image } from '../../models/Image';
+import { PlaceholderImage } from '../../models/PlaceholderImage';
 
 export interface ImagesState {
-    images: Image[]
+    images: PlaceholderImage[],
 }
 
 export const initialState: ImagesState = {
@@ -15,7 +16,7 @@ export const imagesReducer = (state: ImagesState = initialState, action: ImagesA
         case imagesActionTypes.SET_IMAGES:
             return {
                 ...state,
-                images: action.payload
+                images: action.payload,
             }
         
         default:
