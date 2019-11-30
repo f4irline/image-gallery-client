@@ -29,6 +29,9 @@ const Home: NavigationStackScreenComponent = (props) => {
             const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
                 ...img,
                 description: 'Test description. This is a placeholder image with test description.',
+                upVoted: index % 2 === 0,
+                downVoted: index % 3 === 0 && index % 2 !== 0,
+                canDelete: index % 2 === 0,
                 comments: [
                     {
                         author: 'Username',
