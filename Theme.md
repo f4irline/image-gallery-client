@@ -5,3 +5,8 @@
 - <span style="color: #ff5722">Orange: #ff5722</span>
 - <span style="color: #eeeeee">White: #eeeeee</span>
 - <span style="color: #c7c7c7">Color: #c7c7c7</span>
+
+# Fonts:
+- Rubik-Light
+- Rubik
+- Rubik-Bold
