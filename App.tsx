@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -45,8 +46,11 @@ const navigationOptions = {
         style: {
             backgroundColor: '#222831',
             borderTopWidth: 0,
+        },
+        labelStyle: {
+            fontFamily: 'Rubik-Bold',
         }
-    }    
+    }
 }
 
 const routeConfigs = {
@@ -63,9 +67,25 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator);
 
 const App = () => {
+
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+        loadFonts();
+    }, [])
+
+    const loadFonts = async () => {
+        await Font.loadAsync({
+            'Rubik': require('./assets/fonts/Rubik-Regular.ttf'),
+            'Rubik-Bold': require('./assets/fonts/Rubik-Bold.ttf'),
+            'Rubik-Light': require('./assets/fonts/Rubik-Light.ttf')
+        });
+        setReady(true);
+    }
+
     return (
         <Provider store={store}>
-            <AppContainer />
+            { ready ? <AppContainer /> : null }
         </Provider>
     )
 }

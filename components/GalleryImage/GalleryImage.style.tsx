@@ -1,7 +1,8 @@
-import { StyleSheet, ViewStyle, ImageStyle } from 'react-native';
+import { StyleSheet, ViewStyle, ImageStyle, TextStyle } from 'react-native';
 
 interface Styles {
     imageWrapper: ViewStyle;
+    author: TextStyle,
     image: ImageStyle;
 }
 
@@ -12,12 +13,19 @@ interface Props {
 
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
     imageWrapper: {
-        width: props.width / 2,
+        flex: 1,
         height: 500,
         maxHeight: props.height / 2,
+        backgroundColor: '#222831',
         margin: 2,
-        padding: 2,
-        backgroundColor: '#eeeeee',
+        padding: 3,
+        borderWidth: 2,
+        borderColor: '#eeeeee',
+    },
+    author: {
+        fontFamily: 'Rubik-Light',
+        color: '#eeeeee',
+        padding: 5
     },
     image: {
         flex: 1,

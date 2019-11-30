@@ -35,17 +35,13 @@ const Home: NavigationStackScreenComponent<Props> = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={homeStyles.scrollContainer}>
-                <View style={homeStyles.listsContainer}>
-                    <FlatList
-                        numColumns={2}
-                        style={homeStyles.imageList}
-                        keyExtractor={item => `image-${item.id}`}
-                        data={images} 
-                        renderItem={({ item }) => <GalleryImage image={ item }/>}>
-                    </FlatList>
-                </View>
-            </ScrollView>
+            <FlatList
+                numColumns={2}
+                style={homeStyles.imageList}
+                keyExtractor={item => `image-${item.id}`}
+                data={images} 
+                renderItem={({ item }) => <GalleryImage image={ item }/>}>
+            </FlatList>
         </SafeAreaView>
     )
 }

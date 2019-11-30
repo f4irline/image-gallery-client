@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, View, ImageStyle } from 'react-native';
+import { Dimensions, Image, View, ImageStyle, Text } from 'react-native';
 
 import getStyles from './GalleryImage.style';
 
@@ -15,6 +15,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
 
     return (
         <View style={imageStyles.imageWrapper}>
+            <Text style={imageStyles.author}>{props.image.author}</Text>
             <Image style={imageStyles.image} resizeMode='cover' source={{ uri: props.image.download_url }}/>
         </View>
     )
