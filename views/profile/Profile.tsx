@@ -2,13 +2,18 @@ import React from 'react';
 import { SafeAreaView, Text } from 'react-native';
 
 import styles from '../../Styles';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
-const Profile: React.FC = () => {
+const Profile: NavigationStackScreenComponent = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Text>Profile</Text>
         </SafeAreaView>
     )
+}
+
+Profile.navigationOptions = {
+    headerShown: false
 }
 
 export default Profile;

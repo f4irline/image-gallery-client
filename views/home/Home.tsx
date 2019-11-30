@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectImages } from '../../store/reducers/imagesReducer';
 import { imagesActionTypes } from '../../store/actions/imagesActions';
-import { NavigationStackScreenComponent, NavigationStackScreenProps } from 'react-navigation-stack';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
 
 import api from '../../utils/api/Api';
@@ -12,9 +12,7 @@ import homeStyles from './Home.style';
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
 import AddNew from '../../components/AddNew/AddNew';
 
-interface Props extends NavigationStackScreenProps {}
-
-const Home: NavigationStackScreenComponent<Props> = ({ navigation }) => {
+const Home: NavigationStackScreenComponent = () => {
     const dispatch = useDispatch();
     const images = useSelector(selectImages);
 

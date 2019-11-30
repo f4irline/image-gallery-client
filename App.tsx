@@ -10,14 +10,37 @@ import HomeView from './views/home/Home';
 import ImageView from './views/image/Image';
 import NearView from './views/near/Near';
 import ProfileView from './views/profile/Profile';
+import UploadView from './views/upload/Upload';
 
-const AppNavigator = createStackNavigator(
+const HomeNavigator = createStackNavigator(
     {
         Home: HomeView,
         Image: ImageView,
+        Upload: UploadView
     },
     {
         initialRouteName: 'Home'
+    }
+)
+
+const ProfileNavigator = createStackNavigator(
+    {
+        Profile: ProfileView,
+        Image: ImageView,
+    },
+    {
+        initialRouteName: 'Profile'
+    }
+)
+
+const NearNavigator = createStackNavigator(
+    {
+        'Near You': NearView,
+        Image: ImageView,
+        Upload: UploadView
+    },
+    {
+        initialRouteName: 'Near You'
     }
 )
 
@@ -57,9 +80,9 @@ const navigationOptions = {
 }
 
 const routeConfigs = {
-    'Home': AppNavigator,
-    'Near You': NearView,
-    'Profile': ProfileView
+    'Home': HomeNavigator,
+    'Near You': NearNavigator,
+    'Profile': ProfileNavigator
 }
 
 const TabNavigator = createBottomTabNavigator(
