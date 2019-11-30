@@ -2,7 +2,10 @@ import { StyleSheet, ViewStyle, ImageStyle, TextStyle } from 'react-native';
 
 interface Styles {
     imageWrapper: ViewStyle;
-    author: TextStyle,
+    infoWrapper: ViewStyle,
+    author: TextStyle;
+    touchableWrapper: ViewStyle;
+    touchable: ViewStyle;
     image: ImageStyle;
 }
 
@@ -22,10 +25,22 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         borderWidth: 2,
         borderColor: '#eeeeee',
     },
+    infoWrapper: {
+        flex: 1,
+        height: '90%',
+    },
     author: {
         fontFamily: 'Rubik-Light',
         color: '#eeeeee',
         padding: 5
+    },
+    touchableWrapper: {
+        height: '90%',
+        width: '100%'
+    },
+    touchable: {
+        height: '100%',
+        width: '100%',
     },
     image: {
         flex: 1,

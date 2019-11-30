@@ -12,7 +12,8 @@ import homeStyles from './Home.style';
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
 import AddNew from '../../components/AddNew/AddNew';
 
-const Home: NavigationStackScreenComponent = () => {
+const Home: NavigationStackScreenComponent = (props) => {
+    const { navigation } = props;
     const dispatch = useDispatch();
     const images = useSelector(selectImages);
 
@@ -33,15 +34,15 @@ const Home: NavigationStackScreenComponent = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.viewContainer}>
             <FlatList
                 numColumns={2}
                 style={homeStyles.imageList}
                 keyExtractor={item => `image-${item.id}`}
                 data={images} 
-                renderItem={({ item }) => <GalleryImage image={ item }/>}>
+                renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}>
             </FlatList>
-            <AddNew />
+            <AddNew navigation={navigation} />
         </SafeAreaView>
     )
 }

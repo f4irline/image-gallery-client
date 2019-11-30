@@ -1,16 +1,25 @@
-import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, SafeAreaView, Text } from 'react-native';
 
 import styles from '../../Styles';
 import AddNew from '../../components/AddNew/AddNew';
+import { NavigationStackProp } from 'react-navigation-stack';
+import { PlaceholderImage } from '../../models/PlaceholderImage';
 
-const Image: React.FC = () => {
+interface Props {
+    navigation: NavigationStackProp;
+}
+
+const ImageView: React.FC<Props> = (props: Props) => {
+    const { navigation } = props;
+    const [image, setImage] = useState<PlaceholderImage>(navigation.getParam('image'));
+
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Image</Text>
+            <Image source={{uri: image.download_url}}></Image>
             <AddNew />
         </SafeAreaView>
     )
 }
 
-export default Image;
+export default ImageView;
