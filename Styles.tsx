@@ -13,7 +13,8 @@ const styles: StyleSheet.NamedStyles<Style> = {
     },
     container: {
         flex: 1,
-        backgroundColor: '#2d4059'
+        backgroundColor: '#2d4059',
+        padding: 5,
     }
 }
 
