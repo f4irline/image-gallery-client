@@ -6,7 +6,6 @@ import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-st
 import styles from '../../Styles';
 import getStyles from './Image.style';
 
-import AddNew from '../../components/AddNew/AddNew';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
 import ImageComment from '../../components/Comment/Comment';
 import Header from '../../components/Header/Header';
@@ -41,7 +40,6 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     { image.comments.map(item => <ImageComment key={item.id} comment={item} />) }
                 </View>
             </ScrollView>
-            <AddNew />
         </SafeAreaView>
     )
 }

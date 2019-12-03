@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectImages } from '../../store/reducers/imagesReducer';
-import { imagesActionTypes } from '../../store/actions/imagesActions';
+import { FloatingAction } from 'react-native-floating-action';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
+
+import { selectImages } from '../../store/reducers/imagesReducer';
+import { imagesActionTypes } from '../../store/actions/imagesActions';
 
 import api from '../../utils/api/Api';
 import styles from '../../Styles';
 import homeStyles from './Home.style';
 
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
-import AddNew from '../../components/AddNew/AddNew';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
 
 const Home: NavigationStackScreenComponent = (props) => {
@@ -68,6 +69,25 @@ const Home: NavigationStackScreenComponent = (props) => {
         }
     }
 
+    const actions = [
+        {
+            textBackground: '#eeeeee',
+            color: '#2d4059',
+            text: 'Camera',
+            name: 'upload_camera',
+            icon: require('../../assets/icons/camera_add_icon.png'),
+            position: 2
+        },
+        {
+            textBackground: '#eeeeee',
+            color: '#2d4059',
+            text: 'Gallery',
+            name: 'upload_gallery',
+            icon: require('../../assets/icons/gallery_add_icon.png'),
+            position: 1
+        }
+    ];
+
     return (
         <SafeAreaView style={styles.viewContainer}>
             <FlatList
@@ -77,7 +97,11 @@ const Home: NavigationStackScreenComponent = (props) => {
                 data={images} 
                 renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}>
             </FlatList>
-            <AddNew navigation={navigation} />
+            <FloatingAction
+                color={'#222831'}
+                distanceToEdge={10}
+                actions={actions}
+                />
         </SafeAreaView>
     )
 }
