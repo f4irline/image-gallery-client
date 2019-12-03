@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FloatingAction } from 'react-native-floating-action';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
+import * as Permissions from 'expo-permissions'
+import Constants from 'expo-constants';
+import * as ImagePicker from 'expo-image-picker';
 
 import { selectImages } from '../../store/reducers/imagesReducer';
 import { imagesActionTypes } from '../../store/actions/imagesActions';
@@ -88,6 +91,57 @@ const Home: NavigationStackScreenComponent = (props) => {
         }
     ];
 
+    const floatingItemClicked = (item: string) => {
+        switch (item) {
+            case 'upload_gallery':
+                promptGalleryPermissions();
+                break;
+            default: 
+                promptCameraPermissions();
+                break;
+        }
+    }
+
+    const promptGalleryPermissions = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status === 'granted') {
+                pickFromGallery();
+                return;
+            }
+        }
+        pickFromGallery();
+    }
+
+    const promptCameraPermissions = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        if (status === 'granted') {
+            pickFromCamera();
+        }
+    }
+
+    const pickFromGallery = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 0.9,
+            base64: true,
+        });
+
+        navigation.navigate('Upload', { image: result })
+    }
+
+    const pickFromCamera = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 0.9,
+            base64: true,
+        });
+
+        navigation.navigate('Upload', { image: result })
+    }
+
     return (
         <SafeAreaView style={styles.viewContainer}>
             <FlatList
@@ -101,7 +155,8 @@ const Home: NavigationStackScreenComponent = (props) => {
                 color={'#222831'}
                 distanceToEdge={10}
                 actions={actions}
-                />
+                onPressItem={floatingItemClicked}
+            />
         </SafeAreaView>
     )
 }
