@@ -11,6 +11,7 @@ import nearStyles from './Near.style';
 
 import GalleryImage from '../../components/GalleryImage/GalleryImage';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
+import FloatingButton from '../../components/FloatingButton/FloatingButton';
 
 const Near: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -76,6 +77,7 @@ const Near: NavigationStackScreenComponent = (props) => {
                 data={images} 
                 renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}>
             </FlatList>
+            <FloatingButton navigation={navigation} />
         </SafeAreaView>
     )
 }
