@@ -128,6 +128,8 @@ const Home: NavigationStackScreenComponent = (props) => {
             base64: true,
         });
 
+        if (result.cancelled) { return; }
+
         navigation.navigate('Upload', { image: result })
     }
 
@@ -138,6 +140,8 @@ const Home: NavigationStackScreenComponent = (props) => {
             quality: 0.9,
             base64: true,
         });
+
+        if (result.cancelled) { return; }
 
         navigation.navigate('Upload', { image: result })
     }
