@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectImages } from '../../store/reducers/imagesReducer';
-import { imagesActionTypes } from '../../store/actions/imagesActions';
+import { ImagesActionTypes } from '../../store/actions/imagesActions';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
 
@@ -60,7 +60,7 @@ const Near: NavigationStackScreenComponent = (props) => {
                 ]
             }))
             dispatch({
-                type: imagesActionTypes.SET_IMAGES,
+                type: ImagesActionTypes.SetImages,
                 payload: mappedImages
             })
         } catch (err) {
