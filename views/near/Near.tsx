@@ -75,7 +75,7 @@ const Near: NavigationStackScreenComponent = (props) => {
                 style={nearStyles.imageList}
                 keyExtractor={item => `image-${item.id}`}
                 data={images} 
-                renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}>
+                renderItem={({ item }) => <GalleryImage description={true} navigation={navigation} borderWidth={2} spacing={2} padding={3} image={ item }/>}>
             </FlatList>
             <FloatingButton navigation={navigation} />
         </SafeAreaView>
