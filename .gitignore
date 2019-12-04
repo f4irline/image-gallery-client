@@ -10,6 +10,9 @@ npm-debug.*
 web-build/
 web-report/
 
+# dummy-server stuff
+dummy-server/node_modules/**/*
+
 # macOS
 .DS_Store
 

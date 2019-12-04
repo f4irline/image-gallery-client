@@ -1,0 +1,1 @@
+const images = require('./data/image.json');
