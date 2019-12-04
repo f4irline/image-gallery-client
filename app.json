@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.github.f4irline.imageGallery"
+    },
+    "android": {
+        "package": "com.github.f4irline.imageGallery"
     }
   }
 }
