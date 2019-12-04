@@ -10,8 +10,8 @@ import api from '../../utils/api/Api';
 import styles from '../../Styles';
 import homeStyles from './Home.style';
 
-import FloatingButton from '../../components/FloatingButton/FloatingButton';
-import GalleryImage from '../../components/GalleryImage/GalleryImage';
+import FloatingButton from '../../components/floatingButton/FloatingButton';
+import GalleryImage from '../../components/galleryImage/GalleryImage';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
 
 const Home: NavigationStackScreenComponent = (props) => {

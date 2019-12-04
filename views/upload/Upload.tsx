@@ -3,7 +3,7 @@ import { SafeAreaView, Image, View, TextInput, Button, ScrollView } from 'react-
 
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 
-import Header from '../../components/Header/Header';
+import Header from '../../components/header/Header';
 import getStyles from './Upload.style';
 import styles from '../../Styles';
 

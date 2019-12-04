@@ -9,9 +9,9 @@ import api from '../../utils/api/Api';
 import styles from '../../Styles';
 import nearStyles from './Near.style';
 
-import GalleryImage from '../../components/GalleryImage/GalleryImage';
+import GalleryImage from '../../components/galleryImage/GalleryImage';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
-import FloatingButton from '../../components/FloatingButton/FloatingButton';
+import FloatingButton from '../../components/floatingButton/FloatingButton';
 
 const Near: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
