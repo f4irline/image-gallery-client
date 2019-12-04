@@ -8,10 +8,12 @@ import { AppState } from '../index';
 
 export interface ImagesState {
     images: PlaceholderImage[],
+    refreshing: boolean;
 }
 
 export const initialState: ImagesState = {
     images: [],
+    refreshing: false,
 };
 
 export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: ImagesState = initialState, action: ImagesActions) => {
@@ -21,6 +23,12 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
                 ...state,
                 images: action.payload,
             }
+
+        case ImagesActionTypes.RefreshImages:
+            return {
+                ...state,
+                refreshing: action.payload,
+            }
         
         default:
             return state;
@@ -28,3 +36,4 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
 }
 
 export const selectImages = (state: AppState) => state.imagesState.images;
+export const selectRefreshingImages = (state: AppState) => state.imagesState.refreshing;

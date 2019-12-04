@@ -7,8 +7,8 @@ import { api } from '../../utils';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
-
-    SetImages = '[Images] Set Images'
+    SetImages = '[Images] Set Images',
+    RefreshImages = '[Images] Refresh Images',
 }
 
 interface LoadImagesAction {
@@ -18,6 +18,18 @@ interface LoadImagesAction {
 interface SetImagesAction {
     type: ImagesActionTypes.SetImages;
     payload: PlaceholderImage[];
+}
+
+interface RefreshImagesAction {
+    type: ImagesActionTypes.RefreshImages;
+    payload: boolean;
+}
+
+const refreshImages = (state: boolean) => {
+    return {
+        type: ImagesActionTypes.RefreshImages,
+        payload: state,
+    }
 }
 
 const setImages = (images: PlaceholderImage[]) => {
@@ -31,6 +43,8 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
     return async (
         dispatch: ThunkDispatch<{}, {}, SetImagesAction>
     ): Promise<void> => {
+        dispatch<any>(refreshImages(true));
+
         try {
             const images = await api.get('/');
             const imagesData: PlaceholderImage[] = images.data;
@@ -69,10 +83,12 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
             }));
 
             dispatch<any>(setImages(mappedImages));
+            dispatch<any>(refreshImages(false));
         } catch (err) {
+            dispatch<any>(refreshImages(false));
             console.log(err);
         }
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction;
+export type ImagesActions = LoadImagesAction | SetImagesAction | RefreshImagesAction;

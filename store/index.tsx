@@ -7,7 +7,7 @@ import { initialState as userState, UserState, userReducer } from './reducers/us
 
 export interface AppState {
     imagesState: ImagesState,
-    userState: UserState,
+    userState: UserState
 }
 
 const rootReducer = combineReducers({
