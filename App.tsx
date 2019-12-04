@@ -29,7 +29,8 @@ const ProfileNavigator = createStackNavigator(
     {
         Profile: ProfileView,
         Image: ImageView,
-        Login: LoginView
+        Login: LoginView,
+        Upload: UploadView
     },
     {
         initialRouteName: 'Profile'
@@ -67,7 +68,8 @@ const navigationOptions = {
             }
 
             return <IconComponent name={iconName} size={25} color={tintColor} />;
-        }
+        },
+        tabBarVisible: !navigation.state.index
     }),
     tabBarOptions: {
         activeTintColor: '#ff5722',
