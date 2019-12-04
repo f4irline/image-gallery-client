@@ -1,5 +1,3 @@
-import { User } from "../../models/User"
-
 export enum UserActionTypes {
     SetUser = '[User] Set User'
 }

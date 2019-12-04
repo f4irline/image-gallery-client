@@ -1,10 +1,9 @@
 import React from 'react';
-import { Platform, SafeAreaView, View, Text } from 'react-native';
+import { Platform, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
-
 import { HeaderProps } from 'react-navigation-stack';
+
 import headerStyles from './Header.style';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
     headerProps: HeaderProps;

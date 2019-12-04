@@ -3,7 +3,7 @@ import uuid from 'uuid-js';
 
 import { UserActions, UserActionTypes } from '../actions/userActions';
 
-import { User } from '../../models/User';
+import { User } from '../../models';
 
 import { AppState } from '../index';
 

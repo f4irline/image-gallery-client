@@ -1,11 +1,11 @@
 import React from 'react';
 import { Dimensions, Image, View, Text } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import getStyles from './GalleryImage.style';
 
-import { PlaceholderImage } from '../../models/PlaceholderImage';
-import { NavigationStackProp } from 'react-navigation-stack';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { PlaceholderImage } from '../../models';
 
 interface Props {
     navigation: NavigationStackProp;

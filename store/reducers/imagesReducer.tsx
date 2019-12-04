@@ -2,8 +2,7 @@ import { Reducer } from 'redux';
 
 import { ImagesActionTypes, ImagesActions } from '../actions/imagesActions';
 
-import { Image } from '../../models/Image';
-import { PlaceholderImage } from '../../models/PlaceholderImage';
+import { Image, PlaceholderImage } from '../../models';
 
 import { AppState } from '../index';
 

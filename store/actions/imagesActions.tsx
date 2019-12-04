@@ -3,8 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Image } from "../../models/Image"
 import { PlaceholderImage } from "../../models/PlaceholderImage"
 
-import api from '../../utils/api/Api';
-import { AnyAction } from 'redux';
+import { api } from '../../utils';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',

@@ -4,7 +4,7 @@ import { MaterialIcons as MaterialIcon } from '@expo/vector-icons';
 
 import commentStyles from './Comment.style';
 
-import { Comment } from '../../models/Comment';
+import { Comment } from '../../models';
 
 interface Props {
     comment: Comment

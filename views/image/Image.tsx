@@ -6,7 +6,7 @@ import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-st
 import styles from '../../Styles';
 import getStyles from './Image.style';
 
-import { PlaceholderImage } from '../../models/PlaceholderImage';
+import { PlaceholderImage } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
