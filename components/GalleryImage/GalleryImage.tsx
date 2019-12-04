@@ -23,10 +23,10 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
 
     return (
         <View style={[imageStyles.imageWrapper, { padding: props.padding, margin: props.spacing, borderWidth: props.borderWidth }]} >
-            { !props.description ? null :
+            { props.description ?
                 <View style={imageStyles.infoWrapper}>
                     <Text style={imageStyles.description}>{props.image.description}</Text>
-                </View> }
+                </View> : null }
             <View style={imageStyles.touchableWrapper}>
                 <TouchableOpacity style={imageStyles.touchable} onPress={() => navigation.navigate('Image', { image: image })}>
                     <Image style={imageStyles.image} source={{uri: image.download_url}}/>
