@@ -11,6 +11,7 @@ import ImageView from './views/image/Image';
 import NearView from './views/near/Near';
 import ProfileView from './views/profile/Profile';
 import UploadView from './views/upload/Upload';
+import LoginView from './views/profile/auth/login/Login';
 
 const HomeNavigator = createStackNavigator(
     {
@@ -27,6 +28,7 @@ const ProfileNavigator = createStackNavigator(
     {
         Profile: ProfileView,
         Image: ImageView,
+        Login: LoginView
     },
     {
         initialRouteName: 'Profile'

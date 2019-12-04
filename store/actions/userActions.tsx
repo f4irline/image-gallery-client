@@ -6,7 +6,7 @@ export enum UserActionTypes {
 
 interface SetUserAction {
     type: UserActionTypes.SetUser,
-    payload: User,
+    payload: string,
 }
 
 export type UserActions = SetUserAction;

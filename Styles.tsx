@@ -1,9 +1,10 @@
-import { StatusBar, StyleSheet, ViewStyle } from 'react-native';
+import { StatusBar, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 interface Style {
     viewContainer: ViewStyle;
     container: ViewStyle;
     textInput: ViewStyle;
+    inputLabel: TextStyle;
 }
 
 const styles: StyleSheet.NamedStyles<Style> = {
@@ -22,6 +23,10 @@ const styles: StyleSheet.NamedStyles<Style> = {
         borderWidth: 1,
         borderRadius: 5,
         color: '#eeeeee'
+    },
+    inputLabel: {
+        color: '#eeeeee',
+        marginBottom: 5,
     }
 }
 

@@ -3,9 +3,10 @@ import { AppState } from '../index';
 import { User } from '../../models/User';
 import { UserActions, UserActionTypes } from '../actions/userActions';
 import { Reducer } from 'react';
+import uuid from 'uuid-js';
 
 export interface UserState {
-    user: User,
+    user?: User,
 }
 
 export const initialState: UserState = {
@@ -17,7 +18,10 @@ export const userReducer: Reducer<UserState, UserActions> = (state: UserState = 
         case UserActionTypes.SetUser:
             return {
                 ...state,
-                user: action.payload,
+                user: {
+                    name: action.payload,
+                    token: uuid.create().toString()
+                },
             }
         
         default:
