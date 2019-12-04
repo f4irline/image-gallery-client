@@ -1,7 +1,7 @@
 import { User } from "../../models/User"
 
 export enum UserActionTypes {
-    SetUser = '[Images] Set Images'
+    SetUser = '[User] Set User'
 }
 
 interface SetUserAction {

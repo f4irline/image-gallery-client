@@ -3,14 +3,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { initialState as imagesState, imagesReducer, ImagesState } from './reducers/imagesReducer';
 import { initialState as userState, UserState, userReducer } from './reducers/userReducer';
 
-export interface State {
+export interface AppState {
     imagesState: ImagesState,
     userState: UserState,
-}
-
-const state: State = {
-    imagesState: imagesState,
-    userState: userState
 }
 
 const rootReducer = combineReducers({
@@ -18,6 +13,6 @@ const rootReducer = combineReducers({
     userState: userReducer
 })
 
-const store = createStore(rootReducer, state, composeWithDevTools());
+const store = createStore(rootReducer, undefined, composeWithDevTools());
 
 export default store;

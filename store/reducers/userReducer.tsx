@@ -1,25 +1,23 @@
-import { State } from '../index';
+import { AppState } from '../index';
 
 import { User } from '../../models/User';
 import { UserActions, UserActionTypes } from '../actions/userActions';
+import { Reducer } from 'react';
 
 export interface UserState {
     user: User,
 }
 
 export const initialState: UserState = {
-    user: {
-        name: 'Placeholder User',
-        token: '1234567890'
-    },
+    user: undefined,
 };
 
-export const userReducer = (state: UserState = initialState, action: UserActions) => {
+export const userReducer: Reducer<UserState, UserActions> = (state: UserState = initialState, action: UserActions) => {
     switch (action.type) {
         case UserActionTypes.SetUser:
             return {
                 ...state,
-                images: action.payload,
+                user: action.payload,
             }
         
         default:
@@ -27,4 +25,4 @@ export const userReducer = (state: UserState = initialState, action: UserActions
     }
 }
 
-export const selectUser = (state: State) => state.userState.user;
+export const selectUser = (state: AppState) => state.userState.user;

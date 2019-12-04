@@ -1,4 +1,4 @@
-import { State } from '../index';
+import { AppState } from '../index';
 
 import { ImagesActionTypes, ImagesActions } from '../actions/imagesActions';
 import { Image } from '../../models/Image';
@@ -25,4 +25,4 @@ export const imagesReducer = (state: ImagesState = initialState, action: ImagesA
     }
 }
 
-export const selectImages = (state: State) => state.imagesState.images;
+export const selectImages = (state: AppState) => state.imagesState.images;
