@@ -42,7 +42,7 @@ const Upload: NavigationStackScreenComponent = (props) => {
                         value={title}
                         style={[styles.textInput, uploadStyles.titleField]}
                         placeholder='Image title' />
-                    <Button onPress={submitImage} title='Submit' />
+                    <Button color='#ff5722' onPress={submitImage} title='Submit' />
                 </View>
             </ScrollView>
         </SafeAreaView>
