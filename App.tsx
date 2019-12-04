@@ -5,6 +5,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Provider } from 'react-redux';
+
 import store from './store/index';
 import HomeView from './views/home/Home';
 import ImageView from './views/image/Image';
@@ -95,7 +96,6 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator);
 
 const App = () => {
-
     const [ready, setReady] = useState(false);
 
     useEffect(() => {

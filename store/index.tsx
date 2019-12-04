@@ -1,5 +1,8 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
+import thunk from 'redux-thunk';
+
 import { initialState as imagesState, imagesReducer, ImagesState } from './reducers/imagesReducer';
 import { initialState as userState, UserState, userReducer } from './reducers/userReducer';
 
@@ -13,6 +16,6 @@ const rootReducer = combineReducers({
     userState: userReducer
 })
 
-const store = createStore(rootReducer, undefined, composeWithDevTools());
+const store = createStore(rootReducer, undefined, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;

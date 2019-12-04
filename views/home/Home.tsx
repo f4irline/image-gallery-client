@@ -1,73 +1,27 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { selectImages } from '../../store/reducers/imagesReducer';
-import { ImagesActionTypes } from '../../store/actions/imagesActions';
 
-import api from '../../utils/api/Api';
 import styles from '../../Styles';
 import homeStyles from './Home.style';
 
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
-import { PlaceholderImage } from '../../models/PlaceholderImage';
+import { loadImages } from '../../store/actions/imagesActions';
 
 const Home: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
+
     const dispatch = useDispatch();
     const images = useSelector(selectImages);
 
     useEffect(() => {
-        fetchImages();
+        dispatch(loadImages());
     }, [])
-
-    const fetchImages = async () => {
-        try {
-            const images = await api.get('/');
-            const imagesData: PlaceholderImage[] = images.data;
-            const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
-                ...img,
-                description: 'Test description. This is a placeholder image with test description.',
-                upVoted: index % 2 === 0,
-                downVoted: index % 3 === 0 && index % 2 !== 0,
-                canDelete: index % 2 === 0,
-                comments: [
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 0
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 1
-                    },
-                    {
-                        author: 'AnotherOne',
-                        userCanDelete: false,
-                        comment: 'So cool.',
-                        id: 2
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 3
-                    }
-                ]
-            }))
-            dispatch({
-                type: ImagesActionTypes.SetImages,
-                payload: mappedImages
-            })
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     return (
         <SafeAreaView style={styles.viewContainer}>

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, View, ScrollView, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, Text, View, FlatList } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { ImagesActionTypes } from '../../store/actions/imagesActions';
 import { selectImages } from '../../store/reducers/imagesReducer';
 import { selectUser } from '../../store/reducers/userReducer';
 
@@ -15,10 +14,6 @@ import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
 
-import api from '../../utils/api/Api';
-
-import { PlaceholderImage } from '../../models/PlaceholderImage';
-
 enum SelectedTab {
     IMAGES = 'Images',
     COMMENTS = 'Comments',
@@ -29,58 +24,7 @@ const Profile: NavigationStackScreenComponent = (props) => {
     const user = useSelector(selectUser);
     const [selectedTab, setSelectedTab] = useState<SelectedTab>(SelectedTab.IMAGES);
 
-    const dispatch = useDispatch();
     const images = useSelector(selectImages);
-
-    useEffect(() => {
-        fetchImages();
-    }, [])
-
-    const fetchImages = async () => {
-        try {
-            const images = await api.get('/');
-            const imagesData: PlaceholderImage[] = images.data;
-            const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
-                ...img,
-                description: 'Test description. This is a placeholder image with test description.',
-                upVoted: index % 2 === 0,
-                downVoted: index % 3 === 0 && index % 2 !== 0,
-                canDelete: index % 2 === 0,
-                comments: [
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 0
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 1
-                    },
-                    {
-                        author: 'AnotherOne',
-                        userCanDelete: false,
-                        comment: 'So cool.',
-                        id: 2
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 3
-                    }
-                ]
-            }))
-            dispatch({
-                type: ImagesActionTypes.SetImages,
-                payload: mappedImages
-            })
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     return user ? (
         <SafeAreaView style={[styles.viewContainer, profileStyles.profileContainer]}>
