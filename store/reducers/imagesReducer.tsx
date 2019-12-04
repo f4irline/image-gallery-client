@@ -1,6 +1,6 @@
 import { State } from '../index';
 
-import { imagesActionTypes, ImagesActions } from '../actions/imagesActions';
+import { ImagesActionTypes, ImagesActions } from '../actions/imagesActions';
 import { Image } from '../../models/Image';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
 
@@ -14,7 +14,7 @@ export const initialState: ImagesState = {
 
 export const imagesReducer = (state: ImagesState = initialState, action: ImagesActions) => {
     switch (action.type) {
-        case imagesActionTypes.SET_IMAGES:
+        case ImagesActionTypes.SetImages:
             return {
                 ...state,
                 images: action.payload,

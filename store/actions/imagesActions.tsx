@@ -1,11 +1,11 @@
 import { Image } from "../../models/Image"
 
-export const imagesActionTypes = {
-    SET_IMAGES: '[Images] Set Images'
+export enum ImagesActionTypes {
+    SetImages = '[Images] Set Images'
 }
 
 interface SetImagesAction {
-    type: typeof imagesActionTypes.SET_IMAGES,
+    type: typeof ImagesActionTypes.SetImages,
     payload: Image[],
 }
 

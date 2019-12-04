@@ -4,7 +4,7 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
 
 import { selectImages } from '../../store/reducers/imagesReducer';
-import { imagesActionTypes } from '../../store/actions/imagesActions';
+import { ImagesActionTypes } from '../../store/actions/imagesActions';
 
 import api from '../../utils/api/Api';
 import styles from '../../Styles';
@@ -61,7 +61,7 @@ const Home: NavigationStackScreenComponent = (props) => {
                 ]
             }))
             dispatch({
-                type: imagesActionTypes.SET_IMAGES,
+                type: ImagesActionTypes.SetImages,
                 payload: mappedImages
             })
         } catch (err) {
