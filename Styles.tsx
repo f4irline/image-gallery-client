@@ -18,7 +18,9 @@ const styles: StyleSheet.NamedStyles<Style> = {
         backgroundColor: '#2d4059',
     },
     textInput: {
-        padding: 3,
+        height: 40,
+        paddingVertical: 5,
+        paddingHorizontal: 5,
         borderColor: '#c7c7c7',
         borderWidth: 1,
         borderRadius: 5,
@@ -27,6 +29,7 @@ const styles: StyleSheet.NamedStyles<Style> = {
     inputLabel: {
         color: '#eeeeee',
         marginBottom: 5,
+        fontFamily: 'Rubik-Bold'
     }
 }
 

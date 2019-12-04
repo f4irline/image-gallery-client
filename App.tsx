@@ -85,7 +85,7 @@ const navigationOptions = {
 const routeConfigs = {
     'Home': HomeNavigator,
     'Near You': NearNavigator,
-    'Profile': ProfileNavigator
+    'Profile': ProfileNavigator,
 }
 
 const TabNavigator = createBottomTabNavigator(

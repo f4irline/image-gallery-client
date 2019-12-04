@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Image, View, TextInput, Button, ScrollView } from 'react-native';
+import { SafeAreaView, Image, View, TextInput, ScrollView } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 
 import getStyles from './Upload.style';
 import styles from '../../Styles';
 
 import Header from '../../components/header/Header';
+import GalleryButton from '../../components/galleryButton/GalleryButton';
 
 interface UserImage {
     cancelled: boolean;
@@ -37,12 +38,11 @@ const Upload: NavigationStackScreenComponent = (props) => {
                 </View>
                 <View style={uploadStyles.fieldsWrapper}>
                     <TextInput
-                        multiline={true}
                         onChangeText={text => setTitle(text)}
                         value={title}
                         style={[styles.textInput, uploadStyles.titleField]}
                         placeholder='Image title' />
-                    <Button color='#ff5722' onPress={submitImage} title='Submit' />
+                    <GalleryButton onPress={submitImage} title='Submit' />
                 </View>
             </ScrollView>
         </SafeAreaView>

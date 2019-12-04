@@ -16,7 +16,8 @@ interface Props {
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
     uploadContainer: {
         flex: 1,
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
     },
     imageWrapper: {
         flex: 1,
@@ -31,7 +32,7 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         aspectRatio: props.width/props.height
     },
     fieldsWrapper: {
-        paddingTop: 20,
+        marginTop: 20,
         justifyContent: 'flex-end',
     },
     titleField: {

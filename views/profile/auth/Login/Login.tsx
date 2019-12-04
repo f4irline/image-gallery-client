@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, Button, View } from 'react-native';
+import { SafeAreaView, Text, TextInput, View } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 import { useDispatch } from 'react-redux';
 
@@ -9,6 +9,7 @@ import styles from '../../../../Styles';
 import loginStyles from './Login.style';
 
 import Header from '../../../../components/header/Header';
+import GalleryButton from '../../../../components/galleryButton/GalleryButton';
 
 const Login: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -32,7 +33,7 @@ const Login: NavigationStackScreenComponent = (props) => {
                 <Text style={styles.inputLabel}>Username</Text>
                 <TextInput onChangeText={(text) => setUserName(text)} value={userName} placeholder='Username' style={styles.textInput}/>
             </View>
-            <Button color='#ff5722' onPress={login} title='Log in'/>
+            <GalleryButton onPress={login} title='Log in'/>
         </SafeAreaView>
     )
 }

@@ -12,6 +12,8 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         flex: 1,
         justifyContent: 'center',
         padding: 30,
+        paddingStart: 15,
+        paddingEnd: 15,
     },
     headerContainer: {
         marginBottom: 15,
