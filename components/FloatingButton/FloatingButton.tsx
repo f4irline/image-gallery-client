@@ -4,6 +4,8 @@ import * as Permissions from 'expo-permissions'
 import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationStackProp } from 'react-navigation-stack';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/reducers/userReducer';
 
 interface Props {
     navigation: NavigationStackProp;
@@ -11,6 +13,7 @@ interface Props {
 
 const FloatingButton: React.FC<Props> = (props: Props) => {
     const { navigation } = props;
+    const user = useSelector(selectUser);
 
     const actions = [
         {
@@ -87,12 +90,12 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
     }
 
     return (
-            <FloatingAction
+            user && user.token ? <FloatingAction
                 color={'#222831'}
                 distanceToEdge={10}
                 actions={actions}
                 onPressItem={floatingItemClicked}
-            />
+            /> : null
     )
 }
 
