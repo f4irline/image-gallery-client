@@ -46,7 +46,8 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
         dispatch<any>(refreshImages(true));
 
         try {
-            const images = await api.get('/');
+            const page = Math.floor(Math.random() * 5) + 1;
+            const images = await api.get(`?page=${page}`);
             const imagesData: PlaceholderImage[] = images.data;
             const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
                 ...img,
