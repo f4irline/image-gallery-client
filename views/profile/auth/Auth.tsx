@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, SafeAreaView, Text, View } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 import styles from '../../../Styles';
 import authStyles from './Auth.style';
-import { NavigationStackProp } from 'react-navigation-stack';
 
 interface Props {
     navigation: NavigationStackProp;

@@ -7,6 +7,7 @@ import styles from '../../Styles';
 import getStyles from './Image.style';
 
 import { PlaceholderImage } from '../../models/PlaceholderImage';
+
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
 

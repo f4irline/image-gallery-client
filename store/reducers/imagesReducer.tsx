@@ -1,8 +1,11 @@
-import { AppState } from '../index';
+import { Reducer } from 'redux';
 
 import { ImagesActionTypes, ImagesActions } from '../actions/imagesActions';
+
 import { Image } from '../../models/Image';
 import { PlaceholderImage } from '../../models/PlaceholderImage';
+
+import { AppState } from '../index';
 
 export interface ImagesState {
     images: PlaceholderImage[],
@@ -12,7 +15,7 @@ export const initialState: ImagesState = {
     images: [],
 };
 
-export const imagesReducer = (state: ImagesState = initialState, action: ImagesActions) => {
+export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: ImagesState = initialState, action: ImagesActions) => {
     switch (action.type) {
         case ImagesActionTypes.SetImages:
             return {

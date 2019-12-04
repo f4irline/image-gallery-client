@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Image, View, TextInput, Button, ScrollView } from 'react-native';
-
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 
-import Header from '../../components/header/Header';
 import getStyles from './Upload.style';
 import styles from '../../Styles';
+
+import Header from '../../components/header/Header';
 
 interface UserImage {
     cancelled: boolean;

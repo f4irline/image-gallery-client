@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectImages } from '../../store/reducers/imagesReducer';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { SafeAreaView, FlatList } from 'react-native';
+
+import { selectImages } from '../../store/reducers/imagesReducer';
 
 import styles from '../../Styles';
 import nearStyles from './Near.style';

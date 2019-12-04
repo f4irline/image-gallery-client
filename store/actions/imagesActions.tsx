@@ -1,9 +1,10 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import api from '../../utils/api/Api';
-
 import { Image } from "../../models/Image"
 import { PlaceholderImage } from "../../models/PlaceholderImage"
+
+import api from '../../utils/api/Api';
+import { AnyAction } from 'redux';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
@@ -15,16 +16,21 @@ interface LoadImagesAction {
     type: ImagesActionTypes.LoadImages;
 }
 
+interface SetImagesAction {
+    type: ImagesActionTypes.SetImages;
+    payload: PlaceholderImage[];
+}
+
 const setImages = (images: PlaceholderImage[]) => {
     return {
         type: ImagesActionTypes.SetImages,
         payload: images
-    }
-}
+    };
+};
 
 export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
     return async (
-        dispatch: ThunkDispatch<{}, {}, LoadImagesAction>
+        dispatch: ThunkDispatch<{}, {}, SetImagesAction>
     ): Promise<void> => {
         try {
             const images = await api.get('/');
@@ -70,4 +76,4 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
     }
 }
 
-export type ImagesActions = LoadImagesAction;
+export type ImagesActions = LoadImagesAction | SetImagesAction;

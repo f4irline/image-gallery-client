@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, TextInput, Button, View } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
+import { useDispatch } from 'react-redux';
+
+import { UserActionTypes } from '../../../../store/actions/userActions';
 
 import styles from '../../../../Styles';
 import loginStyles from './Login.style';
 
 import Header from '../../../../components/header/Header';
-import { useDispatch } from 'react-redux';
-import { UserActionTypes } from '../../../../store/actions/userActions';
 
 const Login: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;

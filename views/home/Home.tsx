@@ -5,13 +5,13 @@ import { SafeAreaView, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { selectImages } from '../../store/reducers/imagesReducer';
+import { loadImages } from '../../store/actions/imagesActions';
 
 import styles from '../../Styles';
 import homeStyles from './Home.style';
 
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
-import { loadImages } from '../../store/actions/imagesActions';
 
 const Home: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;

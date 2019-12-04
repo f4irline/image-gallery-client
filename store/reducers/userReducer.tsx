@@ -1,9 +1,11 @@
-import { AppState } from '../index';
-
-import { User } from '../../models/User';
-import { UserActions, UserActionTypes } from '../actions/userActions';
 import { Reducer } from 'react';
 import uuid from 'uuid-js';
+
+import { UserActions, UserActionTypes } from '../actions/userActions';
+
+import { User } from '../../models/User';
+
+import { AppState } from '../index';
 
 export interface UserState {
     user?: User,
