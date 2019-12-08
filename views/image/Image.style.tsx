@@ -10,6 +10,9 @@ interface Styles {
     commentsContainer: ViewStyle;
     commentsHeaderContainer: ViewStyle;
     commentsHeader: TextStyle;
+    sendWrapper: ViewStyle;
+    commentInput: ViewStyle;
+    sendIcon: ViewStyle;
 }
 
 interface Props {
@@ -59,6 +62,18 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
     commentsHeader: {
         fontSize: 20,
         color: '#eeeeee',
+    },
+    sendWrapper: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: '#222831',
+    },
+    commentInput: {
+        flex: 1,
+        marginRight: 10,
+    },
+    sendIcon: {
+        marginRight: 10,
     }
 })
 

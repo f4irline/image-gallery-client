@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Entypo as EntypoIcon, MaterialIcons as MaterialIcon } from '@expo/vector-icons';
-import { Image, SafeAreaView, Text, View, ScrollView } from 'react-native';
+import { Entypo as EntypoIcon, MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
+import { Image, SafeAreaView, Text, View, ScrollView, TextInput, Platform } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 
 import styles from '../../Styles';
@@ -16,6 +16,12 @@ const ImageView: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
     const [image] = useState<PlaceholderImage>(navigation.getParam('image'));
     const imageStyles = getStyles({ width: image.width, height: image.height })
+
+    const isIos = Platform.OS === 'ios';
+
+    const sendIcon = Platform.OS === 'ios'
+        ? 'ios-send'
+        : 'md-send';
 
     return (
         <SafeAreaView style={styles.container}>
@@ -50,6 +56,12 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     { image.comments.map(item => <ImageComment key={item.id} comment={item} />) }
                 </View>
             </ScrollView>
+            <View style={imageStyles.sendWrapper}>
+                <TextInput style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
+                <TouchableOpacity>
+                    <IonIcon style={imageStyles.sendIcon} name={sendIcon} size={25} color={'#eeeeee'} />
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
