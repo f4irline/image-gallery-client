@@ -14,7 +14,8 @@ export interface AppState {
 
 const rootReducer = combineReducers({
     imagesState: imagesReducer,
-    userState: userReducer
+    userState: userReducer,
+    preferencesState: preferencesReducer,
 })
 
 const store = createStore(rootReducer, undefined, composeWithDevTools(applyMiddleware(thunk)));

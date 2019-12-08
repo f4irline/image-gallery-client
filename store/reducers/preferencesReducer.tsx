@@ -1,12 +1,12 @@
 import { Reducer } from "redux"
-import { AppState } from "..";
+import { AppState } from '../index';
 import { PreferencesActions, PreferencesActionTypes } from "../actions/preferencesActions";
 
 export interface PreferencesState {
     keyboardHeight: number;
 }
 
-export const initialState = {
+export const initialState: PreferencesState = {
     keyboardHeight: 0,
 }
 
