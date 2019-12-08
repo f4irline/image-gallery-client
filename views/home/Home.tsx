@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { SafeAreaView, FlatList, RefreshControl } from 'react-native';
+import { SafeAreaView, FlatList, RefreshControl, Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { selectImages, selectRefreshingImages } from '../../store/reducers/imagesReducer';
@@ -12,6 +12,7 @@ import homeStyles from './Home.style';
 
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
+import { PreferencesActionTypes } from '../../store/actions/preferencesActions';
 
 const Home: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -19,6 +20,20 @@ const Home: NavigationStackScreenComponent = (props) => {
     const dispatch = useDispatch();
     const images = useSelector(selectImages);
     const refreshing = useSelector(selectRefreshingImages);
+
+    Keyboard.addListener('keyboardDidShow', (e) => {
+        dispatch({
+            type: PreferencesActionTypes.SetKeyboardHeight,
+            payload: e.endCoordinates.height,
+        })
+    });
+
+    Keyboard.addListener('keyboardDidHide', (e) => {
+        dispatch({
+            type: PreferencesActionTypes.SetKeyboardHeight,
+            payload: 0,
+        })
+    })
 
     useEffect(() => {
         dispatch(loadImages());

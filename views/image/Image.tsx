@@ -11,13 +11,14 @@ import { PlaceholderImage } from '../../models';
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { selectKeyboardHeight } from '../../store/reducers/preferencesReducer';
 
 const ImageView: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
     const [image] = useState<PlaceholderImage>(navigation.getParam('image'));
+    const keyboardHeight = useSelector(selectKeyboardHeight);
     const imageStyles = getStyles({ width: image.width, height: image.height })
-
-    const isIos = Platform.OS === 'ios';
 
     const sendIcon = Platform.OS === 'ios'
         ? 'ios-send'
@@ -56,7 +57,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     { image.comments.map(item => <ImageComment key={item.id} comment={item} />) }
                 </View>
             </ScrollView>
-            <View style={imageStyles.sendWrapper}>
+            <View style={[imageStyles.sendWrapper, { bottom: keyboardHeight }]}>
                 <TextInput style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
                 <TouchableOpacity>
                     <IonIcon style={imageStyles.sendIcon} name={sendIcon} size={25} color={'#eeeeee'} />
