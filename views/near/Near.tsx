@@ -33,7 +33,7 @@ const Near: NavigationStackScreenComponent = (props) => {
                 renderItem={({ item }) => <GalleryImage description={true} navigation={navigation} borderWidth={2} spacing={2} padding={3} image={ item }/>}
                 refreshControl={
                     <RefreshControl onRefresh={refreshImages} refreshing={refreshing}/>
-                }>>
+                }>
             </FlatList>
             <FloatingButton navigation={navigation} />
         </SafeAreaView>

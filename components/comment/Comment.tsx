@@ -5,6 +5,7 @@ import { MaterialIcons as MaterialIcon } from '@expo/vector-icons';
 import commentStyles from './Comment.style';
 
 import { Comment } from '../../models';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
     comment: Comment
@@ -18,7 +19,11 @@ const ImageComment: React.FC<Props> = (props: Props) => {
                 <Text style={commentStyles.author}>{comment.author}</Text>
                 <Text style={commentStyles.comment}>{comment.comment}</Text>
             </View>
-            { comment.userCanDelete ? <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> : undefined }
+            { !comment.userCanDelete ? undefined : 
+                <TouchableOpacity>
+                    <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> 
+                </TouchableOpacity>
+            }
         </View>
     )
 }

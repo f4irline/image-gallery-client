@@ -10,6 +10,7 @@ import { PlaceholderImage } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ImageView: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -28,11 +29,19 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                 </View>
                 <View style={imageStyles.actionsContainer}>
                     <View style={imageStyles.scoreContainer}>
-                        <EntypoIcon name={'arrow-bold-up'} size={25} color={image.upVoted ? '#09bd00' : '#eeeeee'} />
+                        <TouchableOpacity>
+                            <EntypoIcon name={'arrow-bold-up'} size={25} color={image.upVoted ? '#09bd00' : '#eeeeee'} />
+                        </TouchableOpacity>
                         <Text style={imageStyles.scoreLabel}>0</Text>
-                        <EntypoIcon name={'arrow-bold-down'} size={25} color={image.downVoted ? '#d10000' : '#eeeeee'} />
+                        <TouchableOpacity>
+                            <EntypoIcon name={'arrow-bold-down'} size={25} color={image.downVoted ? '#d10000' : '#eeeeee'} />
+                        </TouchableOpacity>
                     </View>
-                    { image.canDelete ? <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> : undefined }
+                    { !image.canDelete ? undefined : 
+                        <TouchableOpacity>
+                            <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> 
+                        </TouchableOpacity>
+                    }
                 </View>
                 <View style={imageStyles.commentsContainer}>
                     <View style={imageStyles.commentsHeaderContainer}>
