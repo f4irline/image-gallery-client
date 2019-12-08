@@ -8,7 +8,7 @@ import { User } from '../../models';
 import { AppState } from '../index';
 
 export interface UserState {
-    user?: User,
+    user?: User;
 }
 
 export const initialState: UserState = {

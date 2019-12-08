@@ -7,7 +7,7 @@ import { Image, PlaceholderImage } from '../../models';
 import { AppState } from '../index';
 
 export interface ImagesState {
-    images: PlaceholderImage[],
+    images: PlaceholderImage[];
     refreshing: boolean;
 }
 
