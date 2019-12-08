@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 
 import { initialState as imagesState, imagesReducer, ImagesState } from './reducers/imagesReducer';
 import { initialState as userState, UserState, userReducer } from './reducers/userReducer';
+import { initialState as preferencesState, preferencesReducer, PreferencesState } from './reducers/preferencesReducer';
 
 export interface AppState {
-    imagesState: ImagesState,
-    userState: UserState
+    imagesState: ImagesState;
+    userState: UserState;
+    preferencesState: PreferencesState;
 }
 
 const rootReducer = combineReducers({
