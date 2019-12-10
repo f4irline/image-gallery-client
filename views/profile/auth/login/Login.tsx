@@ -3,13 +3,12 @@ import { SafeAreaView, Text, TextInput, View } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 import { useDispatch } from 'react-redux';
 
-import { UserActionTypes } from '../../../../store/actions/userActions';
-
 import styles from '../../../../Styles';
 import loginStyles from './Login.style';
 
 import Header from '../../../../components/header/Header';
 import GalleryButton from '../../../../components/galleryButton/GalleryButton';
+import { loginUser } from '../../../../store/actions/userActions';
 
 const Login: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
@@ -19,10 +18,7 @@ const Login: NavigationStackScreenComponent = (props) => {
 
     const login = () => {
         if (!userName.length) { return; }
-        dispatch({
-            type: UserActionTypes.SetUser,
-            payload: userName,
-        });
+        dispatch(loginUser(userName));
         
         navigation.navigate('Profile');
     }

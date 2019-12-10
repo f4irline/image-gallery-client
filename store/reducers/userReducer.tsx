@@ -20,10 +20,7 @@ export const userReducer: Reducer<UserState, UserActions> = (state: UserState = 
         case UserActionTypes.SetUser:
             return {
                 ...state,
-                user: {
-                    name: action.payload,
-                    token: uuid.create().toString()
-                },
+                user: action.payload,
             }
         
         default:
