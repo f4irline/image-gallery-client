@@ -2,12 +2,12 @@ import { Reducer } from 'redux';
 
 import { ImagesActionTypes, ImagesActions } from '../actions/imagesActions';
 
-import { Image, PlaceholderImage } from '../../models';
+import { Image } from '../../models';
 
 import { AppState } from '../index';
 
 export interface ImagesState {
-    images: PlaceholderImage[];
+    images: Image[];
     refreshing: boolean;
 }
 

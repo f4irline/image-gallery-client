@@ -5,11 +5,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import getStyles from './GalleryImage.style';
 
-import { PlaceholderImage } from '../../models';
+import { Image as ImageModel } from '../../models';
 
 interface Props {
     navigation: NavigationStackProp;
-    image: PlaceholderImage;
+    image: ImageModel;
     padding?: number | 0;
     spacing?: number | 0;
     borderWidth?: number | 0;
@@ -29,7 +29,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
                 </View> : null }
             <View style={imageStyles.touchableWrapper}>
                 <TouchableOpacity style={imageStyles.touchable} onPress={() => navigation.navigate('Image', { image: image })}>
-                    <Image style={imageStyles.image} source={{uri: image.download_url}}/>
+                    <Image style={imageStyles.image} source={{uri: image.file}}/>
                 </TouchableOpacity>
             </View>
         </View>

@@ -1,30 +1,43 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Image, View, TextInput, ScrollView } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
+import { useDispatch, useSelector } from 'react-redux';
 
 import getStyles from './Upload.style';
 import styles from '../../Styles';
 
+import { UserImage } from '../../models';
+
 import Header from '../../components/header/Header';
 import GalleryButton from '../../components/galleryButton/GalleryButton';
-
-interface UserImage {
-    cancelled: boolean;
-    height: number;
-    width: number;
-    uri: string;
-    base64: string;
-}
+import { uploadImage } from '../../store/actions/imagesActions';
+import { selectUser } from '../../store/reducers/userReducer';
 
 const Upload: NavigationStackScreenComponent = (props) => {
+    const dispatch = useDispatch();
+
     const { navigation } = props;
     const [image] = useState<UserImage>(navigation.getParam('image'));
     const [title, setTitle] = useState('');
+    
+    const user = useSelector(selectUser);
 
     const uploadStyles = getStyles({ width: image.width, height: image.height })
 
     const submitImage = async () => {
-        console.log('submit');
+        if (!user || !user.token) { return; }
+
+        const data = new FormData();
+
+        data.append('file', image.base64);
+        data.append('properties', new Blob([JSON.stringify({
+            'name': title,
+            'description': title,
+        })], {
+            type: 'application/json'
+        }));
+        
+        dispatch(uploadImage(data, user.token));
     }
 
     return (

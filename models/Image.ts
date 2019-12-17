@@ -11,4 +11,6 @@ export interface Image {
     downVoted: boolean;
     id: number;
     file: string;
+    width: number;
+    height: number;
 }

@@ -1,14 +1,16 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { Image } from "../../models/Image"
-import { PlaceholderImage } from "../../models/PlaceholderImage"
 
 import { api } from '../../utils';
+import { UserImage } from '../../models';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
     SetImages = '[Images] Set Images',
     RefreshImages = '[Images] Refresh Images',
+
+    UploadImage = '[Images] Upload Image',
 }
 
 interface LoadImagesAction {
@@ -17,12 +19,16 @@ interface LoadImagesAction {
 
 interface SetImagesAction {
     type: ImagesActionTypes.SetImages;
-    payload: PlaceholderImage[];
+    payload: Image[];
 }
 
 interface RefreshImagesAction {
     type: ImagesActionTypes.RefreshImages;
     payload: boolean;
+}
+
+interface UploadImageAction {
+    type: ImagesActionTypes.UploadImage;
 }
 
 const refreshImages = (state: boolean) => {
@@ -32,7 +38,7 @@ const refreshImages = (state: boolean) => {
     }
 }
 
-const setImages = (images: PlaceholderImage[]) => {
+const setImages = (images: Image[]) => {
     return {
         type: ImagesActionTypes.SetImages,
         payload: images
@@ -46,47 +52,30 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
         dispatch<any>(refreshImages(true));
 
         try {
-            const page = Math.floor(Math.random() * 5) + 1;
-            const images = await api.get(`?page=${page}`);
-            const imagesData: PlaceholderImage[] = images.data;
-            const mappedImages: PlaceholderImage[] = imagesData.map((img: PlaceholderImage, index: number) => ({
-                ...img,
-                description: 'Test description. This is a placeholder image with test description.',
-                upVoted: index % 2 === 0,
-                downVoted: index % 3 === 0 && index % 2 !== 0,
-                canDelete: index % 2 === 0,
-                comments: [
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 0
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 1
-                    },
-                    {
-                        author: 'AnotherOne',
-                        userCanDelete: false,
-                        comment: 'So cool.',
-                        id: 2
-                    },
-                    {
-                        author: 'Username',
-                        userCanDelete: true,
-                        comment: 'Very nice image.',
-                        id: 3
-                    }
-                ]
-            }));
+            const images = await api.get(`/image/`);
+            const imagesData: Image[] = images.data;
 
-            dispatch<any>(setImages(mappedImages));
+            dispatch<any>(setImages(imagesData));
             dispatch<any>(refreshImages(false));
         } catch (err) {
             dispatch<any>(refreshImages(false));
+            console.log(err);
+        }
+    }
+}
+
+export const uploadImage = (data: FormData, token: string): ThunkAction<Promise<void>, {}, {}, UploadImageAction> => {
+    return async (
+        dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
+    ): Promise<void> => {
+        try {
+            await api.post(`/image/${token}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            dispatch<any>(loadImages());
+        } catch (err) {
             console.log(err);
         }
     }

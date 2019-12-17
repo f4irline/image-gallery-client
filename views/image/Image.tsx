@@ -6,7 +6,7 @@ import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-st
 import styles from '../../Styles';
 import getStyles from './Image.style';
 
-import { PlaceholderImage } from '../../models';
+import { Image as ImageModel } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
@@ -16,7 +16,7 @@ import { selectKeyboardHeight } from '../../store/reducers/preferencesReducer';
 
 const ImageView: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
-    const [image] = useState<PlaceholderImage>(navigation.getParam('image'));
+    const [image] = useState<ImageModel>(navigation.getParam('image'));
     const keyboardHeight = useSelector(selectKeyboardHeight);
     const imageStyles = getStyles({ width: image.width, height: image.height })
 
@@ -31,7 +31,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     <Image 
                         style={imageStyles.image} 
                         resizeMode='cover'
-                        source={{uri: image.download_url}}>
+                        source={{uri: image.file}}>
                     </Image>
                 </View>
                 <View style={imageStyles.actionsContainer}>
@@ -68,7 +68,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
 }
 
 ImageView.navigationOptions = ({navigation}) => {
-    const image = navigation.getParam('image') as PlaceholderImage;
+    const image = navigation.getParam('image') as ImageModel;
     return {
         header: (props: HeaderProps) => <Header headerProps={props} title={image.description} subtitle={`By: ${image.author}`} />
     }
