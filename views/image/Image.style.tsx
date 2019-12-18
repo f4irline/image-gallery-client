@@ -31,7 +31,7 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         flex: 1,
         width: '100%',
         height: undefined,
-        aspectRatio: props.width/props.height
+        aspectRatio: props.height / props.height
     },
     actionsContainer: {
         padding: 5,

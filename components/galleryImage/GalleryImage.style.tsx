@@ -10,15 +10,15 @@ interface Styles {
 }
 
 interface Props {
-    height: number;
-    width: number;
+    screenHeight: number;
+    screenWidth: number;
 }
 
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
     imageWrapper: {
         flex: 1,
         height: 500,
-        maxHeight: props.height / 2,
+        maxHeight: props.screenHeight / 2,
         backgroundColor: '#222831',
         borderColor: '#eeeeee',
     },

@@ -64,7 +64,9 @@ export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesActio
     }
 }
 
-export const uploadImage = (data: FormData, token: string): ThunkAction<Promise<void>, {}, {}, UploadImageAction> => {
+export const uploadImage = (
+    data: FormData, token: string
+): ThunkAction<Promise<void>, {}, {}, UploadImageAction> => {
     return async (
         dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
     ): Promise<void> => {

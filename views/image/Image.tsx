@@ -31,7 +31,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     <Image 
                         style={imageStyles.image} 
                         resizeMode='cover'
-                        source={{uri: image.file}}>
+                        source={{uri: `data:image/png;base64,${image.file}`}}>
                     </Image>
                 </View>
                 <View style={imageStyles.actionsContainer}>

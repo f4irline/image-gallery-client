@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Image, View, TextInput, ScrollView } from 'react-native';
+import { SafeAreaView, Image, View, TextInput, ScrollView, Platform } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -29,13 +29,15 @@ const Upload: NavigationStackScreenComponent = (props) => {
 
         const data = new FormData();
 
-        data.append('file', image.base64);
-        data.append('properties', new Blob([JSON.stringify({
-            'name': title,
-            'description': title,
-        })], {
-            type: 'application/json'
-        }));
+        const img = {
+            uri: Platform.OS === "android" ? image.uri : image.uri.replace("file://", ""),
+            name: `${title}.jpg`,
+            type: 'image/jpeg'
+        }
+
+        data.append('file', img as any);
+        data.append('name', title),
+        data.append('description', title);
         
         dispatch(uploadImage(data, user.token));
     }

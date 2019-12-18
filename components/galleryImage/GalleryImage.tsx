@@ -19,7 +19,7 @@ interface Props {
 const GalleryImage: React.FC<Props> = (props: Props) => {
     const { height, width } = Dimensions.get('window');
     const { navigation, image} = props;
-    const imageStyles = getStyles({ height: height, width: width });
+    const imageStyles = getStyles({ screenHeight: height, screenWidth: width });
 
     return (
         <View style={[imageStyles.imageWrapper, { padding: props.padding, margin: props.spacing, borderWidth: props.borderWidth }]} >
@@ -29,7 +29,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
                 </View> : null }
             <View style={imageStyles.touchableWrapper}>
                 <TouchableOpacity style={imageStyles.touchable} onPress={() => navigation.navigate('Image', { image: image })}>
-                    <Image style={imageStyles.image} source={{uri: image.file}}/>
+                    <Image style={imageStyles.image} source={{uri: `data:image/png;base64,${image.file}`}}/>
                 </TouchableOpacity>
             </View>
         </View>
