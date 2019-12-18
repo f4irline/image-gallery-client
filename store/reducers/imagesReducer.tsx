@@ -29,6 +29,19 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
                 ...state,
                 refreshing: action.payload,
             }
+
+        case ImagesActionTypes.AddComment:
+            const imageId = action.payload.image.id;
+            return {
+                ...state,
+                images: state.images.map(image => {
+                    if (image.id === imageId) {
+                        image.comments = [...image.comments, action.payload.comment]
+                    }
+
+                    return image;
+                })
+            }
         
         default:
             return state;

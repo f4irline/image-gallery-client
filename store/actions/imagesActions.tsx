@@ -3,7 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Image } from "../../models/Image"
 
 import { api } from '../../utils';
-import { UserImage } from '../../models';
+import { Comment } from '../../models';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
@@ -11,6 +11,9 @@ export enum ImagesActionTypes {
     RefreshImages = '[Images] Refresh Images',
 
     UploadImage = '[Images] Upload Image',
+
+    SendComment = '[Images] Send Comment',
+    AddComment = '[Images] Add Comment',
 }
 
 interface LoadImagesAction {
@@ -31,6 +34,15 @@ interface UploadImageAction {
     type: ImagesActionTypes.UploadImage;
 }
 
+interface SendCommentAction {
+    type: ImagesActionTypes.SendComment;
+}
+
+interface AddCommentAction {
+    type: ImagesActionTypes.AddComment;
+    payload: { comment: Comment, image: Image };
+}
+
 const refreshImages = (state: boolean) => {
     return {
         type: ImagesActionTypes.RefreshImages,
@@ -44,6 +56,13 @@ const setImages = (images: Image[]) => {
         payload: images
     };
 };
+
+const addComment = (comment: Comment, image: Image) => {
+    return {
+        type: ImagesActionTypes.AddComment,
+        payload: { comment: comment, image: image }
+    }
+}
 
 export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
     return async (
@@ -83,4 +102,20 @@ export const uploadImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | RefreshImagesAction;
+export const sendComment = (
+    userComment: Comment, token: string, image: Image
+): ThunkAction<Promise<void>, {}, {}, SendCommentAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, AddCommentAction>
+    ): Promise<void> => {
+        try {
+            const comment = await api.post(`/comment/${image.id}/${token}`, userComment);
+            console.log(comment.data);
+            dispatch<any>(addComment(comment.data as Comment, image));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export type ImagesActions = LoadImagesAction | SetImagesAction | RefreshImagesAction | AddCommentAction;

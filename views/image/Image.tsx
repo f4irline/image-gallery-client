@@ -1,28 +1,47 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Entypo as EntypoIcon, MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
-import { Image, SafeAreaView, Text, View, ScrollView, TextInput, Platform } from 'react-native';
+import { Image, SafeAreaView, Text, View, ScrollView, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
+
+import { selectKeyboardHeight } from '../../store/reducers/preferencesReducer';
 
 import styles from '../../Styles';
 import getStyles from './Image.style';
 
-import { Image as ImageModel } from '../../models';
+import { Image as ImageModel, Comment } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { selectKeyboardHeight } from '../../store/reducers/preferencesReducer';
+import { sendComment } from '../../store/actions/imagesActions';
+import { selectUser } from '../../store/reducers/userReducer';
 
 const ImageView: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
-    const [image] = useState<ImageModel>(navigation.getParam('image'));
+
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
     const keyboardHeight = useSelector(selectKeyboardHeight);
+
+    const [image] = useState<ImageModel>(navigation.getParam('image'));
+
+    const [comment, setComment] = useState('');
+
     const imageStyles = getStyles({ width: image.width, height: image.height })
 
     const sendIcon = Platform.OS === 'ios'
         ? 'ios-send'
         : 'md-send';
+
+    const addComment = () => {
+        if (!user || !user.token) { return; }
+
+        const userComment: Comment = {
+            comment: comment,
+        }
+
+        dispatch(sendComment(userComment, user.token, image))
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -54,12 +73,12 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     <View style={imageStyles.commentsHeaderContainer}>
                         <Text style={imageStyles.commentsHeader}>Comments</Text>
                     </View>
-                    { image.comments.map(item => <ImageComment key={item.id} comment={item} />) }
+                    { image.comments.map(item => <ImageComment key={item.commentId} comment={item} />) }
                 </View>
             </ScrollView>
             <View style={[imageStyles.sendWrapper, { bottom: keyboardHeight }]}>
-                <TextInput style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
-                <TouchableOpacity>
+                <TextInput onChangeText={text => setComment(text)} style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
+                <TouchableOpacity onPress={addComment}>
                     <IonIcon style={imageStyles.sendIcon} name={sendIcon} size={25} color={'#eeeeee'} />
                 </TouchableOpacity>
             </View>

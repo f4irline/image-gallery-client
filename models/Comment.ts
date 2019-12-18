@@ -1,6 +1,6 @@
 export interface Comment {
-    author: string;
+    author?: string;
     comment: string;
-    userCanDelete: boolean;
-    id: number;
+    userCanDelete?: boolean;
+    commentId?: number;
 }
