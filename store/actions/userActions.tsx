@@ -24,7 +24,9 @@ const setUser = (user: User) => {
     };
 };
 
-export const loginUser = (name: string): ThunkAction<Promise<void>, {}, {}, LoginAction> => {
+export const loginUser = (
+    name: string
+): ThunkAction<Promise<void>, {}, {}, LoginAction> => {
     return async (
         dispatch: ThunkDispatch<{}, {}, SetUserAction>
     ): Promise<void> => {
