@@ -13,7 +13,7 @@ import { Image as ImageModel, Comment } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
-import { sendComment } from '../../store/actions/imagesActions';
+import { sendComment, voteImage } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
 
 const ImageView: NavigationStackScreenComponent = (props) => {
@@ -27,7 +27,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
 
     const [comment, setComment] = useState('');
 
-    const imageStyles = getStyles({ width: image.width, height: image.height })
+    const imageStyles = getStyles({ width: image.width, height: image.height, noToken: !user || !user.token })
 
     const sendIcon = Platform.OS === 'ios'
         ? 'ios-send'
@@ -43,6 +43,12 @@ const ImageView: NavigationStackScreenComponent = (props) => {
         dispatch(sendComment(userComment, user.token, image))
     }
 
+    const addVote = (upVote: boolean) => {
+        if (!user || !user.token) { return; }
+
+        dispatch(voteImage(user.token, image, upVote));
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={imageStyles.scrollContainer}>
@@ -55,16 +61,16 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                 </View>
                 <View style={imageStyles.actionsContainer}>
                     <View style={imageStyles.scoreContainer}>
-                        <TouchableOpacity>
-                            <EntypoIcon name={'arrow-bold-up'} size={25} color={image.upVoted ? '#09bd00' : '#eeeeee'} />
+                        <TouchableOpacity disabled={!user || !user.token} onPress={() => addVote(true)}>
+                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-up'} size={25} color={image.upVoted ? '#09bd00' : '#eeeeee'} />
                         </TouchableOpacity>
-                        <Text style={imageStyles.scoreLabel}>0</Text>
-                        <TouchableOpacity>
-                            <EntypoIcon name={'arrow-bold-down'} size={25} color={image.downVoted ? '#d10000' : '#eeeeee'} />
+                        <Text style={imageStyles.scoreLabel}>{ image.score }</Text>
+                        <TouchableOpacity disabled={!user || !user.token} onPress={() => addVote(false)}>
+                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-down'} size={25} color={image.downVoted ? '#d10000' : '#eeeeee'} />
                         </TouchableOpacity>
                     </View>
                     { !image.canDelete ? undefined : 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => addVote(false)}>
                             <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> 
                         </TouchableOpacity>
                     }
@@ -73,15 +79,17 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                     <View style={imageStyles.commentsHeaderContainer}>
                         <Text style={imageStyles.commentsHeader}>Comments</Text>
                     </View>
-                    { image.comments.map(item => <ImageComment key={item.commentId} comment={item} />) }
+                    { image.comments.map(item => <ImageComment key={`comment-${item.id}`} comment={item} />) }
                 </View>
             </ScrollView>
-            <View style={[imageStyles.sendWrapper, { bottom: keyboardHeight }]}>
-                <TextInput onChangeText={text => setComment(text)} style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
-                <TouchableOpacity onPress={addComment}>
-                    <IonIcon style={imageStyles.sendIcon} name={sendIcon} size={25} color={'#eeeeee'} />
-                </TouchableOpacity>
-            </View>
+            { !user || !user.token ? undefined :
+                <View style={[imageStyles.sendWrapper, { bottom: keyboardHeight }]}>
+                    <TextInput onChangeText={text => setComment(text)} style={[styles.textInput, imageStyles.commentInput]} placeholder="Add a comment" />
+                    <TouchableOpacity onPress={addComment}>
+                        <IonIcon style={imageStyles.sendIcon} name={sendIcon} size={25} color={'#eeeeee'} />
+                    </TouchableOpacity>
+                </View> 
+            }
         </SafeAreaView>
     )
 }

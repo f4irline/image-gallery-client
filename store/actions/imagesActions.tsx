@@ -14,6 +14,8 @@ export enum ImagesActionTypes {
 
     SendComment = '[Images] Send Comment',
     AddComment = '[Images] Add Comment',
+
+    VoteImage = '[Images] Vote Image',
 }
 
 interface LoadImagesAction {
@@ -41,6 +43,11 @@ interface SendCommentAction {
 interface AddCommentAction {
     type: ImagesActionTypes.AddComment;
     payload: { comment: Comment, image: Image };
+}
+
+interface VoteImageAction {
+    type: ImagesActionTypes.VoteImage;
+    payload: { image: Image, upVote: boolean };
 }
 
 const refreshImages = (state: boolean) => {
@@ -110,8 +117,21 @@ export const sendComment = (
     ): Promise<void> => {
         try {
             const comment = await api.post(`/comment/${image.id}/${token}`, userComment);
-            console.log(comment.data);
             dispatch<any>(addComment(comment.data as Comment, image));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export const voteImage = (
+    token: string, image: Image, upVote: boolean
+): ThunkAction<Promise<void>, {}, {}, SendCommentAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, AddCommentAction>
+    ): Promise<void> => {
+        try {
+            await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
         } catch (err) {
             console.log(err);
         }

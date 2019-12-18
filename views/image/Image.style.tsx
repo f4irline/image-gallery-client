@@ -13,11 +13,13 @@ interface Styles {
     sendWrapper: ViewStyle;
     commentInput: ViewStyle;
     sendIcon: ViewStyle;
+    voteButton: ViewStyle;
 }
 
 interface Props {
     height: number;
     width: number;
+    noToken: boolean;
 }
 
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
@@ -74,6 +76,9 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
     },
     sendIcon: {
         marginRight: 10,
+    },
+    voteButton: {
+        opacity: props.noToken ? 0.3 : 1
     }
 })
 
