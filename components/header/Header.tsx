@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import { Platform, SafeAreaView, View, Text, TouchableOpacity, BackHandler } from 'react-native';
 import { MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
 import { HeaderProps } from 'react-navigation-stack';
 
@@ -25,6 +25,13 @@ const Header: React.FC<Props> = (props: Props) => {
         });
         headerProps.navigation.pop();
     }
+
+    BackHandler.addEventListener('hardwareBackPress', function() {      
+        dispatch({
+            type: ImagesActionTypes.SetImageInView,
+            payload: undefined,
+        });
+    });      
 
     return (
         <SafeAreaView style={headerStyles.headerContainer}>
