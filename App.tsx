@@ -6,13 +6,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Provider } from 'react-redux';
 
-import store from './store/index';
+import { store, persistor } from './store/index';
 import HomeView from './views/home/Home';
 import ImageView from './views/image/Image';
 import NearView from './views/near/Near';
 import ProfileView from './views/profile/Profile';
 import UploadView from './views/upload/Upload';
 import LoginView from './views/profile/auth/login/Login';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const HomeNavigator = createStackNavigator(
     {
@@ -115,7 +116,9 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            { ready ? <AppContainer /> : null }
+            <PersistGate loading={null} persistor={persistor}>
+                { ready ? <AppContainer /> : null }
+            </PersistGate>
         </Provider>
     )
 }
