@@ -60,7 +60,6 @@ interface AddCommentAction {
 
 interface VoteImageAction {
     type: ImagesActionTypes.VoteImage;
-    payload: { image: Image, upVote: boolean };
 }
 
 const refreshImages = (state: boolean) => {
@@ -147,13 +146,19 @@ export const sendComment = (
 }
 
 export const voteImage = (
-    token: string, image: Image, upVote: boolean
+    token: string, image: Image, upVote: boolean, reset: boolean = false
 ): ThunkAction<Promise<void>, {}, {}, VoteImageAction> => {
     return async(
-        dispatch: ThunkDispatch<{}, {}, AnyAction>
+        dispatch: ThunkDispatch<{}, {}, SetImageInViewAction>
     ): Promise<void> => {
         try {
-            await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
+            if (reset) {
+                const img = await api.put(`/image/vote/${token}/${image.id}/reset`);
+                dispatch<any>(setImageToView(img.data as Image));
+            } else {
+                const img = await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
+                dispatch<any>(setImageToView(img.data as Image));
+            }
         } catch (err) {
             console.log(err);
         }

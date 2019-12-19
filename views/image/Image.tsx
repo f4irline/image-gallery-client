@@ -44,7 +44,7 @@ const ImageView: NavigationStackScreenComponent = () => {
     const addVote = (upVote: boolean) => {
         if (!user || !user.token) { return; }
 
-        dispatch(voteImage(user.token, image, upVote));
+        dispatch(voteImage(user.token, image, upVote, upVote && image.userUpVoted || !upVote && image.userDownVoted));
     }
 
     return !image ? null : (
@@ -60,11 +60,11 @@ const ImageView: NavigationStackScreenComponent = () => {
                 <View style={imageStyles.actionsContainer}>
                     <View style={imageStyles.scoreContainer}>
                         <TouchableOpacity disabled={!user || !user.token} onPress={() => addVote(true)}>
-                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-up'} size={25} color={image.upVoted ? '#09bd00' : '#eeeeee'} />
+                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-up'} size={25} color={image.userUpVoted ? '#09bd00' : '#eeeeee'} />
                         </TouchableOpacity>
                         <Text style={imageStyles.scoreLabel}>{ image.score }</Text>
                         <TouchableOpacity disabled={!user || !user.token} onPress={() => addVote(false)}>
-                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-down'} size={25} color={image.downVoted ? '#d10000' : '#eeeeee'} />
+                            <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-down'} size={25} color={image.userDownVoted ? '#d10000' : '#eeeeee'} />
                         </TouchableOpacity>
                     </View>
                     { !image.canDelete ? undefined : 

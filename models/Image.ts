@@ -7,8 +7,8 @@ export interface Image {
     author: string;
     comments: Comment[];
     score: number;
-    upVoted: boolean;
-    downVoted: boolean;
+    userUpVoted: boolean;
+    userDownVoted: boolean;
     id: number;
     file: string;
     width: number;
