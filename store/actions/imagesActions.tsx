@@ -131,12 +131,13 @@ export const uploadImage = (
         dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
     ): Promise<void> => {
         try {
-            await api.post(`/image/${token}`, data, {
+            const image = await api.post(`/image/${token}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             dispatch<any>(loadImages());
+            dispatch<any>(setImageToView(image.data as Image));
         } catch (err) {
             console.log(err);
         }

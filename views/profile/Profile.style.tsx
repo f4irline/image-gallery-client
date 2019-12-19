@@ -3,6 +3,9 @@ import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 interface Styles {
     profileContainer: ViewStyle;
     headerContainer: ViewStyle;
+    helloContainer: ViewStyle;
+    logoutContainer: ViewStyle;
+    logoutText: TextStyle;
     greeting: TextStyle;
     name: TextStyle;
     tabsContainer: ViewStyle;
@@ -14,8 +17,17 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     profileContainer: {
     },
     headerContainer: {
+        flexDirection: 'row',
         backgroundColor: '#222831',
         padding: 10,
+    },
+    helloContainer: {
+        flex: 1,
+    },
+    logoutContainer: {
+    },
+    logoutText: {
+        color: '#eeeeee',
     },
     greeting: {
         color: '#ff5722',

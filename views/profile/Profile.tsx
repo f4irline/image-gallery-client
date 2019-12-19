@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, FlatList } from 'react-native';
+import { SafeAreaView, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectImages } from '../../store/reducers/imagesReducer';
 import { selectUser } from '../../store/reducers/userReducer';
@@ -13,6 +13,7 @@ import Auth from './auth/Auth';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
+import { UserActionTypes } from '../../store/actions/userActions';
 
 enum SelectedTab {
     IMAGES = 'Images',
@@ -21,16 +22,32 @@ enum SelectedTab {
 
 const Profile: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
+    const dispatch = useDispatch();
+
     const user = useSelector(selectUser);
     const [selectedTab, setSelectedTab] = useState<SelectedTab>(SelectedTab.IMAGES);
 
     const images = useSelector(selectImages);
 
+    const logout = () => {
+        dispatch({
+            type: UserActionTypes.SetUser,
+            payload: undefined,
+        })
+    }
+
     return user ? (
         <SafeAreaView style={[styles.viewContainer, profileStyles.profileContainer]}>
             <View style={profileStyles.headerContainer}>
-                <Text style={profileStyles.greeting}>Hello,</Text>
-                <Text style={profileStyles.name}>{user.name}!</Text>
+                <View style={profileStyles.helloContainer}>
+                    <Text style={profileStyles.greeting}>Hello,</Text>
+                    <Text style={profileStyles.name}>{user.name}!</Text>
+                </View>
+                <View style={profileStyles.logoutContainer}>
+                    <TouchableOpacity onPress={logout}>
+                        <Text style={profileStyles.logoutText}>Logout</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={profileStyles.tabsContainer}>
                 <TabButton 
