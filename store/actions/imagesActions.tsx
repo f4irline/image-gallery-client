@@ -4,11 +4,15 @@ import { Image } from "../../models/Image"
 
 import { api } from '../../utils';
 import { Comment } from '../../models';
+import { AnyAction } from 'redux';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
     SetImages = '[Images] Set Images',
     RefreshImages = '[Images] Refresh Images',
+
+    LoadImage = '[Images] Load Image',
+    SetImageInView = '[Images] Set Image In View',
 
     UploadImage = '[Images] Upload Image',
 
@@ -25,6 +29,15 @@ interface LoadImagesAction {
 interface SetImagesAction {
     type: ImagesActionTypes.SetImages;
     payload: Image[];
+}
+
+interface LoadImageAction {
+    type: ImagesActionTypes.LoadImage;
+}
+
+interface SetImageInViewAction {
+    type: ImagesActionTypes.SetImageInView;
+    payload: Image;
 }
 
 interface RefreshImagesAction {
@@ -69,16 +82,25 @@ const addComment = (comment: Comment, image: Image) => {
         type: ImagesActionTypes.AddComment,
         payload: { comment: comment, image: image }
     }
-}
+};
 
-export const loadImages = (): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
+const setImageToView = (image: Image) => {
+    return {
+        type: ImagesActionTypes.SetImageInView,
+        payload: image
+    }
+};
+
+export const loadImages = (
+    token?: string
+): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
     return async (
         dispatch: ThunkDispatch<{}, {}, SetImagesAction>
     ): Promise<void> => {
         dispatch<any>(refreshImages(true));
 
         try {
-            const images = await api.get(`/image/`);
+            const images = await api.get(`/image/${token || ''}`);
             const imagesData: Image[] = images.data;
 
             dispatch<any>(setImages(imagesData));
@@ -126,9 +148,9 @@ export const sendComment = (
 
 export const voteImage = (
     token: string, image: Image, upVote: boolean
-): ThunkAction<Promise<void>, {}, {}, SendCommentAction> => {
+): ThunkAction<Promise<void>, {}, {}, VoteImageAction> => {
     return async(
-        dispatch: ThunkDispatch<{}, {}, AddCommentAction>
+        dispatch: ThunkDispatch<{}, {}, AnyAction>
     ): Promise<void> => {
         try {
             await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
@@ -138,4 +160,19 @@ export const voteImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | RefreshImagesAction | AddCommentAction;
+export const loadImage = (
+    image: Image, token?: string
+): ThunkAction<Promise<void>, {}, {}, LoadImageAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, SetImageInViewAction>
+    ): Promise<void> => {
+        try {
+            const img = await api.get(`/image/single/${image.id}/${token || ''}`);
+            dispatch<any>(setImageToView(img.data as Image));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | RefreshImagesAction | AddCommentAction;

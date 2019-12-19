@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dimensions, Image, View, Text } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -6,6 +6,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import getStyles from './GalleryImage.style';
 
 import { Image as ImageModel } from '../../models';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadImage } from '../../store/actions/imagesActions';
+import { selectUser } from '../../store/reducers/userReducer';
+import { selectImageInView } from '../../store/reducers/imagesReducer';
 
 interface Props {
     navigation: NavigationStackProp;
@@ -17,9 +21,24 @@ interface Props {
 }
 
 const GalleryImage: React.FC<Props> = (props: Props) => {
+    const dispatch = useDispatch();
+
+    const user = useSelector(selectUser);
+    const imageInView = useSelector(selectImageInView);
+
     const { height, width } = Dimensions.get('window');
-    const { navigation, image} = props;
+    const { image, navigation } = props;
     const imageStyles = getStyles({ screenHeight: height, screenWidth: width });
+
+    useEffect(() => {
+        imageInView
+            ? navigation.navigate('Image', { image: imageInView })
+            : undefined;
+    }, [imageInView])
+
+    const setImageToView = () => {
+        dispatch(loadImage(image, user?.token));
+    }
 
     return (
         <View style={[imageStyles.imageWrapper, { padding: props.padding, margin: props.spacing, borderWidth: props.borderWidth }]} >
@@ -28,7 +47,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
                     <Text style={imageStyles.description}>{props.image.description}</Text>
                 </View> : null }
             <View style={imageStyles.touchableWrapper}>
-                <TouchableOpacity style={imageStyles.touchable} onPress={() => navigation.navigate('Image', { image: image })}>
+                <TouchableOpacity style={imageStyles.touchable} onPress={setImageToView}>
                     <Image style={imageStyles.image} source={{uri: `data:image/png;base64,${image.file}`}}/>
                 </TouchableOpacity>
             </View>

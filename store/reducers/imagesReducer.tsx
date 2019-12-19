@@ -9,11 +9,13 @@ import { AppState } from '../index';
 export interface ImagesState {
     images: Image[];
     refreshing: boolean;
+    imageInView: Image | undefined;
 }
 
 export const initialState: ImagesState = {
     images: [],
     refreshing: false,
+    imageInView: undefined,
 };
 
 export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: ImagesState = initialState, action: ImagesActions) => {
@@ -31,16 +33,25 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
             }
 
         case ImagesActionTypes.AddComment:
-            const imageId = action.payload.image.id;
             return {
                 ...state,
+                imageInView: {
+                    ...state.imageInView,
+                    comments: [...state.imageInView.comments, action.payload.comment]
+                },
                 images: state.images.map(image => {
-                    if (image.id === imageId) {
+                    if (image.id === action.payload.image.id) {
                         image.comments = [...image.comments, action.payload.comment]
                     }
 
                     return image;
                 })
+            }
+
+        case ImagesActionTypes.SetImageInView:
+            return {
+                ...state,
+                imageInView: action.payload
             }
         
         default:
@@ -50,3 +61,4 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
 
 export const selectImages = (state: AppState) => state.imagesState.images;
 export const selectRefreshingImages = (state: AppState) => state.imagesState.refreshing;
+export const selectImageInView = (state: AppState) => state.imagesState.imageInView;

@@ -15,19 +15,17 @@ import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
 import { sendComment, voteImage } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
+import { selectImageInView } from '../../store/reducers/imagesReducer';
 
-const ImageView: NavigationStackScreenComponent = (props) => {
-    const { navigation } = props;
-
+const ImageView: NavigationStackScreenComponent = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const keyboardHeight = useSelector(selectKeyboardHeight);
-
-    const [image] = useState<ImageModel>(navigation.getParam('image'));
+    const image = useSelector(selectImageInView);
 
     const [comment, setComment] = useState('');
 
-    const imageStyles = getStyles({ width: image.width, height: image.height, noToken: !user || !user.token })
+    const imageStyles = getStyles({ width: image?.width, height: image?.height, noToken: !user || !user.token })
 
     const sendIcon = Platform.OS === 'ios'
         ? 'ios-send'
@@ -49,7 +47,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
         dispatch(voteImage(user.token, image, upVote));
     }
 
-    return (
+    return !image ? null : (
         <SafeAreaView style={styles.container}>
             <ScrollView style={imageStyles.scrollContainer}>
                 <View style={imageStyles.imageWrapper}>
