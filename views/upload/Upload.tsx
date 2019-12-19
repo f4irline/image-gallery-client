@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Image, View, TextInput, ScrollView, Platform } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,9 @@ import { UserImage } from '../../models';
 
 import Header from '../../components/header/Header';
 import GalleryButton from '../../components/galleryButton/GalleryButton';
-import { uploadImage } from '../../store/actions/imagesActions';
+import { uploadImage, ImagesActionTypes } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
+import { selectUploadSuccess } from '../../store/reducers/imagesReducer';
 
 const Upload: NavigationStackScreenComponent = (props) => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Upload: NavigationStackScreenComponent = (props) => {
     const [title, setTitle] = useState('');
     
     const user = useSelector(selectUser);
+    const uploadSuccess = useSelector(selectUploadSuccess);
 
     const uploadStyles = getStyles({ width: image.width, height: image.height })
 
@@ -41,6 +43,15 @@ const Upload: NavigationStackScreenComponent = (props) => {
         
         dispatch(uploadImage(data, user.token));
     }
+
+    useEffect(() => {
+        if (uploadSuccess) {
+            navigation.pop();
+            dispatch({
+                type: ImagesActionTypes.SetUploadSuccess,
+            });
+        }
+    }, [uploadSuccess])
 
     return (
         <SafeAreaView style={[styles.container, uploadStyles.uploadContainer]}>

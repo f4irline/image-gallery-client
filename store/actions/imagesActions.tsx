@@ -15,6 +15,7 @@ export enum ImagesActionTypes {
     SetImageInView = '[Images] Set Image In View',
 
     UploadImage = '[Images] Upload Image',
+    SetUploadSuccess = '[Images] Upload Success',
 
     SendComment = '[Images] Send Comment',
     AddComment = '[Images] Add Comment',
@@ -48,6 +49,11 @@ interface RefreshImagesAction {
 
 interface UploadImageAction {
     type: ImagesActionTypes.UploadImage;
+}
+
+interface SetUploadSuccessAction {
+    type: ImagesActionTypes.SetUploadSuccess;
+    payload: { success?: boolean, image?: Image };
 }
 
 interface SendCommentAction {
@@ -103,6 +109,13 @@ const setImageToView = (image: Image) => {
     }
 };
 
+const uploadSuccess = (success: boolean, image: Image) => {
+    return {
+        type: ImagesActionTypes.SetUploadSuccess,
+        payload: { success: success, image: image },
+    }
+}
+
 export const loadImages = (
     token?: string
 ): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
@@ -137,7 +150,7 @@ export const uploadImage = (
                 },
             });
             dispatch<any>(loadImages());
-            dispatch<any>(setImageToView(image.data as Image));
+            dispatch<any>(uploadSuccess(true, image.data as Image));
         } catch (err) {
             console.log(err);
         }
@@ -209,4 +222,4 @@ export const loadImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;
+export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | SetUploadSuccessAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;

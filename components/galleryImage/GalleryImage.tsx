@@ -31,9 +31,9 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
     const imageStyles = getStyles({ screenHeight: height, screenWidth: width });
 
     useEffect(() => {
-        imageInView
-            ? navigation.navigate('Image', { image: imageInView })
-            : undefined;
+        if (imageInView) {
+            navigation.navigate('Image', { image: imageInView });
+        }
     }, [imageInView])
 
     const setImageToView = () => {
