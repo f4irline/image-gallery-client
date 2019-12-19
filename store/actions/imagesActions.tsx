@@ -18,6 +18,7 @@ export enum ImagesActionTypes {
 
     SendComment = '[Images] Send Comment',
     AddComment = '[Images] Add Comment',
+    RemoveComment = '[Images] Remove Comment',
 
     VoteImage = '[Images] Vote Image',
 }
@@ -58,6 +59,11 @@ interface AddCommentAction {
     payload: { comment: Comment, image: Image };
 }
 
+interface RemoveCommentAction {
+    type: ImagesActionTypes.RemoveComment;
+    payload: { comment: Comment };
+}
+
 interface VoteImageAction {
     type: ImagesActionTypes.VoteImage;
 }
@@ -82,6 +88,13 @@ const addComment = (comment: Comment, image: Image) => {
         payload: { comment: comment, image: image }
     }
 };
+
+const removeComment = (comment: Comment) => {
+    return {
+        type: ImagesActionTypes.RemoveComment,
+        payload: { comment: comment }
+    }
+}
 
 const setImageToView = (image: Image) => {
     return {
@@ -145,6 +158,21 @@ export const sendComment = (
     }
 }
 
+export const deleteComment = (
+    userComment: Comment, token: string, 
+): ThunkAction<Promise<void>, {}, {}, RemoveCommentAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, AnyAction>
+    ): Promise<void> => {
+        try {
+            await api.delete(`/comment/${token}/${userComment.id}`)
+            dispatch<any>(removeComment(userComment));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
 export const voteImage = (
     token: string, image: Image, upVote: boolean, reset: boolean = false
 ): ThunkAction<Promise<void>, {}, {}, VoteImageAction> => {
@@ -180,4 +208,4 @@ export const loadImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | RefreshImagesAction | AddCommentAction;
+export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;

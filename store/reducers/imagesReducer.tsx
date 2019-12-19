@@ -37,15 +37,17 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
                 ...state,
                 imageInView: {
                     ...state.imageInView,
-                    comments: [...state.imageInView.comments, action.payload.comment]
+                    comments: [action.payload.comment, ...state.imageInView.comments]
                 },
-                images: state.images.map(image => {
-                    if (image.id === action.payload.image.id) {
-                        image.comments = [...image.comments, action.payload.comment]
-                    }
+            }
 
-                    return image;
-                })
+        case ImagesActionTypes.RemoveComment:
+            return {
+                ...state,
+                imageInView: {
+                    ...state.imageInView,
+                    comments: [...state.imageInView.comments].filter(comment => comment.id !== action.payload.comment.id)
+                },
             }
 
         case ImagesActionTypes.SetImageInView:
