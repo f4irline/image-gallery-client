@@ -216,7 +216,7 @@ export const uploadImage = (
         dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
     ): Promise<void> => {
         try {
-            const image = await api.post(`/image/${token}`, data, {
+            await api.post(`/image/${token}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
