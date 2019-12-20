@@ -8,14 +8,18 @@ import { AppState } from '../index';
 
 export interface ImagesState {
     images: Image[];
-    refreshing: boolean;
+    userImages: Image[];
+    refreshingImages: boolean;
+    refreshingUserImages: boolean;
     imageInView: Image | undefined;
     uploadSuccess: boolean;
 }
 
 export const initialState: ImagesState = {
     images: [],
-    refreshing: false,
+    userImages: [],
+    refreshingImages: false,
+    refreshingUserImages: false,
     imageInView: undefined,
     uploadSuccess: false,
 };
@@ -28,11 +32,24 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
                 images: action.payload,
             }
 
+        case ImagesActionTypes.SetUserImages:
+            return {
+                ...state,
+                userImages: action.payload,
+            }
+
         case ImagesActionTypes.RefreshImages:
             return {
                 ...state,
-                refreshing: action.payload,
+                refreshingImages: action.payload,
             }
+
+        case ImagesActionTypes.RefreshUserImages:
+            return {
+                ...state,
+                refreshingUserImages: action.payload,
+            }
+    
 
         case ImagesActionTypes.AddComment:
             return {
@@ -65,6 +82,10 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
                 images: [
                     ...state.images,
                     action.payload.image
+                ],
+                userImages: [
+                    ...state.userImages,
+                    action.payload.image
                 ]
             }
         
@@ -74,6 +95,8 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
 }
 
 export const selectImages = (state: AppState) => state.imagesState.images;
-export const selectRefreshingImages = (state: AppState) => state.imagesState.refreshing;
+export const selectUserImages = (state: AppState) => state.imagesState.userImages;
+export const selectRefreshingImages = (state: AppState) => state.imagesState.refreshingImages;
 export const selectImageInView = (state: AppState) => state.imagesState.imageInView;
 export const selectUploadSuccess = (state: AppState) => state.imagesState.uploadSuccess;
+export const selectRefreshingUserImages = (state: AppState) => state.imagesState.refreshingUserImages;

@@ -18,7 +18,8 @@ export interface AppState {
 const persistConfig = {
 	key: 'root',
 	storage: AsyncStorage,
-	whiteList: ['userState']
+    whiteList: ['userState'],
+    blackList: ['imagesState']
 };
 
 const rootReducer = combineReducers({

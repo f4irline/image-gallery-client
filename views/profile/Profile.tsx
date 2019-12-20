@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, Text, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectImages } from '../../store/reducers/imagesReducer';
+import { selectUserImages, selectRefreshingUserImages } from '../../store/reducers/imagesReducer';
 import { selectUser } from '../../store/reducers/userReducer';
 
 import styles from '../../Styles';
@@ -13,7 +13,8 @@ import Auth from './auth/Auth';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
-import { UserActionTypes } from '../../store/actions/userActions';
+import { UserActionTypes, logoutUser } from '../../store/actions/userActions';
+import { loadUserImages } from '../../store/actions/imagesActions';
 
 enum SelectedTab {
     IMAGES = 'Images',
@@ -25,15 +26,22 @@ const Profile: NavigationStackScreenComponent = (props) => {
     const dispatch = useDispatch();
 
     const user = useSelector(selectUser);
+    const refreshing = useSelector(selectRefreshingUserImages);
     const [selectedTab, setSelectedTab] = useState<SelectedTab>(SelectedTab.IMAGES);
 
-    const images = useSelector(selectImages);
+    const images = useSelector(selectUserImages);
 
     const logout = () => {
-        dispatch({
-            type: UserActionTypes.SetUser,
-            payload: undefined,
-        })
+        dispatch(logoutUser());
+    }
+
+    useEffect(() => {
+        if (!user || !user.token) { return; }
+        dispatch(loadUserImages(user.token));
+    }, [user])
+
+    const refreshImages = () => {
+        dispatch(loadUserImages(user.token));
     }
 
     return user ? (
@@ -65,7 +73,10 @@ const Profile: NavigationStackScreenComponent = (props) => {
                     style={profileStyles.imageList}
                     keyExtractor={item => `image-${item.id}`}
                     data={images} 
-                    renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}>
+                    renderItem={({ item }) => <GalleryImage navigation={navigation} image={ item }/>}
+                    refreshControl={
+                        <RefreshControl onRefresh={refreshImages} refreshing={refreshing}/>
+                    }>
                 </FlatList> : null }
             <FloatingButton navigation={navigation} />
         </SafeAreaView>

@@ -1,11 +1,13 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { api } from "../../utils";
 import { User } from "../../models";
-import { ActionSheetIOS } from "react-native";
+import { AnyAction } from "redux";
+import { setUserImages } from "../actions/imagesActions";
 
 export enum UserActionTypes {
     SetUser = '[User] Set User',
     Login = '[User] Login',
+    Logout = '[User] Logout'
 }
 
 interface SetUserAction {
@@ -17,7 +19,11 @@ interface LoginAction {
     type: UserActionTypes.Login,
 }
 
-const setUser = (user: User) => {
+interface LogoutAction {
+    type: UserActionTypes.Logout,
+}
+
+const setUser = (user: User | undefined) => {
     return {
         type: UserActionTypes.SetUser,
         payload: user
@@ -41,6 +47,15 @@ export const loginUser = (
         } catch (err) {
             console.log(err);
         }
+    }
+}
+
+export const logoutUser = (): ThunkAction<Promise<void>, {}, {}, LogoutAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, AnyAction>
+    ): Promise<void> => {
+        dispatch<any>(setUserImages([]));
+        dispatch<any>(setUser(undefined));
     }
 }
 

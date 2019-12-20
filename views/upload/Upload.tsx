@@ -49,6 +49,7 @@ const Upload: NavigationStackScreenComponent = (props) => {
             navigation.pop();
             dispatch({
                 type: ImagesActionTypes.SetUploadSuccess,
+                payload: { success: false }
             });
         }
     }, [uploadSuccess])

@@ -11,6 +11,10 @@ export enum ImagesActionTypes {
     SetImages = '[Images] Set Images',
     RefreshImages = '[Images] Refresh Images',
 
+    LoadUserImages = '[Images] Load User Images',
+    SetUserImages = '[Images] Set User Images',
+    RefreshUserImages = '[Images] Refresh User Images',
+
     LoadImage = '[Images] Load Image',
     SetImageInView = '[Images] Set Image In View',
 
@@ -33,6 +37,15 @@ interface SetImagesAction {
     payload: Image[];
 }
 
+interface LoadUserImagesAction {
+    type: ImagesActionTypes.LoadUserImages;
+}
+
+interface SetUserImagesAction {
+    type: ImagesActionTypes.SetUserImages;
+    payload: Image[];
+}
+
 interface LoadImageAction {
     type: ImagesActionTypes.LoadImage;
 }
@@ -44,6 +57,11 @@ interface SetImageInViewAction {
 
 interface RefreshImagesAction {
     type: ImagesActionTypes.RefreshImages;
+    payload: boolean;
+}
+
+interface RefreshUserImagesAction {
+    type: ImagesActionTypes.RefreshUserImages;
     payload: boolean;
 }
 
@@ -77,6 +95,13 @@ interface VoteImageAction {
 const refreshImages = (state: boolean) => {
     return {
         type: ImagesActionTypes.RefreshImages,
+        payload: state,
+    }
+}
+
+const refreshUserImages = (state: boolean) => {
+    return {
+        type: ImagesActionTypes.RefreshUserImages,
         payload: state,
     }
 }
@@ -116,6 +141,13 @@ const uploadSuccess = (success: boolean, image: Image) => {
     }
 }
 
+export const setUserImages = (images: Image[]) => {
+    return {
+        type: ImagesActionTypes.SetUserImages,
+        payload: images,
+    }
+}
+
 export const loadImages = (
     token?: string
 ): ThunkAction<Promise<void>, {}, {}, LoadImagesAction> => {
@@ -137,6 +169,27 @@ export const loadImages = (
     }
 }
 
+export const loadUserImages = (
+    token: string
+): ThunkAction<Promise<void>, {}, {}, LoadUserImagesAction> => {
+    return async (
+        dispatch: ThunkDispatch<{}, {}, SetUserImagesAction>
+    ): Promise<void> => {
+        dispatch<any>(refreshUserImages(true));
+
+        try {
+            const images = await api.get(`/image/user/${token}`);
+            const imagesData: Image[] = images.data;
+
+            dispatch<any>(setUserImages(imagesData));
+            dispatch<any>(refreshUserImages(false));
+        } catch (err) {
+            dispatch<any>(refreshUserImages(false));
+            console.log(err);
+        }
+    }
+}
+
 export const uploadImage = (
     data: FormData, token: string
 ): ThunkAction<Promise<void>, {}, {}, UploadImageAction> => {
@@ -149,7 +202,7 @@ export const uploadImage = (
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            dispatch<any>(loadImages());
+
             dispatch<any>(uploadSuccess(true, image.data as Image));
         } catch (err) {
             console.log(err);
@@ -222,4 +275,4 @@ export const loadImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | SetImageInViewAction | SetUploadSuccessAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;
+export type ImagesActions = LoadImagesAction | SetImagesAction | SetUserImagesAction | SetImageInViewAction | SetUploadSuccessAction | RefreshUserImagesAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;
