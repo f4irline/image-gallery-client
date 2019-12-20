@@ -21,6 +21,9 @@ export enum ImagesActionTypes {
     UploadImage = '[Images] Upload Image',
     SetUploadSuccess = '[Images] Upload Success',
 
+    RemoveImage = '[Images] Remove Image',
+    RemoveImageSuccess = '[Images] Remove Image Success',
+
     SendComment = '[Images] Send Comment',
     AddComment = '[Images] Add Comment',
     RemoveComment = '[Images] Remove Comment',
@@ -35,6 +38,15 @@ interface LoadImagesAction {
 interface SetImagesAction {
     type: ImagesActionTypes.SetImages;
     payload: Image[];
+}
+
+interface RemoveImageAction {
+    type: ImagesActionTypes.RemoveImage,
+}
+
+interface RemoveImageSuccessAction {
+    type: ImagesActionTypes.RemoveImageSuccess,
+    payload: Image;
 }
 
 interface LoadUserImagesAction {
@@ -71,7 +83,7 @@ interface UploadImageAction {
 
 interface SetUploadSuccessAction {
     type: ImagesActionTypes.SetUploadSuccess;
-    payload: { success?: boolean, image?: Image };
+    payload: { success?: boolean };
 }
 
 interface SendCommentAction {
@@ -97,14 +109,14 @@ const refreshImages = (state: boolean) => {
         type: ImagesActionTypes.RefreshImages,
         payload: state,
     }
-}
+};
 
 const refreshUserImages = (state: boolean) => {
     return {
         type: ImagesActionTypes.RefreshUserImages,
         payload: state,
     }
-}
+};
 
 const setImages = (images: Image[]) => {
     return {
@@ -125,7 +137,7 @@ const removeComment = (comment: Comment) => {
         type: ImagesActionTypes.RemoveComment,
         payload: { comment: comment }
     }
-}
+};
 
 const setImageToView = (image: Image) => {
     return {
@@ -134,17 +146,24 @@ const setImageToView = (image: Image) => {
     }
 };
 
-const uploadSuccess = (success: boolean, image: Image) => {
+const uploadSuccess = (success: boolean) => {
     return {
         type: ImagesActionTypes.SetUploadSuccess,
-        payload: { success: success, image: image },
+        payload: { success: success },
     }
-}
+};
 
-export const setUserImages = (images: Image[]) => {
+const setUserImages = (images: Image[]) => {
     return {
         type: ImagesActionTypes.SetUserImages,
         payload: images,
+    }
+};
+
+const removeImageSuccess = (image: Image) => {
+    return {
+        type: ImagesActionTypes.RemoveImageSuccess,
+        payload: image,
     }
 }
 
@@ -203,7 +222,9 @@ export const uploadImage = (
                 },
             });
 
-            dispatch<any>(uploadSuccess(true, image.data as Image));
+            dispatch<any>(loadUserImages(token));
+            dispatch<any>(loadImages(token));
+            dispatch<any>(uploadSuccess(true));
         } catch (err) {
             console.log(err);
         }
@@ -275,4 +296,23 @@ export const loadImage = (
     }
 }
 
-export type ImagesActions = LoadImagesAction | SetImagesAction | SetUserImagesAction | SetImageInViewAction | SetUploadSuccessAction | RefreshUserImagesAction | RefreshImagesAction | AddCommentAction | RemoveCommentAction;
+export const deleteImage = (
+    image: Image, token: string
+): ThunkAction<Promise<void>, {}, {}, RemoveImageAction> => {
+    return async(
+        dispatch: ThunkDispatch<{}, {}, RemoveImageSuccessAction>
+    ): Promise<void> => {
+        try {
+            await api.delete(`/image/${token}/${image.id}`);
+            dispatch<any>(removeImageSuccess(image));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export type ImagesActions = 
+    LoadImagesAction | SetImagesAction | SetUserImagesAction | 
+    SetImageInViewAction | SetUploadSuccessAction | RefreshUserImagesAction | 
+    RefreshImagesAction | AddCommentAction | RemoveCommentAction |
+    RemoveImageSuccessAction;

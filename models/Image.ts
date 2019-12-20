@@ -3,7 +3,7 @@ import { Comment } from "./Comment";
 export interface Image {
     name: string;
     description: string;
-    canDelete: boolean;
+    userCanDelete: boolean;
     author: string;
     comments: Comment[];
     score: number;

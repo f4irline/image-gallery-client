@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Entypo as EntypoIcon, MaterialIcons as MaterialIcon, Ionicons as IonIcon } from '@expo/vector-icons';
 import { Image, SafeAreaView, Text, View, ScrollView, TextInput, TouchableOpacity, Platform } from 'react-native';
@@ -13,11 +13,13 @@ import { Image as ImageModel, Comment } from '../../models';
 
 import ImageComment from '../../components/comment/Comment';
 import Header from '../../components/header/Header';
-import { sendComment, voteImage } from '../../store/actions/imagesActions';
+import { sendComment, voteImage, deleteImage } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
 import { selectImageInView } from '../../store/reducers/imagesReducer';
 
-const ImageView: NavigationStackScreenComponent = () => {
+const ImageView: NavigationStackScreenComponent = (props) => {
+    const { navigation } = props;
+
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const keyboardHeight = useSelector(selectKeyboardHeight);
@@ -30,6 +32,12 @@ const ImageView: NavigationStackScreenComponent = () => {
     const sendIcon = Platform.OS === 'ios'
         ? 'ios-send'
         : 'md-send';
+
+    useEffect(() => {
+        if (!image) {
+            navigation.pop();
+        }
+    }, [image])
 
     const addComment = () => {
         if (!user || !user.token) { return; }
@@ -45,6 +53,12 @@ const ImageView: NavigationStackScreenComponent = () => {
         if (!user || !user.token) { return; }
 
         dispatch(voteImage(user.token, image, upVote, upVote && image.userUpVoted || !upVote && image.userDownVoted));
+    }
+
+    const removeImage = () => {
+        if (!user || !user.token) { return; }
+
+        dispatch(deleteImage(image, user.token));
     }
 
     return !image ? null : (
@@ -67,8 +81,8 @@ const ImageView: NavigationStackScreenComponent = () => {
                             <EntypoIcon style={imageStyles.voteButton} name={'arrow-bold-down'} size={25} color={image.userDownVoted ? '#d10000' : '#eeeeee'} />
                         </TouchableOpacity>
                     </View>
-                    { !image.canDelete ? undefined : 
-                        <TouchableOpacity onPress={() => addVote(false)}>
+                    { !image.userCanDelete ? undefined : 
+                        <TouchableOpacity onPress={() => removeImage()}>
                             <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> 
                         </TouchableOpacity>
                     }

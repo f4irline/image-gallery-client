@@ -79,14 +79,14 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (state: Images
             return {
                 ...state,
                 uploadSuccess: action.payload.success,
-                images: [
-                    ...state.images,
-                    action.payload.image
-                ],
-                userImages: [
-                    ...state.userImages,
-                    action.payload.image
-                ]
+            }
+        
+        case ImagesActionTypes.RemoveImageSuccess:
+            return {
+                ...state,
+                imageInView: undefined,
+                images: state.images.filter(img => img.id !== action.payload.id),
+                userImages: state.userImages.filter(img => img.id !== action.payload.id)
             }
         
         default:

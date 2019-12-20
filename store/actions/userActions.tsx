@@ -2,7 +2,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { api } from "../../utils";
 import { User } from "../../models";
 import { AnyAction } from "redux";
-import { setUserImages } from "../actions/imagesActions";
+import { ImagesActionTypes } from "../actions/imagesActions";
 
 export enum UserActionTypes {
     SetUser = '[User] Set User',
@@ -54,7 +54,10 @@ export const logoutUser = (): ThunkAction<Promise<void>, {}, {}, LogoutAction> =
     return async(
         dispatch: ThunkDispatch<{}, {}, AnyAction>
     ): Promise<void> => {
-        dispatch<any>(setUserImages([]));
+        dispatch<any>({
+            type: ImagesActionTypes.SetUserImages,
+            payload: [],
+        });
         dispatch<any>(setUser(undefined));
     }
 }

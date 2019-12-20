@@ -37,7 +37,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
     }, [imageInView])
 
     const setImageToView = () => {
-        dispatch(loadImage(image, user?.token));
+        dispatch(loadImage(image, user && user.token ? user.token : undefined));
     }
 
     return (
