@@ -14,6 +14,7 @@ import ProfileView from './views/profile/Profile';
 import UploadView from './views/upload/Upload';
 import LoginView from './views/profile/auth/login/Login';
 import { PersistGate } from 'redux-persist/integration/react';
+import { StatusBar, StatusBarStyle } from 'react-native';
 
 const HomeNavigator = createStackNavigator(
     {
@@ -103,6 +104,7 @@ const App = () => {
 
     useEffect(() => {
         loadFonts();
+        StatusBar.setBarStyle('light-content')
     }, [])
 
     const loadFonts = async () => {
