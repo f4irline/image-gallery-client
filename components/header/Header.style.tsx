@@ -30,10 +30,12 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     title: {
         color: '#eeeeee',
         fontSize: 18,
+        fontFamily: 'Rubik'
     },
     subtitle: {
         color: '#c7c7c7',
         fontSize: 12,
+        fontFamily: 'Rubik'
     }
 })
 
