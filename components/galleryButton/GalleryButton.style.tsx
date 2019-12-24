@@ -2,6 +2,7 @@ import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 interface Styles {
     buttonContainer: ViewStyle;
+    disabled: ViewStyle;
     buttonTitle: TextStyle;
 }
 
@@ -17,6 +18,9 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         shadowOpacity: 0.3,
         shadowRadius: 4,
         elevation: 4,
+    },
+    disabled: {
+        opacity: 0.5,
     },
     buttonTitle: {
         fontFamily: 'Rubik-Bold',
