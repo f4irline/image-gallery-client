@@ -1,11 +1,11 @@
-import { StyleSheet, ViewStyle, ImageStyle } from 'react-native';
+import { StyleSheet, ViewStyle, ImageStyle, Platform } from 'react-native';
 
 interface Styles {
     uploadContainer: ViewStyle;
     imageWrapper: ViewStyle;
     image: ImageStyle;
     fieldsWrapper: ViewStyle;
-    titleField: ViewStyle;
+    field: ViewStyle;
 }
 
 interface Props {
@@ -16,6 +16,8 @@ interface Props {
 const getStyles = (props: Props) => StyleSheet.create<Styles>({
     uploadContainer: {
         flex: 1,
+        paddingStart: 10,
+        paddingEnd: 10,
         paddingHorizontal: 10,
         paddingVertical: 10,
     },
@@ -24,6 +26,7 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         borderWidth: 2,
         borderColor: '#eeeeee',
         borderRadius: 5,
+        marginTop: Platform.OS === 'ios' ? 10 : 0,
     },
     image: {
         flex: 1,
@@ -35,8 +38,8 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         marginTop: 20,
         justifyContent: 'flex-end',
     },
-    titleField: {
-        marginBottom: 5,
+    field: {
+        marginBottom: 10,
     }
 })
 
