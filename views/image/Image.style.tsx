@@ -3,6 +3,8 @@ import { StyleSheet, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 interface Styles {
     scrollContainer: ViewStyle;
     imageWrapper: ViewStyle;
+    descriptionWrapper: ViewStyle;
+    descriptionText: TextStyle;
     image: ImageStyle;
     actionsContainer: ViewStyle;
     scoreContainer: ViewStyle;
@@ -35,6 +37,19 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
         height: undefined,
         aspectRatio: props.height / props.height
     },
+    descriptionWrapper: {
+        backgroundColor: '#222831',
+        paddingTop: 5,
+        paddingBottom: 10,
+        paddingHorizontal: 5,
+        borderBottomColor: '#eeeeee',
+        borderBottomWidth: 1,
+    },
+    descriptionText: {
+        color: '#eeeeee',
+        fontSize: 14,
+        fontFamily: 'Rubik'
+    },
     actionsContainer: {
         padding: 5,
         flexDirection: 'row',
@@ -64,6 +79,7 @@ const getStyles = (props: Props) => StyleSheet.create<Styles>({
     commentsHeader: {
         fontSize: 20,
         color: '#eeeeee',
+        fontFamily: 'Rubik'
     },
     sendWrapper: {
         alignItems: 'center',
