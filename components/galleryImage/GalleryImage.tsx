@@ -44,7 +44,7 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
         <View style={[imageStyles.imageWrapper, { padding: props.padding, margin: props.spacing, borderWidth: props.borderWidth }]} >
             { props.description ?
                 <View style={imageStyles.infoWrapper}>
-                    <Text style={imageStyles.description}>{props.image.description}</Text>
+                    <Text style={imageStyles.description}>{props.image.name}</Text>
                 </View> : null }
             <View style={imageStyles.touchableWrapper}>
                 <TouchableOpacity style={imageStyles.touchable} onPress={setImageToView}>
