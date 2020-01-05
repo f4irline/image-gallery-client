@@ -83,9 +83,10 @@ const getStyles = (props: Props) =>
             fontFamily: 'Rubik',
         },
         sendWrapper: {
+            padding: 5,
             alignItems: 'center',
             flexDirection: 'row',
-            backgroundColor: '#222831',
+            backgroundColor: '#353d4a',
         },
         commentInput: {
             flex: 1,
