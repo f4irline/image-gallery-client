@@ -29,7 +29,7 @@ const Login: NavigationStackScreenComponent = (props) => {
                 <Text style={styles.inputLabel}>Username</Text>
                 <TextInput onChangeText={(text) => setUserName(text)} value={userName} placeholder='Username' style={styles.textInput}/>
             </View>
-            <GalleryButton onPress={login} title='Log in'/>
+            <GalleryButton disabled={!userName.length} onPress={login} title='Log in'/>
         </SafeAreaView>
     )
 }

@@ -5,12 +5,13 @@ import galleryButtonStyle from './GalleryButton.style';
 
 interface Props {
     title: string;
+    disabled?: boolean;
     onPress: () => void;
 }
 
 const GalleryButton: React.FC<Props> = (props: Props) => {
     return (
-        <TouchableOpacity onPress={props.onPress} style={galleryButtonStyle.buttonContainer}>
+        <TouchableOpacity disabled={props.disabled} onPress={props.onPress} style={[galleryButtonStyle.buttonContainer, props.disabled ? galleryButtonStyle.disabled : undefined]}>
             <Text style={galleryButtonStyle.buttonTitle}>{props.title}</Text>
         </TouchableOpacity>
     )

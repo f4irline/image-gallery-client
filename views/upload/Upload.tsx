@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Image, View, TextInput, ScrollView, Platform } from 'react-native';
+import { SafeAreaView, Image, View, TextInput, ScrollView, Platform, Text } from 'react-native';
 import { NavigationStackScreenComponent, HeaderProps } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +20,7 @@ const Upload: NavigationStackScreenComponent = (props) => {
     const { navigation } = props;
     const [image] = useState<UserImage>(navigation.getParam('image'));
     const [title, setTitle] = useState('');
+    const [description, setDescription]= useState('');
     
     const user = useSelector(selectUser);
     const uploadSuccess = useSelector(selectUploadSuccess);
@@ -39,7 +40,7 @@ const Upload: NavigationStackScreenComponent = (props) => {
 
         data.append('file', img as any);
         data.append('name', title),
-        data.append('description', title);
+        data.append('description', description);
         
         dispatch(uploadImage(data, user.token));
     }
@@ -64,12 +65,23 @@ const Upload: NavigationStackScreenComponent = (props) => {
                         source={{uri: image.uri}} />
                 </View>
                 <View style={uploadStyles.fieldsWrapper}>
-                    <TextInput
-                        onChangeText={text => setTitle(text)}
-                        value={title}
-                        style={[styles.textInput, uploadStyles.titleField]}
-                        placeholder='Image title' />
-                    <GalleryButton onPress={submitImage} title='Submit' />
+                    <View>
+                        <Text style={styles.inputLabel}>Title</Text>
+                        <TextInput
+                            onChangeText={text => setTitle(text)}
+                            value={title}
+                            style={[styles.textInput, uploadStyles.field]}
+                            placeholder='Title' />
+                    </View>
+                    <View>
+                        <Text style={styles.inputLabel}>Description</Text>
+                        <TextInput
+                            onChangeText={text => setDescription(text)}
+                            value={description}
+                            style={[styles.textInput, uploadStyles.field]}
+                            placeholder='Title' />
+                    </View>
+                    <GalleryButton disabled={!title.length} onPress={submitImage} title='Submit' />
                 </View>
             </ScrollView>
         </SafeAreaView>

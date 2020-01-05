@@ -71,6 +71,11 @@ const ImageView: NavigationStackScreenComponent = (props) => {
                         source={{uri: `data:image/png;base64,${image.file}`}}>
                     </Image>
                 </View>
+                { !image.description.length ? undefined : 
+                    <View style={imageStyles.descriptionWrapper}>
+                        <Text style={imageStyles.descriptionText}>{image.description}</Text>
+                    </View>
+                }
                 <View style={imageStyles.actionsContainer}>
                     <View style={imageStyles.scoreContainer}>
                         <TouchableOpacity disabled={!user || !user.token} onPress={() => addVote(true)}>
@@ -109,7 +114,7 @@ const ImageView: NavigationStackScreenComponent = (props) => {
 ImageView.navigationOptions = ({navigation}) => {
     const image = navigation.getParam('image') as ImageModel;
     return {
-        header: (props: HeaderProps) => <Header headerProps={props} title={image.description} subtitle={`By: ${image.author}`} />
+        header: (props: HeaderProps) => <Header headerProps={props} title={image.name} subtitle={`By: ${image.author}`} />
     }
 }
 
