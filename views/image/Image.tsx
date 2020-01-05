@@ -71,6 +71,7 @@ const ImageView: NavigationStackScreenComponent = props => {
         };
 
         dispatch(sendComment(userComment, user.token, image));
+        setComment('');
     };
 
     const addVote = (upVote: boolean) => {
@@ -180,6 +181,7 @@ const ImageView: NavigationStackScreenComponent = props => {
                         { bottom: keyboardHeight },
                     ]}>
                     <TextInput
+                        value={comment}
                         onChangeText={text => setComment(text)}
                         style={[styles.textInput, imageStyles.commentInput]}
                         placeholder="Add a comment"
