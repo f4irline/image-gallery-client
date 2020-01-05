@@ -14,8 +14,7 @@ interface Styles {
 }
 
 const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
-    profileContainer: {
-    },
+    profileContainer: {},
     headerContainer: {
         flexDirection: 'row',
         backgroundColor: '#222831',
@@ -24,8 +23,7 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     helloContainer: {
         flex: 1,
     },
-    logoutContainer: {
-    },
+    logoutContainer: {},
     logoutText: {
         color: '#eeeeee',
     },
@@ -42,14 +40,14 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     tabsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        height: 30
+        height: 30,
     },
     tabContentContainer: {
         flex: 1,
     },
     imageList: {
         flex: 1,
-    }
-})
+    },
+});
 
 export default styles;

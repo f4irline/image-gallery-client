@@ -11,7 +11,7 @@ import { selectUser } from '../../store/reducers/userReducer';
 import { deleteComment } from '../../store/actions/imagesActions';
 
 interface Props {
-    comment: Comment
+    comment: Comment;
 }
 
 const ImageComment: React.FC<Props> = (props: Props) => {
@@ -21,10 +21,12 @@ const ImageComment: React.FC<Props> = (props: Props) => {
     const user = useSelector(selectUser);
 
     const removeComment = () => {
-        if (!user || !user.token) { return; }
+        if (!user || !user.token) {
+            return;
+        }
 
         dispatch(deleteComment(comment, user.token));
-    }
+    };
 
     return (
         <View style={commentStyles.container}>
@@ -32,13 +34,15 @@ const ImageComment: React.FC<Props> = (props: Props) => {
                 <Text style={commentStyles.author}>{comment.author}</Text>
                 <Text style={commentStyles.comment}>{comment.comment}</Text>
             </View>
-            { !comment.userCanDelete ? undefined : 
+            {!comment.userCanDelete ? (
+                undefined
+            ) : (
                 <TouchableOpacity onPress={removeComment}>
-                    <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} /> 
+                    <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} />
                 </TouchableOpacity>
-            }
+            )}
         </View>
-    )
-}
+    );
+};
 
 export default ImageComment;

@@ -26,8 +26,8 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     },
     comment: {
         fontFamily: 'Rubik',
-        color: '#eeeeee'
-    }
-})
+        color: '#eeeeee',
+    },
+});
 
 export default styles;

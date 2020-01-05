@@ -1,5 +1,5 @@
 export enum PreferencesActionTypes {
-    SetKeyboardHeight = '[Preferences] Set Keyboard Height'
+    SetKeyboardHeight = '[Preferences] Set Keyboard Height',
 }
 
 interface SetKeyboardHeight {

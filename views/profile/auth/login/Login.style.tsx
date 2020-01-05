@@ -16,6 +16,6 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     fieldsWrapper: {
         marginBottom: 15,
     },
-})
+});
 
 export default styles;

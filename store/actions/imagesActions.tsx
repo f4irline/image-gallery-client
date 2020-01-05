@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { Image } from "../../models/Image"
+import { Image } from '../../models/Image';
 
 import { api } from '../../utils';
 import { Comment } from '../../models';
@@ -41,11 +41,11 @@ interface SetImagesAction {
 }
 
 interface RemoveImageAction {
-    type: ImagesActionTypes.RemoveImage,
+    type: ImagesActionTypes.RemoveImage;
 }
 
 interface RemoveImageSuccessAction {
-    type: ImagesActionTypes.RemoveImageSuccess,
+    type: ImagesActionTypes.RemoveImageSuccess;
     payload: Image;
 }
 
@@ -92,7 +92,7 @@ interface SendCommentAction {
 
 interface AddCommentAction {
     type: ImagesActionTypes.AddComment;
-    payload: { comment: Comment, image: Image };
+    payload: { comment: Comment; image: Image };
 }
 
 interface RemoveCommentAction {
@@ -108,64 +108,64 @@ const refreshImages = (state: boolean) => {
     return {
         type: ImagesActionTypes.RefreshImages,
         payload: state,
-    }
+    };
 };
 
 const refreshUserImages = (state: boolean) => {
     return {
         type: ImagesActionTypes.RefreshUserImages,
         payload: state,
-    }
+    };
 };
 
 const setImages = (images: Image[]) => {
     return {
         type: ImagesActionTypes.SetImages,
-        payload: images
+        payload: images,
     };
 };
 
 const addComment = (comment: Comment, image: Image) => {
     return {
         type: ImagesActionTypes.AddComment,
-        payload: { comment: comment, image: image }
-    }
+        payload: { comment: comment, image: image },
+    };
 };
 
 const removeComment = (comment: Comment) => {
     return {
         type: ImagesActionTypes.RemoveComment,
-        payload: { comment: comment }
-    }
+        payload: { comment: comment },
+    };
 };
 
 const setImageToView = (image: Image) => {
     return {
         type: ImagesActionTypes.SetImageInView,
-        payload: image
-    }
+        payload: image,
+    };
 };
 
 const uploadSuccess = (success: boolean) => {
     return {
         type: ImagesActionTypes.SetUploadSuccess,
         payload: { success: success },
-    }
+    };
 };
 
 const setUserImages = (images: Image[]) => {
     return {
         type: ImagesActionTypes.SetUserImages,
         payload: images,
-    }
+    };
 };
 
 const removeImageSuccess = (image: Image) => {
     return {
         type: ImagesActionTypes.RemoveImageSuccess,
         payload: image,
-    }
-}
+    };
+};
 
 export const loadImages = (
     token?: string
@@ -185,8 +185,8 @@ export const loadImages = (
             dispatch<any>(refreshImages(false));
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const loadUserImages = (
     token: string
@@ -206,11 +206,12 @@ export const loadUserImages = (
             dispatch<any>(refreshUserImages(false));
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const uploadImage = (
-    data: FormData, token: string
+    data: FormData,
+    token: string
 ): ThunkAction<Promise<void>, {}, {}, UploadImageAction> => {
     return async (
         dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
@@ -228,78 +229,95 @@ export const uploadImage = (
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const sendComment = (
-    userComment: Comment, token: string, image: Image
+    userComment: Comment,
+    token: string,
+    image: Image
 ): ThunkAction<Promise<void>, {}, {}, SendCommentAction> => {
-    return async(
+    return async (
         dispatch: ThunkDispatch<{}, {}, AddCommentAction>
     ): Promise<void> => {
         try {
-            const comment = await api.post(`/comment/${image.id}/${token}`, userComment);
+            const comment = await api.post(
+                `/comment/${image.id}/${token}`,
+                userComment
+            );
             dispatch<any>(addComment(comment.data as Comment, image));
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const deleteComment = (
-    userComment: Comment, token: string, 
+    userComment: Comment,
+    token: string
 ): ThunkAction<Promise<void>, {}, {}, RemoveCommentAction> => {
-    return async(
+    return async (
         dispatch: ThunkDispatch<{}, {}, AnyAction>
     ): Promise<void> => {
         try {
-            await api.delete(`/comment/${token}/${userComment.id}`)
+            await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const voteImage = (
-    token: string, image: Image, upVote: boolean, reset: boolean = false
+    token: string,
+    image: Image,
+    upVote: boolean,
+    reset: boolean = false
 ): ThunkAction<Promise<void>, {}, {}, VoteImageAction> => {
-    return async(
+    return async (
         dispatch: ThunkDispatch<{}, {}, SetImageInViewAction>
     ): Promise<void> => {
         try {
             if (reset) {
-                const img = await api.put(`/image/vote/${token}/${image.id}/reset`);
+                const img = await api.put(
+                    `/image/vote/${token}/${image.id}/reset`
+                );
                 dispatch<any>(setImageToView(img.data as Image));
             } else {
-                const img = await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
+                const img = await api.put(
+                    `/image/vote/${token}/${image.id}/${upVote}`
+                );
                 dispatch<any>(setImageToView(img.data as Image));
             }
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const loadImage = (
-    image: Image, token?: string
+    image: Image,
+    token?: string
 ): ThunkAction<Promise<void>, {}, {}, LoadImageAction> => {
-    return async(
+    return async (
         dispatch: ThunkDispatch<{}, {}, SetImageInViewAction>
     ): Promise<void> => {
         try {
-            const img = await api.get(`/image/single/${image.id}/${token || ''}`);
+            const img = await api.get(
+                `/image/single/${image.id}/${token || ''}`
+            );
             dispatch<any>(setImageToView(img.data as Image));
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export const deleteImage = (
-    image: Image, token: string
+    image: Image,
+    token: string
 ): ThunkAction<Promise<void>, {}, {}, RemoveImageAction> => {
-    return async(
+    return async (
         dispatch: ThunkDispatch<{}, {}, RemoveImageSuccessAction>
     ): Promise<void> => {
         try {
@@ -308,11 +326,17 @@ export const deleteImage = (
         } catch (err) {
             console.log(err);
         }
-    }
-}
+    };
+};
 
-export type ImagesActions = 
-    LoadImagesAction | SetImagesAction | SetUserImagesAction | 
-    SetImageInViewAction | SetUploadSuccessAction | RefreshUserImagesAction | 
-    RefreshImagesAction | AddCommentAction | RemoveCommentAction |
-    RemoveImageSuccessAction;
+export type ImagesActions =
+    | LoadImagesAction
+    | SetImagesAction
+    | SetUserImagesAction
+    | SetImageInViewAction
+    | SetUploadSuccessAction
+    | RefreshUserImagesAction
+    | RefreshImagesAction
+    | AddCommentAction
+    | RemoveCommentAction
+    | RemoveImageSuccessAction;

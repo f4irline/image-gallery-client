@@ -17,11 +17,17 @@ const Auth: React.FC<Props> = (props: Props) => {
         <SafeAreaView style={[styles.viewContainer, authStyles.authContainer]}>
             <View style={authStyles.headerContainer}>
                 <Text style={authStyles.title}>Sign up or log in</Text>
-                <Text style={authStyles.subtitle}>Sign up or login to add images, comment on images and view your own images</Text>
+                <Text style={authStyles.subtitle}>
+                    Sign up or login to add images, comment on images and view
+                    your own images
+                </Text>
             </View>
-            <GalleryButton onPress={() => navigation.navigate('Login')} title='Log in' />
+            <GalleryButton
+                onPress={() => navigation.navigate('Login')}
+                title="Log in"
+            />
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Auth;

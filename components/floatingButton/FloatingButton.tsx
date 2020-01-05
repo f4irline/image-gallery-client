@@ -1,6 +1,6 @@
 import React from 'react';
 import { FloatingAction } from 'react-native-floating-action';
-import * as Permissions from 'expo-permissions'
+import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -22,7 +22,7 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
             text: 'Camera',
             name: 'upload_camera',
             icon: require('../../assets/icons/camera_add_icon.png'),
-            position: 2
+            position: 2,
         },
         {
             textBackground: '#eeeeee',
@@ -30,8 +30,8 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
             text: 'Gallery',
             name: 'upload_gallery',
             icon: require('../../assets/icons/gallery_add_icon.png'),
-            position: 1
-        }
+            position: 1,
+        },
     ];
 
     const floatingItemClicked = (item: string) => {
@@ -39,29 +39,31 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
             case 'upload_gallery':
                 promptGalleryPermissions();
                 break;
-            default: 
+            default:
                 promptCameraPermissions();
                 break;
         }
-    }
+    };
 
     const promptGalleryPermissions = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            const { status } = await Permissions.askAsync(
+                Permissions.CAMERA_ROLL
+            );
             if (status === 'granted') {
                 pickFromGallery();
                 return;
             }
         }
         pickFromGallery();
-    }
+    };
 
     const promptCameraPermissions = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         if (status === 'granted') {
             pickFromCamera();
         }
-    }
+    };
 
     const pickFromGallery = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -71,10 +73,12 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
             base64: true,
         });
 
-        if (result.cancelled) { return; }
+        if (result.cancelled) {
+            return;
+        }
 
-        navigation.navigate('Upload', { image: result })
-    }
+        navigation.navigate('Upload', { image: result });
+    };
 
     const pickFromCamera = async () => {
         let result = await ImagePicker.launchCameraAsync({
@@ -84,19 +88,21 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
             base64: true,
         });
 
-        if (result.cancelled) { return; }
+        if (result.cancelled) {
+            return;
+        }
 
-        navigation.navigate('Upload', { image: result })
-    }
+        navigation.navigate('Upload', { image: result });
+    };
 
-    return (
-            user && user.token ? <FloatingAction
-                color={'#222831'}
-                distanceToEdge={10}
-                actions={actions}
-                onPressItem={floatingItemClicked}
-            /> : null
-    )
-}
+    return user && user.token ? (
+        <FloatingAction
+            color={'#222831'}
+            distanceToEdge={10}
+            actions={actions}
+            onPressItem={floatingItemClicked}
+        />
+    ) : null;
+};
 
 export default FloatingButton;

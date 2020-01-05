@@ -15,17 +15,20 @@ export const initialState: UserState = {
     user: undefined,
 };
 
-export const userReducer: Reducer<UserState, UserActions> = (state: UserState = initialState, action: UserActions) => {
+export const userReducer: Reducer<UserState, UserActions> = (
+    state: UserState = initialState,
+    action: UserActions
+) => {
     switch (action.type) {
         case UserActionTypes.SetUser:
             return {
                 ...state,
                 user: action.payload,
-            }
-        
+            };
+
         default:
             return state;
     }
-}
+};
 
 export const selectUser = (state: AppState) => state.userState.user;

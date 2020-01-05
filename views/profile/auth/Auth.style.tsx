@@ -21,12 +21,12 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     title: {
         fontFamily: 'Rubik-Bold',
         fontSize: 28,
-        color: '#ff5722'
+        color: '#ff5722',
     },
     subtitle: {
         fontSize: 18,
-        color: '#eeeeee'
-    }
-})
+        color: '#eeeeee',
+    },
+});
 
 export default styles;

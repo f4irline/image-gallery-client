@@ -1,0 +1,7 @@
+{
+    "editor.formatOnSave": true,
+    "editor.autoIndent": "full",
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
+}

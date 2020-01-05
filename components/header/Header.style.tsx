@@ -1,4 +1,10 @@
-import { StyleSheet, ViewStyle, StatusBar, TextStyle, Dimensions } from 'react-native';
+import {
+    StyleSheet,
+    ViewStyle,
+    StatusBar,
+    TextStyle,
+    Dimensions,
+} from 'react-native';
 
 interface Styles {
     headerContainer: ViewStyle;
@@ -16,7 +22,7 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         minHeight: 80,
         width: Dimensions.get('window').width,
         paddingTop: StatusBar.currentHeight,
-        backgroundColor: '#222831'
+        backgroundColor: '#222831',
     },
     actionContainer: {
         padding: 10,
@@ -30,13 +36,13 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     title: {
         color: '#eeeeee',
         fontSize: 18,
-        fontFamily: 'Rubik'
+        fontFamily: 'Rubik',
     },
     subtitle: {
         color: '#c7c7c7',
         fontSize: 12,
-        fontFamily: 'Rubik'
-    }
-})
+        fontFamily: 'Rubik',
+    },
+});
 
 export default styles;

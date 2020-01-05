@@ -27,7 +27,7 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         color: '#eeeeee',
         fontSize: 14,
         textTransform: 'uppercase',
-    }
-})
+    },
+});
 
 export default styles;

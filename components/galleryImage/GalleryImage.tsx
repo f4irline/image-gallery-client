@@ -34,25 +34,41 @@ const GalleryImage: React.FC<Props> = (props: Props) => {
         if (imageInView) {
             navigation.navigate('Image', { image: imageInView });
         }
-    }, [imageInView])
+    }, [imageInView]);
 
     const setImageToView = () => {
         dispatch(loadImage(image, user && user.token ? user.token : undefined));
-    }
+    };
 
     return (
-        <View style={[imageStyles.imageWrapper, { padding: props.padding, margin: props.spacing, borderWidth: props.borderWidth }]} >
-            { props.description ?
+        <View
+            style={[
+                imageStyles.imageWrapper,
+                {
+                    padding: props.padding,
+                    margin: props.spacing,
+                    borderWidth: props.borderWidth,
+                },
+            ]}>
+            {props.description ? (
                 <View style={imageStyles.infoWrapper}>
-                    <Text style={imageStyles.description}>{props.image.name}</Text>
-                </View> : null }
+                    <Text style={imageStyles.description}>
+                        {props.image.name}
+                    </Text>
+                </View>
+            ) : null}
             <View style={imageStyles.touchableWrapper}>
-                <TouchableOpacity style={imageStyles.touchable} onPress={setImageToView}>
-                    <Image style={imageStyles.image} source={{uri: `data:image/png;base64,${image.file}`}}/>
+                <TouchableOpacity
+                    style={imageStyles.touchable}
+                    onPress={setImageToView}>
+                    <Image
+                        style={imageStyles.image}
+                        source={{ uri: `data:image/png;base64,${image.file}` }}
+                    />
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 export default GalleryImage;

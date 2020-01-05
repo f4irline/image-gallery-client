@@ -11,10 +11,15 @@ interface Props {
 
 const TabButton = (props: Props) => {
     return (
-        <TouchableOpacity style={[styles.buttonContainer, props.isSelected ? styles.active : undefined]} onPress={props.onClick}>
+        <TouchableOpacity
+            style={[
+                styles.buttonContainer,
+                props.isSelected ? styles.active : undefined,
+            ]}
+            onPress={props.onClick}>
             <Text style={styles.buttonText}>{props.label}</Text>
         </TouchableOpacity>
-    )
-}
+    );
+};
 
 export default TabButton;

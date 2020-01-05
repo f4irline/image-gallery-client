@@ -11,10 +11,16 @@ interface Props {
 
 const GalleryButton: React.FC<Props> = (props: Props) => {
     return (
-        <TouchableOpacity disabled={props.disabled} onPress={props.onPress} style={[galleryButtonStyle.buttonContainer, props.disabled ? galleryButtonStyle.disabled : undefined]}>
+        <TouchableOpacity
+            disabled={props.disabled}
+            onPress={props.onPress}
+            style={[
+                galleryButtonStyle.buttonContainer,
+                props.disabled ? galleryButtonStyle.disabled : undefined,
+            ]}>
             <Text style={galleryButtonStyle.buttonTitle}>{props.title}</Text>
         </TouchableOpacity>
-    )
-}
+    );
+};
 
 export default GalleryButton;

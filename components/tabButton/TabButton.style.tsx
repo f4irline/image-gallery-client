@@ -21,8 +21,8 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         fontFamily: 'Rubik-Bold',
     },
     active: {
-        borderColor: '#ff5722'
-    }
-})
+        borderColor: '#ff5722',
+    },
+});
 
 export default styles;

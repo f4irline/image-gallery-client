@@ -8,7 +8,7 @@ const Register: React.FC = () => {
         <SafeAreaView style={styles.container}>
             <Text>Register</Text>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Register;
