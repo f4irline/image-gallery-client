@@ -36,20 +36,16 @@ export interface AppState {
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whiteList: ['userState'],
-    blackList: ['imagesState'],
 };
 
 const rootReducer = combineReducers({
     imagesState: imagesReducer,
-    userState: userReducer,
+    userState: persistReducer(persistConfig, userReducer),
     preferencesState: preferencesReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = createStore(
-    persistedReducer,
+    rootReducer,
     undefined,
     composeWithDevTools(applyMiddleware(thunk))
 );
