@@ -23,7 +23,11 @@ import Auth from './auth/Auth';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
-import { UserActionTypes, logoutUser } from '../../store/actions/userActions';
+import {
+    UserActionTypes,
+    logoutUser,
+    loadUserComments,
+} from '../../store/actions/userActions';
 import { loadUserImages } from '../../store/actions/imagesActions';
 
 enum SelectedTab {
@@ -52,10 +56,16 @@ const Profile: NavigationStackScreenComponent = props => {
             return;
         }
         dispatch(loadUserImages(user.token));
+        dispatch(loadUserComments(user.token));
     }, [user]);
 
     const refreshImages = () => {
+        if (!user || !user.token) {
+            return;
+        }
+
         dispatch(loadUserImages(user.token));
+        dispatch(loadUserComments(user.token));
     };
 
     return user ? (

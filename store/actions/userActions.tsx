@@ -12,6 +12,9 @@ export enum UserActionTypes {
     LoginSuccess = '[User] Login Success',
 
     Logout = '[User] Logout',
+
+    LoadUserComments = '[User] Load User Comments',
+    SetUserComments = '[User] Set User Comments',
 }
 
 interface SetUserAction {
@@ -32,10 +35,26 @@ interface LogoutAction {
     type: UserActionTypes.Logout;
 }
 
+interface LoadUserCommentsAction {
+    type: UserActionTypes.LoadUserComments;
+}
+
+interface SetUserCommentsAction {
+    type: UserActionTypes.SetUserComments;
+    payload: Comment[];
+}
+
 const setUser = (user: User | undefined) => {
     return {
         type: UserActionTypes.SetUser,
         payload: user,
+    };
+};
+
+const setComments = (comments: Comment[]) => {
+    return {
+        type: UserActionTypes.SetUserComments,
+        payload: comments,
     };
 };
 
@@ -96,4 +115,23 @@ export const logoutUser = (): ThunkAction<
     };
 };
 
-export type UserActions = SetUserAction | LoginSuccessAction;
+export const loadUserComments = (
+    token?: string
+): ThunkAction<Promise<void>, {}, {}, LoadUserCommentsAction> => {
+    return async (
+        dispatch: ThunkDispatch<{}, {}, AnyAction>
+    ): Promise<void> => {
+        try {
+            const comments = await api.get(`/comment/${token}`);
+            const commentsData: Comment[] = comments.data;
+            dispatch<any>(setComments(commentsData));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+export type UserActions =
+    | SetUserAction
+    | LoginSuccessAction
+    | SetUserCommentsAction;
