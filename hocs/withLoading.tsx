@@ -7,7 +7,8 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 import loadingStyles from './withLoading.style';
 
 const withLoading = <P extends object>(
-    WrappedComponent: React.ComponentType<P>
+    WrappedComponent: React.ComponentType<P>,
+    overlay?: boolean
 ): React.FC<P> => {
     const ComponentWithLoading = ({ ...props }) => {
         const loading = useSelector(selectLoading);
@@ -15,7 +16,7 @@ const withLoading = <P extends object>(
             <>
                 <View
                     style={[
-                        loading ? loadingStyles.overlay : undefined,
+                        loading && overlay ? loadingStyles.overlay : undefined,
                     ]}></View>
                 <WrappedComponent {...(props as P)} />
                 {loading ? (

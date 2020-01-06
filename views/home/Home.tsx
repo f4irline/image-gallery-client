@@ -79,4 +79,4 @@ Home.navigationOptions = {
     headerShown: false,
 };
 
-export default withLoading(Home);
+export default withLoading(Home, true);

@@ -67,4 +67,4 @@ Login.navigationOptions = ({ navigation }) => {
     };
 };
 
-export default withLoading(Login);
+export default withLoading(Login, true);

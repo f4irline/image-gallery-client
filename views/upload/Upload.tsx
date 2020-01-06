@@ -126,4 +126,4 @@ Upload.navigationOptions = () => {
     };
 };
 
-export default withLoading(Upload);
+export default withLoading(Upload, true);
