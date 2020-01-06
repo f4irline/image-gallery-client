@@ -14,41 +14,41 @@ import ProfileView from './views/profile/Profile';
 import UploadView from './views/upload/Upload';
 import LoginView from './views/profile/auth/login/Login';
 import { PersistGate } from 'redux-persist/integration/react';
-import { StatusBar, StatusBarStyle } from 'react-native';
+import { StatusBar } from 'react-native';
 
 const HomeNavigator = createStackNavigator(
     {
         Home: HomeView,
         Image: ImageView,
-        Upload: UploadView
+        Upload: UploadView,
     },
     {
-        initialRouteName: 'Home'
+        initialRouteName: 'Home',
     }
-)
+);
 
 const ProfileNavigator = createStackNavigator(
     {
         Profile: ProfileView,
         Image: ImageView,
         Login: LoginView,
-        Upload: UploadView
+        Upload: UploadView,
     },
     {
-        initialRouteName: 'Profile'
+        initialRouteName: 'Profile',
     }
-)
+);
 
 const NearNavigator = createStackNavigator(
     {
         'Near You': NearView,
         Image: ImageView,
-        Upload: UploadView
+        Upload: UploadView,
     },
     {
-        initialRouteName: 'Near You'
+        initialRouteName: 'Near You',
     }
-)
+);
 
 const navigationOptions = {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -69,9 +69,11 @@ const navigationOptions = {
                     break;
             }
 
-            return <IconComponent name={iconName} size={25} color={tintColor} />;
+            return (
+                <IconComponent name={iconName} size={25} color={tintColor} />
+            );
         },
-        tabBarVisible: !navigation.state.index
+        tabBarVisible: !navigation.state.index,
     }),
     tabBarOptions: {
         activeTintColor: '#ff5722',
@@ -82,20 +84,17 @@ const navigationOptions = {
         },
         labelStyle: {
             fontFamily: 'Rubik-Bold',
-        }
-    }
-}
+        },
+    },
+};
 
 const routeConfigs = {
-    'Home': HomeNavigator,
+    Home: HomeNavigator,
     'Near You': NearNavigator,
-    'Profile': ProfileNavigator,
-}
+    Profile: ProfileNavigator,
+};
 
-const TabNavigator = createBottomTabNavigator(
-    routeConfigs,
-    navigationOptions
-)
+const TabNavigator = createBottomTabNavigator(routeConfigs, navigationOptions);
 
 const AppContainer = createAppContainer(TabNavigator);
 
@@ -104,25 +103,25 @@ const App = () => {
 
     useEffect(() => {
         loadFonts();
-        StatusBar.setBarStyle('light-content')
-    }, [])
+        StatusBar.setBarStyle('light-content');
+    }, []);
 
     const loadFonts = async () => {
         await Font.loadAsync({
-            'Rubik': require('./assets/fonts/Rubik-Regular.ttf'),
+            Rubik: require('./assets/fonts/Rubik-Regular.ttf'),
             'Rubik-Bold': require('./assets/fonts/Rubik-Bold.ttf'),
-            'Rubik-Light': require('./assets/fonts/Rubik-Light.ttf')
+            'Rubik-Light': require('./assets/fonts/Rubik-Light.ttf'),
         });
         setReady(true);
-    }
+    };
 
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                { ready ? <AppContainer /> : null }
+                {ready ? <AppContainer /> : null}
             </PersistGate>
         </Provider>
-    )
-}
+    );
+};
 
 export default App;
