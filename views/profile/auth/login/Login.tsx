@@ -6,6 +6,9 @@ import {
 } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { loginSuccess } from '../../../../store/actions/userActions';
+import { selectLoginSuccess } from '../../../../store/reducers/userReducer';
+
 import styles from '../../../../Styles';
 import loginStyles from './Login.style';
 
@@ -13,7 +16,6 @@ import Header from '../../../../components/header/Header';
 import GalleryButton from '../../../../components/galleryButton/GalleryButton';
 import { loginUser } from '../../../../store/actions/userActions';
 import withLoading from '../../../../hocs/withLoading';
-import { selectLoginSuccess } from '../../../../store/reducers/userReducer';
 
 const Login: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -21,13 +23,14 @@ const Login: NavigationStackScreenComponent = props => {
     const [userName, setUserName] = useState('');
     const dispatch = useDispatch();
 
-    const loginSuccess = useSelector(selectLoginSuccess);
+    const success = useSelector(selectLoginSuccess);
 
     useEffect(() => {
-        if (loginSuccess) {
+        if (success) {
             navigation.navigate('Profile');
+            dispatch(loginSuccess(false));
         }
-    }, [loginSuccess]);
+    }, [success]);
 
     const login = () => {
         if (!userName.length) {

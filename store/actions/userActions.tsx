@@ -39,7 +39,7 @@ const setUser = (user: User | undefined) => {
     };
 };
 
-const loginSuccess = (success: boolean) => {
+export const loginSuccess = (success: boolean) => {
     return {
         type: UserActionTypes.LoginSuccess,
         payload: success,
