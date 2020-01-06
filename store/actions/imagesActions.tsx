@@ -310,15 +310,35 @@ export const voteImage = (
     ): Promise<void> => {
         try {
             if (reset) {
-                const img = await api.put(
-                    `/image/vote/${token}/${image.id}/reset`
+                dispatch<any>(
+                    setImageToView({
+                        ...image,
+                        score: image.userUpVoted
+                            ? image.score - 1
+                            : image.score + 1,
+                        userUpVoted: false,
+                        userDownVoted: false,
+                    })
                 );
-                dispatch<any>(setImageToView(img.data as Image));
+
+                await api.put(`/image/vote/${token}/${image.id}/reset`);
             } else {
-                const img = await api.put(
-                    `/image/vote/${token}/${image.id}/${upVote}`
+                dispatch<any>(
+                    setImageToView({
+                        ...image,
+                        userUpVoted: upVote,
+                        userDownVoted: !upVote,
+                        score: upVote
+                            ? image.userDownVoted
+                                ? image.score + 2
+                                : image.score + 1
+                            : image.userUpVoted
+                            ? image.score - 2
+                            : image.score - 1,
+                    })
                 );
-                dispatch<any>(setImageToView(img.data as Image));
+
+                await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
             }
         } catch (err) {
             console.log(err);
