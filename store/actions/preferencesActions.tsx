@@ -1,5 +1,6 @@
 export enum PreferencesActionTypes {
     SetKeyboardHeight = '[Preferences] Set Keyboard Height',
+    SetLoading = '[Preferences] Set Loading',
 }
 
 interface SetKeyboardHeight {
@@ -7,4 +8,9 @@ interface SetKeyboardHeight {
     payload: number;
 }
 
-export type PreferencesActions = SetKeyboardHeight;
+interface SetLoading {
+    type: PreferencesActionTypes.SetLoading;
+    payload: boolean;
+}
+
+export type PreferencesActions = SetKeyboardHeight | SetLoading;

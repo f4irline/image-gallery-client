@@ -7,10 +7,12 @@ import {
 
 export interface PreferencesState {
     keyboardHeight: number;
+    loading: boolean;
 }
 
 export const initialState: PreferencesState = {
     keyboardHeight: 0,
+    loading: false,
 };
 
 export const preferencesReducer: Reducer<
@@ -24,6 +26,12 @@ export const preferencesReducer: Reducer<
                 keyboardHeight: action.payload,
             };
 
+        case PreferencesActionTypes.SetLoading:
+            return {
+                ...state,
+                loading: action.payload,
+            };
+
         default:
             return state;
     }
@@ -31,3 +39,6 @@ export const preferencesReducer: Reducer<
 
 export const selectKeyboardHeight = (state: AppState) =>
     state.preferencesState.keyboardHeight;
+
+export const selectLoading = (state: AppState) =>
+    state.preferencesState.loading;

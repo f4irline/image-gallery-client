@@ -3,6 +3,7 @@ import { api } from '../../utils';
 import { User } from '../../models';
 import { AnyAction } from 'redux';
 import { ImagesActionTypes } from '../actions/imagesActions';
+import { PreferencesActionTypes } from './preferencesActions';
 
 export enum UserActionTypes {
     SetUser = '[User] Set User',
@@ -36,6 +37,11 @@ export const loginUser = (
     return async (
         dispatch: ThunkDispatch<{}, {}, SetUserAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             const user = await api.post(`/user/register`, {
                 name: name,
@@ -48,6 +54,11 @@ export const loginUser = (
             );
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };

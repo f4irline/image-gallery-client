@@ -5,6 +5,7 @@ import { Image } from '../../models/Image';
 import { api } from '../../utils';
 import { Comment } from '../../models';
 import { AnyAction } from 'redux';
+import { PreferencesActionTypes } from './preferencesActions';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
@@ -216,6 +217,11 @@ export const uploadImage = (
     return async (
         dispatch: ThunkDispatch<{}, {}, RefreshImagesAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             await api.post(`/image/${token}`, data, {
                 headers: {
@@ -228,6 +234,11 @@ export const uploadImage = (
             dispatch<any>(uploadSuccess(true));
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };
@@ -240,6 +251,11 @@ export const sendComment = (
     return async (
         dispatch: ThunkDispatch<{}, {}, AddCommentAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             const comment = await api.post(
                 `/comment/${image.id}/${token}`,
@@ -248,6 +264,11 @@ export const sendComment = (
             dispatch<any>(addComment(comment.data as Comment, image));
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };
@@ -259,11 +280,21 @@ export const deleteComment = (
     return async (
         dispatch: ThunkDispatch<{}, {}, AnyAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };
@@ -302,6 +333,11 @@ export const loadImage = (
     return async (
         dispatch: ThunkDispatch<{}, {}, SetImageInViewAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             const img = await api.get(
                 `/image/single/${image.id}/${token || ''}`
@@ -309,6 +345,11 @@ export const loadImage = (
             dispatch<any>(setImageToView(img.data as Image));
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };
@@ -320,11 +361,21 @@ export const deleteImage = (
     return async (
         dispatch: ThunkDispatch<{}, {}, RemoveImageSuccessAction>
     ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
         try {
             await api.delete(`/image/${token}/${image.id}`);
             dispatch<any>(removeImageSuccess(image));
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
         }
     };
 };
