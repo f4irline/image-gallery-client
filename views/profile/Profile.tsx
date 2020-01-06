@@ -118,7 +118,9 @@ const Profile: NavigationStackScreenComponent = props => {
                             <Text>{item.comment}</Text>
                             <Text>{item.imageAuthor}</Text>
                             <Text>{item.imageId}</Text>
-                            <Text>{new Date(item.timeStamp)}</Text>
+                            <Text>
+                                {new Date(item.timeStamp).toISOString()}
+                            </Text>
                         </View>
                     )}
                     refreshControl={
