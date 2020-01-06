@@ -35,8 +35,13 @@ import {
     deleteImage,
 } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
-import { selectImageInView } from '../../store/reducers/imagesReducer';
+import {
+    selectImageInView,
+    selectRemoveCommentSuccess,
+    selectAddCommentSuccess,
+} from '../../store/reducers/imagesReducer';
 import withLoading from '../../hocs/withLoading';
+import { loadUserComments } from '../../store/actions/userActions';
 
 const ImageView: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -45,6 +50,26 @@ const ImageView: NavigationStackScreenComponent = props => {
     const user = useSelector(selectUser);
     const keyboardHeight = useSelector(selectKeyboardHeight);
     const image = useSelector(selectImageInView);
+    const removeSuccess = useSelector(selectRemoveCommentSuccess);
+    const addSuccess = useSelector(selectAddCommentSuccess);
+
+    useEffect(() => {
+        if (addSuccess) {
+            if (!user || !user.token) {
+                return;
+            }
+            dispatch(loadUserComments(user.token));
+        }
+    }, [addSuccess]);
+
+    useEffect(() => {
+        if (removeSuccess) {
+            if (!user || !user.token) {
+                return;
+            }
+            dispatch(loadUserComments(user.token));
+        }
+    }, [removeSuccess]);
 
     const [comment, setComment] = useState('');
 

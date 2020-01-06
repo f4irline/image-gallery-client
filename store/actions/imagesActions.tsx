@@ -28,6 +28,8 @@ export enum ImagesActionTypes {
     SendComment = '[Images] Send Comment',
     AddComment = '[Images] Add Comment',
     RemoveComment = '[Images] Remove Comment',
+    AddCommentSuccess = '[Images] Send Comment Success',
+    RemoveCommentSuccess = '[Images] Remove Comment Success',
 
     VoteImage = '[Images] Vote Image',
 }
@@ -96,9 +98,19 @@ interface AddCommentAction {
     payload: { comment: Comment; image: Image };
 }
 
+interface AddCommentSuccessAction {
+    type: ImagesActionTypes.AddCommentSuccess;
+    payload: boolean;
+}
+
 interface RemoveCommentAction {
     type: ImagesActionTypes.RemoveComment;
     payload: { comment: Comment };
+}
+
+interface RemoveCommentSuccessAction {
+    type: ImagesActionTypes.RemoveCommentSuccess;
+    payload: boolean;
 }
 
 interface VoteImageAction {
@@ -262,6 +274,10 @@ export const sendComment = (
                 userComment
             );
             dispatch<any>(addComment(comment.data as Comment, image));
+            dispatch<any>({
+                type: ImagesActionTypes.AddCommentSuccess,
+                payload: true,
+            });
         } catch (err) {
             console.log(err);
         } finally {
@@ -288,6 +304,10 @@ export const deleteComment = (
         try {
             await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
+            dispatch<any>({
+                type: ImagesActionTypes.RemoveCommentSuccess,
+                payload: true,
+            });
         } catch (err) {
             console.log(err);
         } finally {
@@ -409,5 +429,7 @@ export type ImagesActions =
     | RefreshUserImagesAction
     | RefreshImagesAction
     | AddCommentAction
+    | AddCommentSuccessAction
     | RemoveCommentAction
+    | RemoveCommentSuccessAction
     | RemoveImageSuccessAction;
