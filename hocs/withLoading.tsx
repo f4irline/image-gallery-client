@@ -1,8 +1,10 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectLoading } from '../store/reducers/preferencesReducer';
 import hoistNonReactStatic from 'hoist-non-react-statics';
+
+import loadingStyles from './withLoading.style';
 
 const withLoading = <P extends object>(
     WrappedComponent: React.ComponentType<P>
@@ -11,12 +13,22 @@ const withLoading = <P extends object>(
         const loading = useSelector(selectLoading);
         return (
             <>
+                <View
+                    style={[
+                        loading ? loadingStyles.overlay : undefined,
+                    ]}></View>
+                <WrappedComponent {...(props as P)} />
                 {loading ? (
-                    <ActivityIndicator size="large" color="#0000ff" />
+                    <View style={loadingStyles.wrapper}>
+                        <ActivityIndicator
+                            style={loadingStyles.loadingIndicator}
+                            size="large"
+                            color="#eeeeee"
+                        />
+                    </View>
                 ) : (
                     undefined
                 )}
-                <WrappedComponent {...(props as P)} />
             </>
         );
     };

@@ -14,6 +14,8 @@ import {
 } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 
+import withLoading from '../../hocs/withLoading';
+
 import getStyles from './Upload.style';
 import styles from '../../Styles';
 
@@ -124,4 +126,4 @@ Upload.navigationOptions = () => {
     };
 };
 
-export default Upload;
+export default withLoading(Upload);
