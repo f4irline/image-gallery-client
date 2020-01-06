@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { api } from '../../utils';
-import { User } from '../../models';
+import { User, Comment } from '../../models';
 import { AnyAction } from 'redux';
 import { ImagesActionTypes } from '../actions/imagesActions';
 import { PreferencesActionTypes } from './preferencesActions';

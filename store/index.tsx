@@ -36,6 +36,7 @@ export interface AppState {
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
+    blacklist: ['comments'],
 };
 
 const rootReducer = combineReducers({

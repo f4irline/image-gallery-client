@@ -14,7 +14,7 @@ import {
     selectUserImages,
     selectRefreshingUserImages,
 } from '../../store/reducers/imagesReducer';
-import { selectUser } from '../../store/reducers/userReducer';
+import { selectUser, selectComments } from '../../store/reducers/userReducer';
 
 import styles from '../../Styles';
 import profileStyles from './Profile.style';
@@ -23,12 +23,9 @@ import Auth from './auth/Auth';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
-import {
-    UserActionTypes,
-    logoutUser,
-    loadUserComments,
-} from '../../store/actions/userActions';
+import { logoutUser, loadUserComments } from '../../store/actions/userActions';
 import { loadUserImages } from '../../store/actions/imagesActions';
+import { Comment } from '../../models';
 
 enum SelectedTab {
     IMAGES = 'Images',
@@ -46,6 +43,7 @@ const Profile: NavigationStackScreenComponent = props => {
     );
 
     const images = useSelector(selectUserImages);
+    const comments: Comment[] = useSelector(selectComments);
 
     const logout = () => {
         dispatch(logoutUser());
@@ -109,7 +107,27 @@ const Profile: NavigationStackScreenComponent = props => {
                             refreshing={refreshing}
                         />
                     }></FlatList>
-            ) : null}
+            ) : (
+                <FlatList
+                    numColumns={2}
+                    style={profileStyles.imageList}
+                    keyExtractor={item => `image-${item.id}`}
+                    data={comments}
+                    renderItem={({ item }) => (
+                        <View>
+                            <Text>{item.comment}</Text>
+                            <Text>{item.imageAuthor}</Text>
+                            <Text>{item.imageId}</Text>
+                            <Text>{new Date(item.timeStamp)}</Text>
+                        </View>
+                    )}
+                    refreshControl={
+                        <RefreshControl
+                            onRefresh={refreshImages}
+                            refreshing={refreshing}
+                        />
+                    }></FlatList>
+            )}
             <FloatingButton navigation={navigation} />
         </SafeAreaView>
     ) : (

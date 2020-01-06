@@ -68,6 +68,10 @@ const ImageView: NavigationStackScreenComponent = props => {
 
         const userComment: Comment = {
             comment: comment,
+            timeStamp: new Date().getTime(),
+            imageAuthor: image.author,
+            imageTitle: image.name,
+            imageId: image.id,
         };
 
         dispatch(sendComment(userComment, user.token, image));
