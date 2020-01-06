@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, TextInput, View } from 'react-native';
 import {
     NavigationStackScreenComponent,
     HeaderProps,
 } from 'react-navigation-stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from '../../../../Styles';
 import loginStyles from './Login.style';
@@ -12,6 +12,8 @@ import loginStyles from './Login.style';
 import Header from '../../../../components/header/Header';
 import GalleryButton from '../../../../components/galleryButton/GalleryButton';
 import { loginUser } from '../../../../store/actions/userActions';
+import withLoading from '../../../../hocs/withLoading';
+import { selectLoginSuccess } from '../../../../store/reducers/userReducer';
 
 const Login: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -19,13 +21,19 @@ const Login: NavigationStackScreenComponent = props => {
     const [userName, setUserName] = useState('');
     const dispatch = useDispatch();
 
+    const loginSuccess = useSelector(selectLoginSuccess);
+
+    useEffect(() => {
+        if (loginSuccess) {
+            navigation.navigate('Profile');
+        }
+    }, [loginSuccess]);
+
     const login = () => {
         if (!userName.length) {
             return;
         }
         dispatch(loginUser(userName));
-
-        navigation.navigate('Profile');
     };
 
     return (
@@ -56,4 +64,4 @@ Login.navigationOptions = ({ navigation }) => {
     };
 };
 
-export default Login;
+export default withLoading(Login);

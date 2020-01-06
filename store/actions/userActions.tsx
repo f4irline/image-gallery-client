@@ -7,7 +7,10 @@ import { PreferencesActionTypes } from './preferencesActions';
 
 export enum UserActionTypes {
     SetUser = '[User] Set User',
+
     Login = '[User] Login',
+    LoginSuccess = '[User] Login Success',
+
     Logout = '[User] Logout',
 }
 
@@ -20,6 +23,11 @@ interface LoginAction {
     type: UserActionTypes.Login;
 }
 
+interface LoginSuccessAction {
+    type: UserActionTypes.LoginSuccess;
+    payload: boolean;
+}
+
 interface LogoutAction {
     type: UserActionTypes.Logout;
 }
@@ -28,6 +36,13 @@ const setUser = (user: User | undefined) => {
     return {
         type: UserActionTypes.SetUser,
         payload: user,
+    };
+};
+
+const loginSuccess = (success: boolean) => {
+    return {
+        type: UserActionTypes.LoginSuccess,
+        payload: success,
     };
 };
 
@@ -46,6 +61,7 @@ export const loginUser = (
             const user = await api.post(`/user/register`, {
                 name: name,
             });
+            dispatch<any>(loginSuccess(true));
             dispatch<any>(
                 setUser({
                     name: name,
@@ -80,4 +96,4 @@ export const logoutUser = (): ThunkAction<
     };
 };
 
-export type UserActions = SetUserAction;
+export type UserActions = SetUserAction | LoginSuccessAction;
