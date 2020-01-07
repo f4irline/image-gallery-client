@@ -367,7 +367,7 @@ export const voteImage = (
 };
 
 export const loadImage = (
-    image: Image,
+    imageId: number,
     token?: string
 ): ThunkAction<Promise<void>, {}, {}, LoadImageAction> => {
     return async (
@@ -380,7 +380,7 @@ export const loadImage = (
 
         try {
             const img = await api.get(
-                `/image/single/${image.id}/${token || ''}`
+                `/image/single/${imageId}/${token || ''}`
             );
             dispatch<any>(setImageToView(img.data as Image));
         } catch (err) {
