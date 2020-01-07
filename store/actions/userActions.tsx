@@ -17,6 +17,7 @@ export enum UserActionTypes {
     SetUserComments = '[User] Set User Comments',
 
     RemoveUserComment = '[User] Remove User Comment',
+    AddUserComment = '[User] Add User Comment',
 }
 
 interface SetUserAction {
@@ -51,6 +52,11 @@ interface RemoveUserCommentAction {
     payload: { comment: Comment };
 }
 
+interface AddUserCommentAction {
+    type: UserActionTypes.AddUserComment;
+    payload: { comment: Comment };
+}
+
 const setUser = (user: User | undefined) => {
     return {
         type: UserActionTypes.SetUser,
@@ -75,6 +81,13 @@ export const loginSuccess = (success: boolean) => {
 export const removeComment = (comment: Comment) => {
     return {
         type: UserActionTypes.RemoveUserComment,
+        payload: { comment: comment },
+    };
+};
+
+export const addComment = (comment: Comment) => {
+    return {
+        type: UserActionTypes.AddUserComment,
         payload: { comment: comment },
     };
 };
@@ -175,4 +188,5 @@ export type UserActions =
     | SetUserAction
     | LoginSuccessAction
     | SetUserCommentsAction
-    | RemoveUserCommentAction;
+    | RemoveUserCommentAction
+    | AddUserCommentAction;

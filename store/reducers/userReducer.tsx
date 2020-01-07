@@ -50,6 +50,12 @@ export const userReducer: Reducer<UserState, UserActions> = (
                 ),
             };
 
+        case UserActionTypes.AddUserComment:
+            return {
+                ...state,
+                comments: [action.payload.comment, ...state.comments],
+            };
+
         default:
             return state;
     }
