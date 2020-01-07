@@ -14,7 +14,6 @@ export interface ImagesState {
     imageInView: Image | undefined;
     uploadSuccess: boolean;
     addCommentSuccess: boolean;
-    removeCommentSuccess: boolean;
 }
 
 export const initialState: ImagesState = {
@@ -25,7 +24,6 @@ export const initialState: ImagesState = {
     imageInView: undefined,
     uploadSuccess: false,
     addCommentSuccess: false,
-    removeCommentSuccess: false,
 };
 
 export const imagesReducer: Reducer<ImagesState, ImagesActions> = (
@@ -110,12 +108,6 @@ export const imagesReducer: Reducer<ImagesState, ImagesActions> = (
                 addCommentSuccess: action.payload,
             };
 
-        case ImagesActionTypes.RemoveCommentSuccess:
-            return {
-                ...state,
-                addCommentSuccess: action.payload,
-            };
-
         default:
             return state;
     }
@@ -134,5 +126,3 @@ export const selectRefreshingUserImages = (state: AppState) =>
     state.imagesState.refreshingUserImages;
 export const selectAddCommentSuccess = (state: AppState) =>
     state.imagesState.addCommentSuccess;
-export const selectRemoveCommentSuccess = (state: AppState) =>
-    state.imagesState.removeCommentSuccess;

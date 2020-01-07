@@ -5,7 +5,9 @@ import { Image } from '../../models/Image';
 import { api } from '../../utils';
 import { Comment } from '../../models';
 import { AnyAction } from 'redux';
+
 import { PreferencesActionTypes } from './preferencesActions';
+import { removeComment as removeUserComment } from './userActions';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
@@ -29,7 +31,6 @@ export enum ImagesActionTypes {
     AddComment = '[Images] Add Comment',
     RemoveComment = '[Images] Remove Comment',
     AddCommentSuccess = '[Images] Send Comment Success',
-    RemoveCommentSuccess = '[Images] Remove Comment Success',
 
     VoteImage = '[Images] Vote Image',
 }
@@ -106,11 +107,6 @@ interface AddCommentSuccessAction {
 interface RemoveCommentAction {
     type: ImagesActionTypes.RemoveComment;
     payload: { comment: Comment };
-}
-
-interface RemoveCommentSuccessAction {
-    type: ImagesActionTypes.RemoveCommentSuccess;
-    payload: boolean;
 }
 
 interface VoteImageAction {
@@ -304,10 +300,7 @@ export const deleteComment = (
         try {
             await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
-            dispatch<any>({
-                type: ImagesActionTypes.RemoveCommentSuccess,
-                payload: true,
-            });
+            dispatch<any>(removeUserComment(userComment));
         } catch (err) {
             console.log(err);
         } finally {
@@ -431,5 +424,4 @@ export type ImagesActions =
     | AddCommentAction
     | AddCommentSuccessAction
     | RemoveCommentAction
-    | RemoveCommentSuccessAction
     | RemoveImageSuccessAction;

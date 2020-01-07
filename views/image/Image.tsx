@@ -37,7 +37,6 @@ import {
 import { selectUser } from '../../store/reducers/userReducer';
 import {
     selectImageInView,
-    selectRemoveCommentSuccess,
     selectAddCommentSuccess,
 } from '../../store/reducers/imagesReducer';
 import withLoading from '../../hocs/withLoading';
@@ -50,7 +49,6 @@ const ImageView: NavigationStackScreenComponent = props => {
     const user = useSelector(selectUser);
     const keyboardHeight = useSelector(selectKeyboardHeight);
     const image = useSelector(selectImageInView);
-    const removeSuccess = useSelector(selectRemoveCommentSuccess);
     const addSuccess = useSelector(selectAddCommentSuccess);
 
     useEffect(() => {
@@ -61,15 +59,6 @@ const ImageView: NavigationStackScreenComponent = props => {
             dispatch(loadUserComments(user.token));
         }
     }, [addSuccess]);
-
-    useEffect(() => {
-        if (removeSuccess) {
-            if (!user || !user.token) {
-                return;
-            }
-            dispatch(loadUserComments(user.token));
-        }
-    }, [removeSuccess]);
 
     const [comment, setComment] = useState('');
 

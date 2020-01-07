@@ -72,7 +72,7 @@ export const loginSuccess = (success: boolean) => {
     };
 };
 
-const removeComment = (comment: Comment) => {
+export const removeComment = (comment: Comment) => {
     return {
         type: UserActionTypes.RemoveUserComment,
         payload: { comment: comment },
