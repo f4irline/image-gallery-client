@@ -90,7 +90,7 @@ const navigationOptions = {
 
 const routeConfigs = {
     Home: HomeNavigator,
-    'Near You': NearNavigator,
+    // 'Near You': NearNavigator,
     Profile: ProfileNavigator,
 };
 
