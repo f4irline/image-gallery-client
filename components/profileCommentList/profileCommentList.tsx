@@ -35,7 +35,9 @@ const ProfileCommentList: React.FC = () => {
             style={commentListStyles.commentList}
             keyExtractor={item => `image-${item.id}`}
             data={comments}
-            renderItem={({ item }) => <CommentRow comment={item} />}
+            renderItem={({ item, index }) => (
+                <CommentRow odd={index % 2 !== 0} comment={item} />
+            )}
             refreshControl={
                 <RefreshControl
                     onRefresh={refreshComments}
