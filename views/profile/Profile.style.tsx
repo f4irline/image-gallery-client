@@ -4,13 +4,11 @@ interface Styles {
     profileContainer: ViewStyle;
     headerContainer: ViewStyle;
     helloContainer: ViewStyle;
-    logoutContainer: ViewStyle;
     logoutText: TextStyle;
     greeting: TextStyle;
     name: TextStyle;
     tabsContainer: ViewStyle;
     tabContentContainer: ViewStyle;
-    imageList: ViewStyle;
 }
 
 const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
@@ -23,7 +21,6 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     helloContainer: {
         flex: 1,
     },
-    logoutContainer: {},
     logoutText: {
         color: '#eeeeee',
     },
@@ -43,9 +40,6 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
         height: 30,
     },
     tabContentContainer: {
-        flex: 1,
-    },
-    imageList: {
         flex: 1,
     },
 });

@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {
-    SafeAreaView,
-    Text,
-    View,
-    FlatList,
-    TouchableOpacity,
-    RefreshControl,
-} from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-    selectUserImages,
-    selectRefreshingUserImages,
-} from '../../store/reducers/imagesReducer';
-import { selectUser, selectComments } from '../../store/reducers/userReducer';
+import { selectUser } from '../../store/reducers/userReducer';
 
 import styles from '../../Styles';
 import profileStyles from './Profile.style';
@@ -22,10 +11,10 @@ import profileStyles from './Profile.style';
 import Auth from './auth/Auth';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import TabButton from '../../components/tabButton/TabButton';
-import GalleryImage from '../../components/galleryImage/GalleryImage';
 import { logoutUser, loadUserComments } from '../../store/actions/userActions';
 import { loadUserImages } from '../../store/actions/imagesActions';
-import { Comment } from '../../models';
+import ProfileImageList from '../../components/profileImageList/profileImageList';
+import ProfileCommentList from '../../components/profileCommentList/profileCommentList';
 
 enum SelectedTab {
     IMAGES = 'Images',
@@ -37,13 +26,9 @@ const Profile: NavigationStackScreenComponent = props => {
     const dispatch = useDispatch();
 
     const user = useSelector(selectUser);
-    const refreshing = useSelector(selectRefreshingUserImages);
     const [selectedTab, setSelectedTab] = useState<SelectedTab>(
         SelectedTab.IMAGES
     );
-
-    const images = useSelector(selectUserImages);
-    const comments: Comment[] = useSelector(selectComments);
 
     const logout = () => {
         dispatch(logoutUser());
@@ -57,15 +42,6 @@ const Profile: NavigationStackScreenComponent = props => {
         dispatch(loadUserComments(user.token));
     }, [user]);
 
-    const refreshImages = () => {
-        if (!user || !user.token) {
-            return;
-        }
-
-        dispatch(loadUserImages(user.token));
-        dispatch(loadUserComments(user.token));
-    };
-
     return user ? (
         <SafeAreaView
             style={[styles.viewContainer, profileStyles.profileContainer]}>
@@ -74,7 +50,7 @@ const Profile: NavigationStackScreenComponent = props => {
                     <Text style={profileStyles.greeting}>Hello,</Text>
                     <Text style={profileStyles.name}>{user.name}!</Text>
                 </View>
-                <View style={profileStyles.logoutContainer}>
+                <View>
                     <TouchableOpacity onPress={logout}>
                         <Text style={profileStyles.logoutText}>Logout</Text>
                     </TouchableOpacity>
@@ -93,42 +69,9 @@ const Profile: NavigationStackScreenComponent = props => {
                 />
             </View>
             {selectedTab === SelectedTab.IMAGES ? (
-                <FlatList
-                    numColumns={2}
-                    style={profileStyles.imageList}
-                    keyExtractor={item => `image-${item.id}`}
-                    data={images}
-                    renderItem={({ item }) => (
-                        <GalleryImage navigation={navigation} image={item} />
-                    )}
-                    refreshControl={
-                        <RefreshControl
-                            onRefresh={refreshImages}
-                            refreshing={refreshing}
-                        />
-                    }></FlatList>
+                <ProfileImageList navigation={navigation} />
             ) : (
-                <FlatList
-                    numColumns={2}
-                    style={profileStyles.imageList}
-                    keyExtractor={item => `image-${item.id}`}
-                    data={comments}
-                    renderItem={({ item }) => (
-                        <View>
-                            <Text>{item.comment}</Text>
-                            <Text>{item.imageAuthor}</Text>
-                            <Text>{item.imageId}</Text>
-                            <Text>
-                                {new Date(item.timeStamp).toISOString()}
-                            </Text>
-                        </View>
-                    )}
-                    refreshControl={
-                        <RefreshControl
-                            onRefresh={refreshImages}
-                            refreshing={refreshing}
-                        />
-                    }></FlatList>
+                <ProfileCommentList />
             )}
             <FloatingButton navigation={navigation} />
         </SafeAreaView>
