@@ -36,7 +36,7 @@ const getStyles = (props: Props) =>
             flex: 1,
             width: '100%',
             height: undefined,
-            aspectRatio: props.height / props.height,
+            aspectRatio: props.height / props.width,
         },
         descriptionWrapper: {
             backgroundColor: '#222831',
