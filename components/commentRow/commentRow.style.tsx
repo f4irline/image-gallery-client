@@ -57,6 +57,7 @@ const styles: StyleSheet.NamedStyles<Styles> = StyleSheet.create<Styles>({
     },
     actionsWrapper: {
         padding: 5,
+        paddingRight: 0,
         height: '100%',
         justifyContent: 'space-between',
         alignItems: 'center',

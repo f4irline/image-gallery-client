@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RefreshControl, FlatList } from 'react-native';
-import GalleryImage from '../galleryImage/GalleryImage';
 
 import commentListStyles from './profileCommentList.style';
-import { Image, User, Comment } from '../../models';
-import { NavigationStackProp } from 'react-navigation-stack';
+import { Comment } from '../../models';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     selectRefreshingUserImages,
-    selectUserImages,
+    selectRemoveCommentSuccess,
 } from '../../store/reducers/imagesReducer';
-import { loadUserImages } from '../../store/actions/imagesActions';
 import { loadUserComments } from '../../store/actions/userActions';
 import { selectUser, selectComments } from '../../store/reducers/userReducer';
 import CommentRow from '../commentRow/commentRow';

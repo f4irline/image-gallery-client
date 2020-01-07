@@ -15,6 +15,8 @@ export enum UserActionTypes {
 
     LoadUserComments = '[User] Load User Comments',
     SetUserComments = '[User] Set User Comments',
+
+    RemoveUserComment = '[User] Remove User Comment',
 }
 
 interface SetUserAction {
@@ -44,6 +46,11 @@ interface SetUserCommentsAction {
     payload: Comment[];
 }
 
+interface RemoveUserCommentAction {
+    type: UserActionTypes.RemoveUserComment;
+    payload: { comment: Comment };
+}
+
 const setUser = (user: User | undefined) => {
     return {
         type: UserActionTypes.SetUser,
@@ -62,6 +69,13 @@ export const loginSuccess = (success: boolean) => {
     return {
         type: UserActionTypes.LoginSuccess,
         payload: success,
+    };
+};
+
+const removeComment = (comment: Comment) => {
+    return {
+        type: UserActionTypes.RemoveUserComment,
+        payload: { comment: comment },
     };
 };
 
@@ -131,7 +145,34 @@ export const loadUserComments = (
     };
 };
 
+export const deleteComment = (
+    userComment: Comment,
+    token: string
+): ThunkAction<Promise<void>, {}, {}, RemoveUserCommentAction> => {
+    return async (
+        dispatch: ThunkDispatch<{}, {}, AnyAction>
+    ): Promise<void> => {
+        dispatch<any>({
+            type: PreferencesActionTypes.SetLoading,
+            payload: true,
+        });
+
+        try {
+            await api.delete(`/comment/${token}/${userComment.id}`);
+            dispatch<any>(removeComment(userComment));
+        } catch (err) {
+            console.log(err);
+        } finally {
+            dispatch<any>({
+                type: PreferencesActionTypes.SetLoading,
+                payload: false,
+            });
+        }
+    };
+};
+
 export type UserActions =
     | SetUserAction
     | LoginSuccessAction
-    | SetUserCommentsAction;
+    | SetUserCommentsAction
+    | RemoveUserCommentAction;

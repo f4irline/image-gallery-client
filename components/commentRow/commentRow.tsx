@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadImage } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
+import { deleteComment } from '../../store/actions/userActions';
 
 interface Props {
     comment: Comment;
@@ -37,6 +38,13 @@ const CommentRow: React.FC<Props> = (props: Props) => {
                 user && user.token ? user.token : undefined
             )
         );
+    };
+
+    const removeComment = () => {
+        if (!user || !user.token) {
+            return;
+        }
+        dispatch(deleteComment(comment, user.token));
     };
 
     return (
@@ -81,7 +89,7 @@ const CommentRow: React.FC<Props> = (props: Props) => {
                     style={commentRowStyles.enterWrapper}>
                     <AntIcon size={25} name={'enter'} color={'#eeeeee'} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={undefined}>
+                <TouchableOpacity onPress={removeComment}>
                     <MaterialIcon name={'delete'} size={25} color={'#eeeeee'} />
                 </TouchableOpacity>
             </View>

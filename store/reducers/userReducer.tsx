@@ -42,6 +42,14 @@ export const userReducer: Reducer<UserState, UserActions> = (
                 comments: action.payload,
             };
 
+        case UserActionTypes.RemoveUserComment:
+            return {
+                ...state,
+                comments: [...state.comments].filter(
+                    comment => comment.id !== action.payload.comment.id
+                ),
+            };
+
         default:
             return state;
     }
