@@ -22,7 +22,12 @@
             "bundleIdentifier": "com.github.f4irline.imageGallery"
         },
         "android": {
-            "package": "com.github.f4irline.imageGallery"
+            "package": "com.github.f4irline.imageGallery",
+            "permissions": [
+                "CAMERA",
+                "READ_EXTERNAL_STORAGE",
+                "WRITE_EXTERNAL_STORAGE"
+            ]
         }
     }
 }
