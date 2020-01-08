@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { selectLoading } from '../store/reducers/preferencesReducer';
+import { selectLoading } from '../../store/reducers/preferencesReducer';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 import loadingStyles from './withLoading.style';

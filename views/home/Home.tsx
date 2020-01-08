@@ -16,7 +16,7 @@ import homeStyles from './Home.style';
 import FloatingButton from '../../components/floatingButton/FloatingButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
 import { PreferencesActionTypes } from '../../store/actions/preferencesActions';
-import withLoading from '../../hocs/withLoading';
+import withLoading from '../../hocs/withLoading/withLoading';
 
 const Home: NavigationStackScreenComponent = props => {
     const { navigation } = props;

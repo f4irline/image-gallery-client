@@ -37,7 +37,7 @@ import {
 } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
 import { selectImageInView } from '../../store/reducers/imagesReducer';
-import withLoading from '../../hocs/withLoading';
+import withLoading from '../../hocs/withLoading/withLoading';
 
 const ImageView: NavigationStackScreenComponent = props => {
     const { navigation } = props;

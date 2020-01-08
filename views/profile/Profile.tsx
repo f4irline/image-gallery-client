@@ -15,7 +15,7 @@ import { logoutUser, loadUserComments } from '../../store/actions/userActions';
 import { loadUserImages } from '../../store/actions/imagesActions';
 import ProfileImageList from '../../components/profileImageList/profileImageList';
 import ProfileCommentList from '../../components/profileCommentList/profileCommentList';
-import withLoading from '../../hocs/withLoading';
+import withLoading from '../../hocs/withLoading/withLoading';
 
 enum SelectedTab {
     IMAGES = 'Images',

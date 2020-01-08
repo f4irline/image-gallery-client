@@ -14,7 +14,7 @@ import {
 } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 
-import withLoading from '../../hocs/withLoading';
+import withLoading from '../../hocs/withLoading/withLoading';
 
 import getStyles from './Upload.style';
 import styles from '../../Styles';

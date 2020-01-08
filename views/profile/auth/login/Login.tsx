@@ -15,7 +15,7 @@ import loginStyles from './Login.style';
 import Header from '../../../../components/header/Header';
 import GalleryButton from '../../../../components/galleryButton/GalleryButton';
 import { loginUser } from '../../../../store/actions/userActions';
-import withLoading from '../../../../hocs/withLoading';
+import withLoading from '../../../../hocs/withLoading/withLoading';
 
 const Login: NavigationStackScreenComponent = props => {
     const { navigation } = props;
