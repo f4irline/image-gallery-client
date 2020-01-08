@@ -60,7 +60,7 @@ const Login: NavigationStackScreenComponent = props => {
     );
 };
 
-Login.navigationOptions = ({ navigation }) => {
+Login.navigationOptions = () => {
     return {
         header: (props: HeaderProps) => (
             <Header headerProps={props} title="Login" />
