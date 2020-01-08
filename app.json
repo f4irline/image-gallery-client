@@ -22,7 +22,7 @@
             "bundleIdentifier": "com.github.f4irline.imageGallery"
         },
         "android": {
-            "versionCode": 2,
+            "versionCode": 1,
             "package": "com.github.f4irline.imageGallery",
             "permissions": [
                 "CAMERA",
