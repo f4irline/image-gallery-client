@@ -117,10 +117,12 @@ export const loginUser = (
                 })
             );
         } catch (err) {
+            const message = err.response.data.message;
+
             dispatch<any>(
                 newMessage({
                     state: true,
-                    message: 'A username with this name already exists',
+                    message: message || 'Error logging in',
                     messageType: MessageTypes.ERROR,
                 })
             );
@@ -190,10 +192,12 @@ export const deleteComment = (
             await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
         } catch (err) {
+            const message = err.response.data.message;
+
             dispatch<any>(
                 newMessage({
                     state: true,
-                    message: 'Error deleting comment',
+                    message: message || 'Error deleting comment',
                     messageType: MessageTypes.ERROR,
                 })
             );

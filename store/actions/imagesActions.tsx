@@ -326,10 +326,12 @@ export const deleteComment = (
             dispatch<any>(removeComment(userComment));
             dispatch<any>(removeUserComment(userComment));
         } catch (err) {
+            const message = err.response.data.message;
+
             dispatch<any>(
                 newMessage({
                     state: true,
-                    message: 'Error deleting comment',
+                    message: message || 'Error deleting comment',
                     messageType: MessageTypes.ERROR,
                 })
             );
@@ -448,10 +450,12 @@ export const deleteImage = (
             await api.delete(`/image/${token}/${image.id}`);
             dispatch<any>(removeImageSuccess(image));
         } catch (err) {
+            const message = err.response.data.message;
+
             dispatch<any>(
                 newMessage({
                     state: true,
-                    message: 'Error deleting image',
+                    message: message || 'Error deleting image',
                     messageType: MessageTypes.ERROR,
                 })
             );
