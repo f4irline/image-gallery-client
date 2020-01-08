@@ -69,7 +69,7 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            quality: 0.9,
+            quality: 1,
             base64: true,
         });
 
@@ -84,7 +84,7 @@ const FloatingButton: React.FC<Props> = (props: Props) => {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            quality: 0.9,
+            quality: 1,
             base64: true,
         });
 
