@@ -16,6 +16,7 @@ import { loadUserImages } from '../../store/actions/imagesActions';
 import ProfileImageList from '../../components/profileImageList/profileImageList';
 import ProfileCommentList from '../../components/profileCommentList/profileCommentList';
 import withLoading from '../../hocs/withLoading/withLoading';
+import withMessages from '../../hocs/withMessages/withMessages';
 
 enum SelectedTab {
     IMAGES = 'Images',
@@ -85,4 +86,4 @@ Profile.navigationOptions = {
     headerShown: false,
 };
 
-export default withLoading(Profile, true);
+export default withMessages(withLoading(Profile, true));

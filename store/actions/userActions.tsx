@@ -4,6 +4,8 @@ import { User, Comment } from '../../models';
 import { AnyAction } from 'redux';
 import { ImagesActionTypes } from '../actions/imagesActions';
 import { PreferencesActionTypes } from './preferencesActions';
+import { newMessage } from './messageActions';
+import { MessageTypes } from '../reducers/messageReducer';
 
 export enum UserActionTypes {
     SetUser = '[User] Set User',
@@ -115,6 +117,13 @@ export const loginUser = (
                 })
             );
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'A username with this name already exists',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({
@@ -153,6 +162,13 @@ export const loadUserComments = (
             const commentsData: Comment[] = comments.data;
             dispatch<any>(setComments(commentsData));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error fetching comments',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         }
     };
@@ -174,6 +190,13 @@ export const deleteComment = (
             await api.delete(`/comment/${token}/${userComment.id}`);
             dispatch<any>(removeComment(userComment));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error deleting comment',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({

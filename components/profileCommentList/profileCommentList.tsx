@@ -4,10 +4,7 @@ import { RefreshControl, FlatList } from 'react-native';
 import commentListStyles from './profileCommentList.style';
 import { Comment } from '../../models';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    selectRefreshingUserImages,
-    selectRemoveCommentSuccess,
-} from '../../store/reducers/imagesReducer';
+import { selectRefreshingUserImages } from '../../store/reducers/imagesReducer';
 import { loadUserComments } from '../../store/actions/userActions';
 import { selectUser, selectComments } from '../../store/reducers/userReducer';
 import CommentRow from '../commentRow/commentRow';

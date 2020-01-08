@@ -16,6 +16,7 @@ import Header from '../../../../components/header/Header';
 import GalleryButton from '../../../../components/galleryButton/GalleryButton';
 import { loginUser } from '../../../../store/actions/userActions';
 import withLoading from '../../../../hocs/withLoading/withLoading';
+import withMessages from '../../../../hocs/withMessages/withMessages';
 
 const Login: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -67,4 +68,4 @@ Login.navigationOptions = ({ navigation }) => {
     };
 };
 
-export default withLoading(Login, true);
+export default withMessages(withLoading(Login, true));

@@ -1,5 +1,4 @@
 import { Reducer } from 'react';
-import uuid from 'uuid-js';
 
 import { UserActions, UserActionTypes } from '../actions/userActions';
 

@@ -1,12 +1,6 @@
-import {
-    combineReducers,
-    createStore,
-    applyMiddleware,
-    Store,
-    AnyAction,
-} from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { persistStore, persistReducer, Persistor } from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
 
 import thunk from 'redux-thunk';
 
@@ -25,12 +19,14 @@ import {
     preferencesReducer,
     PreferencesState,
 } from './reducers/preferencesReducer';
+import { messageReducer, MessageState } from './reducers/messageReducer';
 import { AsyncStorage } from 'react-native';
 
 export interface AppState {
     imagesState: ImagesState;
     userState: UserState;
     preferencesState: PreferencesState;
+    messageState: MessageState;
 }
 
 const persistConfig = {
@@ -43,6 +39,7 @@ const rootReducer = combineReducers({
     imagesState: imagesReducer,
     userState: persistReducer(persistConfig, userReducer),
     preferencesState: preferencesReducer,
+    messageState: messageReducer,
 });
 
 export const store = createStore(

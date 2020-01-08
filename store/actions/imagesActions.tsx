@@ -11,6 +11,8 @@ import {
     removeComment as removeUserComment,
     addComment as addUserComment,
 } from './userActions';
+import { newMessage } from './messageActions';
+import { MessageTypes } from '../reducers/messageReducer';
 
 export enum ImagesActionTypes {
     LoadImages = '[Images] Load Images',
@@ -188,6 +190,13 @@ export const loadImages = (
             dispatch<any>(setImages(imagesData));
             dispatch<any>(refreshImages(false));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error loading images',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             dispatch<any>(refreshImages(false));
             console.log(err);
         }
@@ -209,6 +218,13 @@ export const loadUserImages = (
             dispatch<any>(setUserImages(imagesData));
             dispatch<any>(refreshUserImages(false));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error loading images',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             dispatch<any>(refreshUserImages(false));
             console.log(err);
         }
@@ -238,6 +254,13 @@ export const uploadImage = (
             dispatch<any>(loadImages(token));
             dispatch<any>(uploadSuccess(true));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error uploading image',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({
@@ -269,6 +292,13 @@ export const sendComment = (
             dispatch<any>(addComment(comment.data as Comment, image));
             dispatch<any>(addUserComment(comment.data as Comment));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error sending comment',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({
@@ -296,6 +326,13 @@ export const deleteComment = (
             dispatch<any>(removeComment(userComment));
             dispatch<any>(removeUserComment(userComment));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error deleting comment',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({
@@ -348,6 +385,13 @@ export const voteImage = (
                 await api.put(`/image/vote/${token}/${image.id}/${upVote}`);
             }
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error voting on image',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         }
     };
@@ -371,6 +415,13 @@ export const loadImage = (
             );
             dispatch<any>(setImageToView(img.data as Image));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error loading image',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({
@@ -397,6 +448,13 @@ export const deleteImage = (
             await api.delete(`/image/${token}/${image.id}`);
             dispatch<any>(removeImageSuccess(image));
         } catch (err) {
+            dispatch<any>(
+                newMessage({
+                    state: true,
+                    message: 'Error deleting image',
+                    messageType: MessageTypes.ERROR,
+                })
+            );
             console.log(err);
         } finally {
             dispatch<any>({

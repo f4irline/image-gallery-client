@@ -17,6 +17,7 @@ import FloatingButton from '../../components/floatingButton/FloatingButton';
 import GalleryImage from '../../components/galleryImage/GalleryImage';
 import { PreferencesActionTypes } from '../../store/actions/preferencesActions';
 import withLoading from '../../hocs/withLoading/withLoading';
+import withMessages from '../../hocs/withMessages/withMessages';
 
 const Home: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -79,4 +80,4 @@ Home.navigationOptions = {
     headerShown: false,
 };
 
-export default withLoading(Home, true);
+export default withMessages(withLoading(Home, true));

@@ -38,6 +38,7 @@ import {
 import { selectUser } from '../../store/reducers/userReducer';
 import { selectImageInView } from '../../store/reducers/imagesReducer';
 import withLoading from '../../hocs/withLoading/withLoading';
+import withMessages from '../../hocs/withMessages/withMessages';
 
 const ImageView: NavigationStackScreenComponent = props => {
     const { navigation } = props;
@@ -233,4 +234,4 @@ ImageView.navigationOptions = ({ navigation }) => {
     };
 };
 
-export default withLoading(ImageView);
+export default withMessages(withLoading(ImageView));
