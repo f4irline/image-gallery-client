@@ -23,6 +23,9 @@ const withMessages = <P extends object>(
             <>
                 <WrappedComponent {...(props as P)} />
                 <SnackBar
+                    backgroundColor="#222831"
+                    accentColor="#ff5722"
+                    messageColor="#eeeeee"
                     visible={message.state}
                     textMessage={message.message}
                     position={'bottom'}
