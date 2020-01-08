@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshControl, FlatList } from 'react-native';
+import { RefreshControl, FlatList, View, Text } from 'react-native';
 import GalleryImage from '../galleryImage/GalleryImage';
 
 import imageListStyles from './profileImageList.style';
@@ -11,6 +11,7 @@ import {
 } from '../../store/reducers/imagesReducer';
 import { loadUserImages } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
+import styles from '../../Styles';
 
 interface Props {
     navigation: NavigationStackProp;
@@ -33,7 +34,7 @@ const ProfileImageList: React.FC<Props> = (props: Props) => {
         dispatch(loadUserImages(user.token));
     };
 
-    return (
+    return images.length ? (
         <FlatList
             numColumns={2}
             style={imageListStyles.imageList}
@@ -48,6 +49,12 @@ const ProfileImageList: React.FC<Props> = (props: Props) => {
                     refreshing={refreshing}
                 />
             }></FlatList>
+    ) : (
+        <View style={styles.emptyList}>
+            <Text style={styles.emptyListText}>
+                You haven't uploaded any images yet!
+            </Text>
+        </View>
     );
 };
 

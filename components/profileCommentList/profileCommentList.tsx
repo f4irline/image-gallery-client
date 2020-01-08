@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RefreshControl, FlatList } from 'react-native';
+import { RefreshControl, FlatList, View, Text } from 'react-native';
 
 import commentListStyles from './profileCommentList.style';
 import { Comment } from '../../models';
@@ -8,6 +8,7 @@ import { selectRefreshingUserImages } from '../../store/reducers/imagesReducer';
 import { loadUserComments } from '../../store/actions/userActions';
 import { selectUser, selectComments } from '../../store/reducers/userReducer';
 import CommentRow from '../commentRow/commentRow';
+import styles from '../../Styles';
 
 const ProfileCommentList: React.FC = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const ProfileCommentList: React.FC = () => {
         dispatch(loadUserComments(user.token));
     };
 
-    return (
+    return comments.length ? (
         <FlatList
             style={commentListStyles.commentList}
             keyExtractor={item => `image-${item.id}`}
@@ -38,6 +39,12 @@ const ProfileCommentList: React.FC = () => {
                     refreshing={refreshing}
                 />
             }></FlatList>
+    ) : (
+        <View style={styles.emptyList}>
+            <Text style={styles.emptyListText}>
+                You haven't commented on any images yet!
+            </Text>
+        </View>
     );
 };
 

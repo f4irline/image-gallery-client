@@ -5,13 +5,15 @@ interface Style {
     container: ViewStyle;
     textInput: ViewStyle;
     inputLabel: TextStyle;
+    emptyList: ViewStyle;
+    emptyListText: TextStyle;
 }
 
 const styles: StyleSheet.NamedStyles<Style> = {
     viewContainer: {
         flex: 1,
         paddingTop: StatusBar.currentHeight,
-        backgroundColor: '#2d4059'
+        backgroundColor: '#2d4059',
     },
     container: {
         flex: 1,
@@ -24,13 +26,25 @@ const styles: StyleSheet.NamedStyles<Style> = {
         borderColor: '#c7c7c7',
         borderWidth: 1,
         borderRadius: 5,
-        color: '#eeeeee'
+        color: '#eeeeee',
     },
     inputLabel: {
         color: '#eeeeee',
         marginBottom: 5,
-        fontFamily: 'Rubik-Bold'
-    }
-}
+        fontFamily: 'Rubik-Bold',
+    },
+    emptyList: {
+        padding: 30,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    emptyListText: {
+        fontFamily: 'Rubik-Bold',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        color: '#eeeeee',
+    },
+};
 
 export default styles;
