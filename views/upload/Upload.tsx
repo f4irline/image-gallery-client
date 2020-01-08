@@ -91,7 +91,7 @@ const Upload: NavigationStackScreenComponent = props => {
                 </View>
                 <View style={uploadStyles.fieldsWrapper}>
                     <View>
-                        <Text style={styles.inputLabel}>Title</Text>
+                        <Text style={styles.inputLabel}>Title (required)</Text>
                         <TextInput
                             onChangeText={text => setTitle(text)}
                             value={title}
@@ -105,7 +105,7 @@ const Upload: NavigationStackScreenComponent = props => {
                             onChangeText={text => setDescription(text)}
                             value={description}
                             style={[styles.textInput, uploadStyles.field]}
-                            placeholder="Title"
+                            placeholder="Description"
                         />
                     </View>
                     <GalleryButton
