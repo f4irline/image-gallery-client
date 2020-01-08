@@ -29,6 +29,7 @@ import {
 } from '../../store/actions/imagesActions';
 import { selectUser } from '../../store/reducers/userReducer';
 import { selectUploadSuccess } from '../../store/reducers/imagesReducer';
+import withMessages from '../../hocs/withMessages/withMessages';
 
 const Upload: NavigationStackScreenComponent = props => {
     const dispatch = useDispatch();
@@ -126,4 +127,4 @@ Upload.navigationOptions = () => {
     };
 };
 
-export default withLoading(Upload, true);
+export default withMessages(withLoading(Upload, true));
