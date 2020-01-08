@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Alert, View, Text } from 'react-native';
 import { MaterialIcons as MaterialIcon } from '@expo/vector-icons';
 
 import commentStyles from './Comment.style';
@@ -25,7 +25,21 @@ const ImageComment: React.FC<Props> = (props: Props) => {
             return;
         }
 
-        dispatch(deleteComment(comment, user.token));
+        Alert.alert(
+            'Delete comment',
+            'Are you sure you want to delete this comment?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => dispatch(deleteComment(comment, user.token)),
+                    style: 'destructive',
+                },
+            ]
+        );
     };
 
     return (

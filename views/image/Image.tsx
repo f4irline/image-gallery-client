@@ -6,6 +6,7 @@ import {
     Ionicons as IonIcon,
 } from '@expo/vector-icons';
 import {
+    Alert,
     Image,
     SafeAreaView,
     Text,
@@ -100,7 +101,21 @@ const ImageView: NavigationStackScreenComponent = props => {
             return;
         }
 
-        dispatch(deleteImage(image, user.token));
+        Alert.alert(
+            'Delete image',
+            'Are you sure you want to delete this image?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => dispatch(deleteImage(image, user.token)),
+                    style: 'destructive',
+                },
+            ]
+        );
     };
 
     return !image ? null : (

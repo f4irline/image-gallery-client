@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import {
     AntDesign as AntIcon,
     MaterialIcons as MaterialIcon,
@@ -44,7 +44,22 @@ const CommentRow: React.FC<Props> = (props: Props) => {
         if (!user || !user.token) {
             return;
         }
-        dispatch(deleteComment(comment, user.token));
+
+        Alert.alert(
+            'Delete comment',
+            'Are you sure you want to delete this comment?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => dispatch(deleteComment(comment, user.token)),
+                    style: 'destructive',
+                },
+            ]
+        );
     };
 
     return (
