@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, TextInput, View } from 'react-native';
+import {
+    SafeAreaView,
+    Text,
+    TextInput,
+    View,
+    KeyboardAvoidingView,
+} from 'react-native';
 import {
     NavigationStackScreenComponent,
     HeaderProps,
@@ -41,7 +47,9 @@ const Login: NavigationStackScreenComponent = props => {
     };
 
     return (
-        <SafeAreaView style={[styles.container, loginStyles.loginContainer]}>
+        <KeyboardAvoidingView
+            behavior="padding"
+            style={[styles.container, loginStyles.loginContainer]}>
             <View style={loginStyles.fieldsWrapper}>
                 <Text style={styles.inputLabel}>Username</Text>
                 <TextInput
@@ -56,7 +64,7 @@ const Login: NavigationStackScreenComponent = props => {
                 onPress={login}
                 title="Log in"
             />
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 };
 

@@ -7,6 +7,7 @@ import {
     ScrollView,
     Platform,
     Text,
+    KeyboardAvoidingView,
 } from 'react-native';
 import {
     NavigationStackScreenComponent,
@@ -82,38 +83,42 @@ const Upload: NavigationStackScreenComponent = props => {
     return (
         <SafeAreaView style={[styles.container, uploadStyles.uploadContainer]}>
             <ScrollView>
-                <View style={uploadStyles.imageWrapper}>
-                    <Image
-                        style={uploadStyles.image}
-                        resizeMode="cover"
-                        source={{ uri: image.uri }}
-                    />
-                </View>
-                <View style={uploadStyles.fieldsWrapper}>
-                    <View>
-                        <Text style={styles.inputLabel}>Title (required)</Text>
-                        <TextInput
-                            onChangeText={text => setTitle(text)}
-                            value={title}
-                            style={[styles.textInput, uploadStyles.field]}
-                            placeholder="Title"
+                <KeyboardAvoidingView behavior="position">
+                    <View style={uploadStyles.imageWrapper}>
+                        <Image
+                            style={uploadStyles.image}
+                            resizeMode="cover"
+                            source={{ uri: image.uri }}
                         />
                     </View>
-                    <View>
-                        <Text style={styles.inputLabel}>Description</Text>
-                        <TextInput
-                            onChangeText={text => setDescription(text)}
-                            value={description}
-                            style={[styles.textInput, uploadStyles.field]}
-                            placeholder="Description"
+                    <View style={uploadStyles.fieldsWrapper}>
+                        <View>
+                            <Text style={styles.inputLabel}>
+                                Title (required)
+                            </Text>
+                            <TextInput
+                                onChangeText={text => setTitle(text)}
+                                value={title}
+                                style={[styles.textInput, uploadStyles.field]}
+                                placeholder="Title"
+                            />
+                        </View>
+                        <View>
+                            <Text style={styles.inputLabel}>Description</Text>
+                            <TextInput
+                                onChangeText={text => setDescription(text)}
+                                value={description}
+                                style={[styles.textInput, uploadStyles.field]}
+                                placeholder="Description"
+                            />
+                        </View>
+                        <GalleryButton
+                            disabled={!title.length}
+                            onPress={submitImage}
+                            title="Submit"
                         />
                     </View>
-                    <GalleryButton
-                        disabled={!title.length}
-                        onPress={submitImage}
-                        title="Submit"
-                    />
-                </View>
+                </KeyboardAvoidingView>
             </ScrollView>
         </SafeAreaView>
     );
