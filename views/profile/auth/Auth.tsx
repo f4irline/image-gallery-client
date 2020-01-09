@@ -16,15 +16,16 @@ const Auth: React.FC<Props> = (props: Props) => {
     return (
         <SafeAreaView style={[styles.viewContainer, authStyles.authContainer]}>
             <View style={authStyles.headerContainer}>
-                <Text style={authStyles.title}>Sign up or log in</Text>
+                <Text style={authStyles.title}>Sign up</Text>
                 <Text style={authStyles.subtitle}>
-                    Sign up or login to add images, comment on images and view
-                    your own images
+                    Sign up to add images, comment on images and view your own
+                    images. Sign up is one-time-only and if you log out your
+                    personal user data is lost.
                 </Text>
             </View>
             <GalleryButton
                 onPress={() => navigation.navigate('Login')}
-                title="Log in"
+                title="Sign up"
             />
         </SafeAreaView>
     );
