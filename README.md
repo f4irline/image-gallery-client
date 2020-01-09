@@ -2,13 +2,14 @@
 
 Android Image Gallery application - Share your world!
 
+![Gif of the App](/doc/app.gif)
+
 ## Table of Contents
 
 -   [Introduction](#introduction)
 -   [Features](#features)
 -   [Technologies](#technologies)
 -   [Setup](#setup)
--   [Application](#application)
 
 ### Introduction
 
@@ -53,7 +54,3 @@ To run the app in development mode:
 3. Run `yarn` or `npm ci` in command line or terminal
 4. Run `yarn start` or `npm start` in command line or terminal
 5. Run the application on emulator or on a real device via Expo
-
-### Application
-
-![Gif of the App](/doc/app.gif)
