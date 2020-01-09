@@ -185,12 +185,20 @@ const ImageView: NavigationStackScreenComponent = props => {
                     <View style={imageStyles.commentsHeaderContainer}>
                         <Text style={imageStyles.commentsHeader}>Comments</Text>
                     </View>
-                    {image.comments.map(item => (
-                        <ImageComment
-                            key={`comment-${item.id}`}
-                            comment={item}
-                        />
-                    ))}
+                    {image.comments.length ? (
+                        image.comments.map(item => (
+                            <ImageComment
+                                key={`comment-${item.id}`}
+                                comment={item}
+                            />
+                        ))
+                    ) : (
+                        <View style={styles.emptyList}>
+                            <Text style={styles.emptyListText}>
+                                No comments yet!
+                            </Text>
+                        </View>
+                    )}
                 </View>
             </ScrollView>
             {!user || !user.token ? (
