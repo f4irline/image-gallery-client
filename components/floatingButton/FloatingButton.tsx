@@ -5,104 +5,105 @@ import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
+
 import { selectUser } from '../../store/reducers/userReducer';
 
 interface Props {
-    navigation: NavigationStackProp;
+	navigation: NavigationStackProp;
 }
 
 const FloatingButton: React.FC<Props> = (props: Props) => {
-    const { navigation } = props;
-    const user = useSelector(selectUser);
+	const { navigation } = props;
+	const user = useSelector(selectUser);
 
-    const actions = [
-        {
-            textBackground: '#eeeeee',
-            color: '#2d4059',
-            text: 'Camera',
-            name: 'upload_camera',
-            icon: require('../../assets/icons/camera_add_icon.png'),
-            position: 2,
-        },
-        {
-            textBackground: '#eeeeee',
-            color: '#2d4059',
-            text: 'Gallery',
-            name: 'upload_gallery',
-            icon: require('../../assets/icons/gallery_add_icon.png'),
-            position: 1,
-        },
-    ];
+	const actions = [
+		{
+			textBackground: '#eeeeee',
+			color: '#2d4059',
+			text: 'Camera',
+			name: 'upload_camera',
+			icon: require('../../assets/icons/camera_add_icon.png'),
+			position: 2,
+		},
+		{
+			textBackground: '#eeeeee',
+			color: '#2d4059',
+			text: 'Gallery',
+			name: 'upload_gallery',
+			icon: require('../../assets/icons/gallery_add_icon.png'),
+			position: 1,
+		},
+	];
 
-    const floatingItemClicked = (item: string) => {
-        switch (item) {
-            case 'upload_gallery':
-                promptGalleryPermissions();
-                break;
-            default:
-                promptCameraPermissions();
-                break;
-        }
-    };
+	const floatingItemClicked = (item: string) => {
+		switch (item) {
+			case 'upload_gallery':
+				promptGalleryPermissions();
+				break;
+			default:
+				promptCameraPermissions();
+				break;
+		}
+	};
 
-    const promptGalleryPermissions = async () => {
-        if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(
-                Permissions.CAMERA_ROLL
-            );
-            if (status === 'granted') {
-                pickFromGallery();
-                return;
-            }
-        }
-        pickFromGallery();
-    };
+	const promptGalleryPermissions = async () => {
+		if (Constants.platform.ios) {
+			const { status } = await Permissions.askAsync(
+				Permissions.CAMERA_ROLL
+			);
+			if (status === 'granted') {
+				pickFromGallery();
+				return;
+			}
+		}
+		pickFromGallery();
+	};
 
-    const promptCameraPermissions = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        if (status === 'granted') {
-            pickFromCamera();
-        }
-    };
+	const promptCameraPermissions = async () => {
+		const { status } = await Permissions.askAsync(Permissions.CAMERA);
+		if (status === 'granted') {
+			pickFromCamera();
+		}
+	};
 
-    const pickFromGallery = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            quality: 1,
-            base64: true,
-        });
+	const pickFromGallery = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			quality: 1,
+			base64: true,
+		});
 
-        if (result.cancelled) {
-            return;
-        }
+		if (result.cancelled) {
+			return;
+		}
 
-        navigation.navigate('Upload', { image: result });
-    };
+		navigation.navigate('Upload', { image: result });
+	};
 
-    const pickFromCamera = async () => {
-        let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            quality: 1,
-            base64: true,
-        });
+	const pickFromCamera = async () => {
+		let result = await ImagePicker.launchCameraAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			quality: 1,
+			base64: true,
+		});
 
-        if (result.cancelled) {
-            return;
-        }
+		if (result.cancelled) {
+			return;
+		}
 
-        navigation.navigate('Upload', { image: result });
-    };
+		navigation.navigate('Upload', { image: result });
+	};
 
-    return user && user.token ? (
-        <FloatingAction
-            color={'#222831'}
-            distanceToEdge={10}
-            actions={actions}
-            onPressItem={floatingItemClicked}
-        />
-    ) : null;
+	return user && user.token ? (
+		<FloatingAction
+			color={'#222831'}
+			distanceToEdge={10}
+			actions={actions}
+			onPressItem={floatingItemClicked}
+		/>
+	) : null;
 };
 
 export default FloatingButton;
